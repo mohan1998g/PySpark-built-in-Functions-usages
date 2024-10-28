@@ -1,0 +1,22 @@
+pyspark.sql.functions.broadcast
+
+Marks a DataFrame as small enough for use in broadcast joins.
+
+Returns : DataFrame
+    DataFrame marked as ready for broadcast join.
+
+
+Examples
+
+from pyspark.sql import types
+df = spark.createDataFrame([1, 2, 3, 3, 4], types.IntegerType())
+df_small = spark.range(3)
+df_b = broadcast(df_small)
+df.join(df_b, df.value == df_small.id).show()
+
++-----+---+
+|value| id|
++-----+---+
+|    1|  1|
+|    2|  2|
++-----+---+
