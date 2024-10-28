@@ -2,6 +2,9 @@ coalesce is a function present in multiple packages offering different functiona
 
 pyspark.sql.functions.coalesce                     Returns the first column that is not null.
 pyspark.RDD.coalesce                               Return a new RDD that is reduced into numPartitions partitions.
+pyspark.sql.DataFrame.coalesce                     Returns a new DataFrame that has exactly numPartitions partitions.
+
+
 
 pyspark.sql.functions.coalesce
 Returns the first column that is not null.
@@ -45,3 +48,44 @@ cDf.select('*', coalesce(cDf["a"], lit(0.0))).show()
 
 pyspark.RDD.coalesce
 Return a new RDD that is reduced into numPartitions partitions.
+
+Parameters
+num : Partitions : int, optional
+  the number of partitions in new RDD
+
+shuffle : bool, optional, default False
+  whether to add a shuffle step
+
+Returns  : RDD    
+  a RDD that is reduced into numPartitions partitions
+
+Examples
+
+sc.parallelize([1, 2, 3, 4, 5], 3).glom().collect()
+[[1], [2, 3], [4, 5]]
+sc.parallelize([1, 2, 3, 4, 5], 3).coalesce(1).glom().collect()
+[[1, 2, 3, 4, 5]]
+
+
+pyspark.sql.DataFrame.coalesce
+Returns a new DataFrame that has exactly numPartitions partitions.
+
+Similar to coalesce defined on an RDD, this operation results in a narrow dependency, 
+e.g. if you go from 1000 partitions to 100 partitions, there will not be a shuffle, instead each of the 100 new partitions will claim 10 of the current partitions. 
+If a larger number of partitions is requested, it will stay at the current number of partitions.
+
+However, if you’re doing a drastic coalesce, 
+e.g. to numPartitions = 1, this may result in your computation taking place on fewer nodes than you like (e.g. one node in the case of numPartitions = 1). 
+To avoid this, you can call repartition(). 
+This will add a shuffle step, but means the current upstream partitions will be executed in parallel (per whatever the current partitioning is).
+
+Parameters
+num : Partitions : int
+specify the target number of partitions
+
+Returns : DataFrame
+Examples
+
+df = spark.range(10)
+df.coalesce(1).rdd.getNumPartitions()
+1
