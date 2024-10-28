@@ -34,3 +34,5 @@ spark.range(1).select(lit([1, 2, 3])).show()
 
 df = df1.withColumn("salary", lit(1000))
 df.show()
+
+Note: There is another lit function in pyspark which does the same in pyspark.sql.connect.functions.lit but for this to work, we need Pandas library
