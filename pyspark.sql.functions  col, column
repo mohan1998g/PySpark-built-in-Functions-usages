@@ -1,0 +1,18 @@
+pyspark.sql.functions.col
+
+pyspark.sql.functions.column
+
+Above both functions are same
+  
+Returns a Column based on the given column name.
+
+  
+Parameters
+col : str       
+          the name for the column
+
+Returns : Column
+          the corresponding column instance.
+
+
+Note: There is another class named pyspark.sql.Column. Please be mindful of the usage
