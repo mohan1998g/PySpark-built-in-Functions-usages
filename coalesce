@@ -1,0 +1,47 @@
+coalesce is a function present in multiple packages offering different functionalities
+
+pyspark.sql.functions.coalesce                     Returns the first column that is not null.
+pyspark.RDD.coalesce                               Return a new RDD that is reduced into numPartitions partitions.
+
+pyspark.sql.functions.coalesce
+Returns the first column that is not null.
+
+Parameters
+cols : Column or str
+list of columns to work on.
+
+Returns
+Column
+value of the first column that is not null.
+
+Examples
+
+cDf = spark.createDataFrame([(None, None), (1, None), (None, 2)], ("a", "b"))
+cDf.show()
++----+----+
+|   a|   b|
++----+----+
+|NULL|NULL|
+|   1|NULL|
+|NULL|   2|
++----+----+
+cDf.select(coalesce(cDf["a"], cDf["b"])).show()
++--------------+
+|coalesce(a, b)|
++--------------+
+|          NULL|
+|             1|
+|             2|
++--------------+
+cDf.select('*', coalesce(cDf["a"], lit(0.0))).show()
++----+----+----------------+
+|   a|   b|coalesce(a, 0.0)|
++----+----+----------------+
+|NULL|NULL|             0.0|
+|   1|NULL|             1.0|
+|NULL|   2|             0.0|
++----+----+----------------+
+
+
+pyspark.RDD.coalesce
+Return a new RDD that is reduced into numPartitions partitions.
