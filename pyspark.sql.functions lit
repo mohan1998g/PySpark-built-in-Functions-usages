@@ -1,0 +1,36 @@
+Creates a Column of literal value.
+
+Parameters
+col : Column, str, int, float, bool or list, NumPy literals or ndarray.
+      the value to make it as a PySpark literal. If a column is passed, it returns the column as is.
+
+Returns : Column
+      the literal instance.
+
+Examples
+
+df = spark.range(1)
+df.select(lit(5).alias('height'), df.id).show()
++------+---+
+|height| id|
++------+---+
+|     5|  0|
++------+---+
+Create a literal from a list.
+
+spark.range(1).select(lit([1, 2, 3]), "id").show()
++--------------+---+
+|array(1, 2, 3)| id|
++--------------+---+
+|     [1, 2, 3]|  0|
++--------------+---+
+
+spark.range(1).select(lit([1, 2, 3])).show()
++--------------+
+|array(1, 2, 3)|
++--------------+
+|     [1, 2, 3]|
++--------------+
+
+df = df1.withColumn("salary", lit(1000))
+df.show()
