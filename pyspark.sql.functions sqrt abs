@@ -1,0 +1,41 @@
+sqrt
+Computes the square root of the specified float value.
+
+Parameters
+col : Column or str
+        target column to compute on.
+
+Returns : Column
+        column for computed results.
+
+Examples
+
+df = spark.range(1)
+df.select(sqrt(lit(4))).show()
++-------+
+|SQRT(4)|
++-------+
+|    2.0|
++-------+
+
+------------------------------------------------------------------------------------------------------
+
+abs
+Computes the absolute value.
+
+Parameters
+col : Column or str
+        target column to compute on.
+
+Returns : Column
+        column for computed results.
+
+Examples
+
+df = spark.range(1)
+df.select(abs(lit(-1))).show()
++-------+
+|abs(-1)|
++-------+
+|      1|
++-------+
