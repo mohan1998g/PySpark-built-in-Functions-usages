@@ -1,0 +1,25 @@
+pyspark.sql.functions.expr
+
+Parses the expression string into the column that it represents
+
+Parameters
+str : str
+      expression defined in string.
+
+Returns : Column
+      column representing the expression.
+
+Examples
+
+df = spark.createDataFrame([["Alice"], ["Bob"]], ["name"])
+df.select("name", expr("length(name)")).show()
++-----+------------+
+| name|length(name)|
++-----+------------+
+|Alice|           5|
+|  Bob|           3|
++-----+------------+
+
+expr is very crucial in withColumn function as it parses the expression string into the column that it represents
+
+For more examples of expr please search in this git https://github.com/mohan1998g/PySpark.git
