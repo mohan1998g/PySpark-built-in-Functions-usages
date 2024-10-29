@@ -79,3 +79,30 @@ only showing top 20 rows
 +----------------------------------------------------------------+
 
 We can also use this to add a new column in a dataframe using withColumn expression
+
+inputfilenamedf = df.withColumn("filename", input_file_name()).show()
+
++--------+----------+-------+------+--------------------+--------------------+-----------+----------+-------+--------------------+
+|     _c0|       _c1|    _c2|   _c3|                 _c4|                 _c5|        _c6|       _c7|    _c8|            filename|
++--------+----------+-------+------+--------------------+--------------------+-----------+----------+-------+--------------------+
+|   txnno|   txndate| custno|amount|            category|             product|       city|     state|spendby|file:///C:/Users/...|
+|00047931|03-22-2011|4000263|041.89|         Team Sports|             Curling|     Dayton|      Ohio| credit|file:///C:/Users/...|
+|00047932|05-03-2011|4001699|169.15|             Jumping|Trampoline Access...|   New York|  New York| credit|file:///C:/Users/...|
+|00047933|06-16-2011|4000001|032.52|      Racquet Sports|              Tennis|Los Angeles|California| credit|file:///C:/Users/...|
+|00047934|01-09-2011|4002860|124.31|        Water Sports|             Surfing|   Columbia|  Missouri| credit|file:///C:/Users/...|
+|00047935|12-27-2011|4001211|150.54|             Puzzles|      Jigsaw Puzzles|Los Angeles|California| credit|file:///C:/Users/...|
+|00047936|03-12-2011|4008492|017.20|Outdoor Play Equi...|          Swing Sets|    Houston|     Texas| credit|file:///C:/Users/...|
+|00047937|03-13-2011|4009237|038.89|        Indoor Games|             Bowling| Cincinnati|      Ohio| credit|file:///C:/Users/...|
+|00047938|11-08-2011|4008435|075.25|       Winter Sports|            Sledding|San Antonio|     Texas| credit|file:///C:/Users/...|
+|00047939|01-23-2011|4008587|181.40|  Exercise & Fitness|            Gym Mats|      Omaha|  Nebraska| credit|file:///C:/Users/...|
+|00047940|06-08-2011|4004376|011.36|      Racquet Sports|           Badminton|  Vancouver|Washington| credit|file:///C:/Users/...|
+|00047941|06-01-2011|4001111|094.68|         Team Sports|        Cheerleading| Montgomery|   Alabama| credit|file:///C:/Users/...|
+|00047942|03-04-2011|4007619|178.36|  Exercise & Fitness|      Exercise Balls|     Irvine|California| credit|file:///C:/Users/...|
+|00047943|07-24-2011|4003195|074.96|Outdoor Play Equi...|        Water Tables|      Salem|    Oregon| credit|file:///C:/Users/...|
+|00047944|05-30-2011|4009136|126.73|             Dancing|         Ballet Bars|      Tampa|   Florida| credit|file:///C:/Users/...|
+|00047945|02-21-2011|4004691|148.08|          Air Sports|          Parachutes|   Portland|    Oregon| credit|file:///C:/Users/...|
+|00047946|07-20-2011|4002539|151.19|               Games|  Poker Chips & Sets|   Bellevue|Washington| credit|file:///C:/Users/...|
+|00047947|04-04-2011|4009468|107.66|  Outdoor Recreation|             Archery|   Portland|    Oregon| credit|file:///C:/Users/...|
+|00047948|12-29-2011|4009341|166.29|          Gymnastics|     Gymnastics Bars|Chattanooga| Tennessee| credit|file:///C:/Users/...|
+|00047949|02-15-2011|4000841|070.34|       Winter Sports|     Downhill Skiing|      Boise|     Idaho| credit|file:///C:/Users/...|
++--------+----------+-------+------+--------------------+--------------------+-----------+----------+-------+--------------------+
