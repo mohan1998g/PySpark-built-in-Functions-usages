@@ -11,11 +11,21 @@ Examples
 
 df = spark.createDataFrame([(1.0, float('nan')), (float('nan'), 2.0)], ("a", "b"))
 
+or
+
+df = spark.createDataFrame([(1, "nan"), ("nan", 2)], ("a", "b"))
+
+#both work the same way
+
 df.select("a", "b", isnan("a").alias("r1"), isnan(df.b).alias("r2")).show()
 
 # We can also use withColumn to acheve the same result
 
 df.withColumn("r1", isnan("a")).withColumn("r2", isnan("b")).show()
+
+# We can also use withColumn to acheve the same result and expr
+
+df.withColumn("r1", expr('isnan("a")')).withColumn("r2", expr('isnan("b")')).show()
 
 +---+---+-----+-----+
 |  a|  b|   r1|   r2|
@@ -23,3 +33,7 @@ df.withColumn("r1", isnan("a")).withColumn("r2", isnan("b")).show()
 |1.0|NaN|false| true|
 |NaN|2.0| true|false|
 +---+---+-----+-----+
+
+The code df.withColumn("r1", col("isnan('a')")).withColumn("r2", col('isnan("b")')).show() gives an error as 
+
+A column or function parameter with name `isnan('a')` cannot be resolved. Did you mean one of the following? [`a`, `b`].;
