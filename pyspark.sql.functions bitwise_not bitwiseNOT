@@ -1,0 +1,32 @@
+pyspark.sql.functions.bitwise_not
+
+Computes bitwise not.
+
+Parameters
+col : Column or str
+        target column to compute on.
+
+Returns : Column
+        the column for computed results.
+
+Examples
+
+df = spark.range(1)
+df.select(bitwise_not(lit(0))).show()
++---+
+| ~0|
++---+
+| -1|
++---+
+df.select(bitwise_not(lit(1))).show()
++---+
+| ~1|
++---+
+| -2|
++---+
+
+pyspark.sql.functions.bitwiseNOT
+
+Computes bitwise not.
+
+Deprecated since version 3.2.0: Use bitwise_not() instead.
