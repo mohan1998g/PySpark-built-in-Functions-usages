@@ -162,3 +162,21 @@ df.select(atanh(df["numbers"])).show()
 +--------------+
 
 
+pyspark.sql.functions.atan2
+
+Parameters
+col1 : str, Column or float
+        coordinate on y-axis
+
+col2 : str, Column or float
+        coordinate on x-axis
+
+Returns : Column
+the theta component of the point (r, theta) in polar coordinates that corresponds to the point (x, y) in Cartesian coordinates, 
+as if computed by java.lang.Math.atan2()
+
+Examples
+
+df = spark.range(1)
+df.select(atan2(lit(1), lit(2))).first()
+Row(ATAN2(1, 2)=0.46364...)
