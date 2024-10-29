@@ -1,0 +1,15 @@
+Creates a struct with the given field names and values.
+
+Parameters
+cols : Column or str
+        list of columns to work on.
+
+Returns : Column
+
+Examples
+
+df = spark.createDataFrame([(1, 2, 3)], ['a', 'b', 'c'])
+
+print(df.select(named_struct(lit('x'), df.a, lit('y'), df.b).alias('r')).collect())
+
+[Row(r=Row(x=1, y=2))]
