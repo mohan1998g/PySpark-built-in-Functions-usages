@@ -1,0 +1,26 @@
+pyspark.sql.functions.least
+
+Returns the least value of the list of column names, skipping null values. This function takes at least 2 parameters. It will return null if all parameters are null.
+
+Parameters
+cols : Column or str
+          column names or columns to be compared
+
+Returns : Column
+          least value.
+
+Examples
+
+df = spark.createDataFrame([(1, 4, 3)], ['a', 'b', 'c'])
+
+df.select(least(df.a, df.b, df.c).alias("least")).collect()
+
+[Row(least=1)]
+
+df.select(least(df.a, df.b, df.c).alias("least")).show()
+
++-----+
+|least|
++-----+
+|    1|
++-----+
