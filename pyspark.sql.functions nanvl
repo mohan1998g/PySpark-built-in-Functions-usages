@@ -1,0 +1,23 @@
+Returns col1 if it is not NaN, or col2 if col1 is NaN.
+
+Both inputs should be floating point columns (DoubleType or FloatType).
+
+only 2 inputs should be given otherwise there will be error as "TypeError: nanvl() takes 2 positional arguments but 3 were given"
+
+Parameters
+col1 : Column or str
+          first column to check.
+
+col2 : Column or str
+          second column to return if first is NaN.
+
+Returns : Column
+          value from first column or second if first is NaN .
+
+Examples
+
+df = spark.createDataFrame([(1.0, float('nan')), (float('nan'), 2.0)], ("a", "b"))
+
+df.select(nanvl("a", "b").alias("r1"), nanvl(df.a, df.b).alias("r2")).collect()
+
+[Row(r1=1.0, r2=1.0), Row(r1=2.0, r2=2.0)]
