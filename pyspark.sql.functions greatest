@@ -1,0 +1,28 @@
+pyspark.sql.functions.greatest
+
+Returns the greatest value of the list of column names, skipping null values.
+This function takes at least 2 parameters. 
+It will return null if all parameters are null.
+
+Parameters
+col : Column or str
+        columns to check for gratest value.
+
+Returns : Column
+        gratest value.
+
+Examples
+
+df = spark.createDataFrame([(1, 4, 3)], ['a', 'b', 'c'])
+
+df.select(greatest(df.a, df.b, df.c).alias("greatest")).collect()
+
+[Row(greatest=4)]
+
+df.select(greatest(df.a, df.b, df.c).alias("greatest")).show()
+
++--------+
+|greatest|
++--------+
+|       4|
++--------+
