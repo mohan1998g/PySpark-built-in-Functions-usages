@@ -1,0 +1,30 @@
+pyspark.sql.functions.ceil / pyspark.sql.functions.ceiling
+
+Computes the ceiling of the given value.
+
+Parameters
+col : Column or str
+        target column to compute on.
+
+Returns : Column
+        the column for computed results.
+
+Examples
+
+df = spark.range(1)
+df.select(ceil(lit(-0.1))).show()
++----------+
+|CEIL(-0.1)|
++----------+
+|         0|
++----------+
+
+------------------------------------------------------------------------------------------------------
+
+spark.range(1).select(ceiling(lit(-0.1))).show()
+
++----------+
+|ceiling(-0.1)|
++----------+
+|         0|
++----------+
