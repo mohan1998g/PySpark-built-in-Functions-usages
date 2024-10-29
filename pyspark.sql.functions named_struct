@@ -27,3 +27,9 @@ root
  |-- r: struct (nullable = false)
  |    |-- x: long (nullable = true)
  |    |-- y: long (nullable = true)
+
+
+Note: if we do not give lit('x') and lit('y'), we will get the below error
+
+[DATATYPE_MISMATCH.CREATE_NAMED_STRUCT_WITHOUT_FOLDABLE_STRING] Cannot resolve "named_struct(a, b)" due to data type mismatch: 
+Only foldable `STRING` expressions are allowed to appear at odd position, but they are ["a"].;
