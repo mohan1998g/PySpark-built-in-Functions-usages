@@ -1,0 +1,44 @@
+pyspark.sql.functions.when
+
+Evaluates a list of conditions and returns one of multiple possible result expressions. If pyspark.sql.Column.otherwise() is not invoked, None is returned for unmatched conditions.
+
+Parameters
+condition : Column
+      a boolean Column expression.
+
+value : a literal value, or a Column expression.
+
+Returns
+Column : column 
+      representing when expression.
+
+Examples
+
+df = spark.range(3)
+df.select("id", when(df['id'] == 2, 3).otherwise(4).alias("age")).show()
+
++---+---+
+| id|age|
++---+---+
+|  0|  4|
+|  1|  4|
+|  2|  3|
++---+---+
+
+
+df.select("id", when(df.id == 2, df.id + 1).alias("age")).show()
+
++---+----+
+| id| age|
++---+----+
+|  0|NULL|
+|  1|NULL|
+|  2|   3|
++---+----+
+
+
+For more examples refer to
+
+https://github.com/mohan1998g/PySpark/blob/5117a077f4248e370ba78f280b6eac57b5317e64/Case%20When%20Usage
+
+https://github.com/mohan1998g/PySpark/blob/5117a077f4248e370ba78f280b6eac57b5317e64/multiple%20when%20otherwise%20usage
