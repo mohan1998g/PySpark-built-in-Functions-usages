@@ -1,0 +1,12 @@
+The main difference between the pyspark.sql.functions and pyspark.sql.connect.functions packages is that pyspark.sql.functions 
+provides built-in and user-defined functions for Spark SQL, while pyspark.sql.connect.functions is not a package.
+
+pyspark.sql.functions
+Provides built-in functions and user-defined functions (UDFs) for Spark SQL. Built-in functions are commonly used routines that Spark SQL predefines. 
+Users can also define their own functions. 
+
+pyspark.sql.connect.functions
+Not a package, but rather a way to register a user-defined function (UDF) as a SQL function. 
+
+PySpark is a module in Spark that connects Python and Spark. Spark SQL is a Python library that allows users to extract and analyze data using SQL. 
+PySpark and Spark SQL are both used to analyze large sets of data across multiple computers. 
