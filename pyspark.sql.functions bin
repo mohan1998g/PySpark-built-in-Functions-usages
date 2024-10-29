@@ -1,0 +1,41 @@
+pyspark.sql.functions.bin
+
+Returns the string representation of the binary value of the given column.
+
+Parameters
+col : Column or str
+        target column to work on.
+
+Returns : Column
+        binary representation of given value as string.
+
+Examples
+
+df = spark.createDataFrame([2, 5], "INT")
+
+df.show()
+
++-----+
+|value|
++-----+
+|    2|
+|    5|
++-----+
+
+df.select("value", bin(df.value).alias('c')).show()
+
++-----+---+
+|value|  c|
++-----+---+
+|    2| 10|
+|    5|101|
++-----+---+
+
+"INT" represents the data type of the column in the DataFrame. 
+In this context, it specifies that the values [2, 5] should be interpreted as integers. 
+Spark uses these data type names to define the schema of the DataFrame.
+
+Here, "INT" defines a single-column DataFrame with an integer type for that column. 
+In Spark, the default column name would be value if no other name is specified explicitly.
+
+So, the DataFrame created here will have one column named value, with integer values 2 and 5.
