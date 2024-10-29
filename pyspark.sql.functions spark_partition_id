@@ -1,0 +1,37 @@
+pyspark.sql.functions.spark_partition_id
+
+A column for partition ID.
+
+Returns : Column
+partition id the record belongs to.
+
+Notes
+
+This is non deterministic because it depends on data partitioning and task scheduling.
+
+Examples
+
+df = spark.range(2)
+df.repartition(1).select(spark_partition_id().alias("pid")).collect()
+[Row(pid=0), Row(pid=0)]
+
+
+df = spark.read.option("header", "true").csv("df.csv")
+
+df1 = df.withColumn("pid", spark_partition_id())
+
+df1.show()
+
++---+----------+------+-------------+--------------+-------+---+
+| id|     tdate|amount|     category|       product|spendby|pid|
++---+----------+------+-------------+--------------+-------+---+
+|  0|06-26-2011| 300.4|     Exercise| GymnasticsPro|   cash|  0|
+|  1|05-26-2011| 200.0|Exercise Band| Weightlifting| credit|  0|
+|  2|06-01-2011| 300.4|     Exercise|Gymnastics Pro|   cash|  0|
+|  3|06-05-2011| 100.0|   Gymnastics|         Rings| credit|  0|
+|  4|12-17-2011| 300.0|  Team Sports|         Field|   cash|  0|
+|  5|02-14-2011| 200.0|   Gymnastics|          NULL|   cash|  0|
+|  6|06-05-2011| 100.0|     Exercise|         Rings| credit|  0|
+|  7|12-17-2011| 300.0|  Team Sports|         Field|   cash|  0|
+|  8|02-14-2011| 200.0|   Gymnastics|          NULL|   cash|  0|
++---+----------+------+-------------+--------------+-------+---+
