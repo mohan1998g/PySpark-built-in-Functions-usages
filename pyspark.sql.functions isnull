@@ -1,0 +1,34 @@
+An expression that returns true if the column is null.
+
+Parameters
+col : Column or str
+        target column to compute on.
+
+Returns : Column
+        True if value is null and False otherwise.
+
+Examples
+
+df = spark.createDataFrame([(1, None), (None, 2)], ("a", "b"))
+
+df.select("a", "b", isnull("a").alias("r1"), isnull(df.b).alias("r2")).show()
+
+# We can also achieve the same using withColumn
+
+df.withColumn("r1", isnull('a')).withColumn("r2", isnull("b"))
+
+# # We can also achieve the same using withColumn and expr
+
+df.withColumn("r1", expr("isnull('a')")).withColumn("r2", expr('isnull("b")')).show()
+
++----+----+-----+-----+
+|   a|   b|   r1|   r2|
++----+----+-----+-----+
+|   1|NULL|false| true|
+|NULL|   2| true|false|
++----+----+-----+-----+
+
+
+The code df.withColumn("r1", col("isnull('a')")).withColumn("r2", col('isnull("b")')).show() gives an error as 
+
+A column or function parameter with name `isnull('a')` cannot be resolved. Did you mean one of the following? [`a`, `b`].;
