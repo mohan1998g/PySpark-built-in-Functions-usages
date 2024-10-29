@@ -39,3 +39,28 @@ df.select(abs(lit(-1))).show()
 +-------+
 |      1|
 +-------+
+
+------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.cbrt
+
+Computes the cube-root of the given value.
+
+Parameters
+col : Column or str
+        target column to compute on.
+
+Returns : Column
+        the column for computed results.
+
+Examples
+
+df = spark.range(1)
+
+df.select(cbrt(lit(27))).show()
+
++--------+
+|CBRT(27)|
++--------+
+|     3.0|
++--------+
