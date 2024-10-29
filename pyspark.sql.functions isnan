@@ -1,0 +1,25 @@
+An expression that returns true if the column is NaN.
+
+Parameters
+col : Column or str
+      target column to compute on.
+
+Returns : Column
+      True if value is NaN and False otherwise.
+
+Examples
+
+df = spark.createDataFrame([(1.0, float('nan')), (float('nan'), 2.0)], ("a", "b"))
+
+df.select("a", "b", isnan("a").alias("r1"), isnan(df.b).alias("r2")).show()
+
+# We can also use withColumn to acheve the same result
+
+df.withColumn("r1", isnan("a")).withColumn("r2", isnan("b")).show()
+
++---+---+-----+-----+
+|  a|  b|   r1|   r2|
++---+---+-----+-----+
+|1.0|NaN|false| true|
+|NaN|2.0| true|false|
++---+---+-----+-----+
