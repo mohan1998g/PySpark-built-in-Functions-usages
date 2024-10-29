@@ -10,6 +10,20 @@ Examples
 
 df = spark.createDataFrame([(1, 2, 3)], ['a', 'b', 'c'])
 
-print(df.select(named_struct(lit('x'), df.a, lit('y'), df.b).alias('r')).collect())
+df.printSchema()
+root
+ |-- a: long (nullable = true)
+ |-- b: long (nullable = true)
+ |-- c: long (nullable = true)
 
+df1 = df.select(named_struct(lit('x'), df.a, lit('y'), df.b).alias('r'))
+
+print(df1.collect())
 [Row(r=Row(x=1, y=2))]
+
+df1.printSchema()
+
+root
+ |-- r: struct (nullable = false)
+ |    |-- x: long (nullable = true)
+ |    |-- y: long (nullable = true)
