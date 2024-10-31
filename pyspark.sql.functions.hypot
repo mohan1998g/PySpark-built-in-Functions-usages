@@ -1,0 +1,29 @@
+pyspark.sql.functions.hypot
+
+Computes sqrt(a^2 + b^2) without intermediate overflow or underflow.
+
+Parameters
+col1 : str, Column or float
+        a leg.
+
+col2 : str, Column or float
+        b leg.
+
+Returns : Column
+        length of the hypotenuse.
+
+Examples
+
+df = spark.range(1)
+
+df.select("id", hypot(lit(1), lit(2))).first()
+
++---+----------------+
+| id|     HYPOT(1, 2)|
++---+----------------+
+|  0|2.23606797749979|
+|  1|2.23606797749979|
+|  2|2.23606797749979|
+|  3|2.23606797749979|
+|  4|2.23606797749979|
++---+----------------+
