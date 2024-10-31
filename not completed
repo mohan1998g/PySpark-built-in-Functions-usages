@@ -5,3 +5,5 @@ https://spark.apache.org/docs/latest/api/python/reference/pyspark.sql/api/pyspar
 try functions
 
 width_bucket
+
+make functions
