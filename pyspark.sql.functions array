@@ -1,0 +1,16 @@
+pyspark.sql.functions.array
+
+Creates a new array column.
+
+Parameters
+cols : Column or str
+              column names or Columns that have the same data type.
+
+Returns : Column
+              a column of array type.
+
+Examples
+
+df = spark.createDataFrame([("Alice", 2), ("Bob", 5)], ("name", "age"))
+
+df.select(array('age', 'age').alias("arr")).collect()
