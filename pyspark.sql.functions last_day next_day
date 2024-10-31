@@ -1,0 +1,49 @@
+pyspark.sql.functions.last_day
+
+Returns the last day of the month which the given date belongs to.
+
+Parameters
+date : Column or str
+        target column to compute on.
+
+Returns : Column
+        last day of the month.
+
+Examples
+
+df = spark.createDataFrame([('1997-02-10',)], ['d'])
+
+df.select(last_day(df.d).alias('date')).show()
+
++----------+
+|      date|
++----------+
+|1997-02-28|
++----------+
+
+pyspark.sql.functions.next_day
+
+Returns the first date which is later than the value of the date column based on second week day argument.
+
+Parameters
+date : Column or str
+        target column to compute on.
+
+dayOfWeek : str
+        day of the week, case-insensitive, accepts:
+        “Mon”, “Tue”, “Wed”, “Thu”, “Fri”, “Sat”, “Sun”
+
+Returns : Column
+        the column of computed results.
+
+Examples
+
+df = spark.createDataFrame([('2015-07-27',)], ['d'])
+
+df.select(next_day(df.d, 'Sun').alias('date')).show()
+
++----------+
+|      date|
++----------+
+|2015-08-02|
++----------+
