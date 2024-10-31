@@ -1,0 +1,53 @@
+pyspark.sql.functions.exp
+
+Computes the exponential of the given value.
+
+Parameters
+col : Column or str
+        column to calculate exponential for.
+
+Returns :  Column
+        exponential of the given value.
+
+Note : The value of the mathematical constant (e) is approximately 2.71828
+Note : calculated value is e^n; n is given value
+
+pyspark.sql.functions.expm1
+
+Computes the exponential of the given value minus one.
+
+Parameters
+col : Column or str
+        column to calculate exponential for.
+
+Returns : Column
+        exponential less one.
+
+Note : calculated value is ((e^n) - 1); n is given value
+
+df = spark.range(5) # there is no relation between the id column and the result column
+
+df.select("id", exp(lit(1)), expm1(lit(1))).show()
+
++---+------------------+-----------------+
+| id|            EXP(1)|         EXPM1(1)|
++---+------------------+-----------------+
+|  0|2.7182818284590455|1.718281828459045|
+|  1|2.7182818284590455|1.718281828459045|
+|  2|2.7182818284590455|1.718281828459045|
+|  3|2.7182818284590455|1.718281828459045|
+|  4|2.7182818284590455|1.718281828459045|
++---+------------------+-----------------+
+
+df.select("id", exp(lit(2)), expm1(lit(2))).show()
+
++---+----------------+----------------+
+| id|          EXP(2)|        EXPM1(2)|
++---+----------------+----------------+
+|  0|7.38905609893065|6.38905609893065|
+|  1|7.38905609893065|6.38905609893065|
+|  2|7.38905609893065|6.38905609893065|
+|  3|7.38905609893065|6.38905609893065|
+|  4|7.38905609893065|6.38905609893065|
++---+----------------+----------------+
+
