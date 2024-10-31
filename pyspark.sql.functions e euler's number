@@ -1,0 +1,12 @@
+pyspark.sql.functions.e
+
+Returns Euler’s number.
+
+Examples
+
+spark.range(1).select(e()).show()
++-----------------+
+|              E()|
++-----------------+
+|2.718281828459045|
++-----------------+
