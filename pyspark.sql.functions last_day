@@ -1,0 +1,22 @@
+pyspark.sql.functions.last_day
+
+Returns the last day of the month which the given date belongs to.
+
+Parameters
+date : Column or str
+        target column to compute on.
+
+Returns : Column
+        last day of the month.
+
+Examples
+
+df = spark.createDataFrame([('1997-02-10',)], ['d'])
+
+df.select(last_day(df.d).alias('date')).show()
+
++----------+
+|      date|
++----------+
+|1997-02-28|
++----------+
