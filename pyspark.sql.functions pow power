@@ -1,0 +1,44 @@
+pyspark.sql.functions.pow
+
+Returns the value of the first argument raised to the power of the second argument.
+
+Parameters
+col1 : str, Column or float
+        the base number.
+
+col2 : str, Column or float
+        the exponent number.
+
+Returns : Column
+        the base rased to the power the argument.
+
+-----------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.power
+
+Returns the value of the first argument raised to the power of the second argument.
+
+Parameters
+col1 : str, Column or float
+          the base number.
+
+col2 : str, Column or float
+          the exponent number.
+
+Returns : Column
+          the base rased to the power the argument.
+
+-----------------------------------------------------------------------------------------------
+
+df = spark.range(1)
+
+df.select(pow(lit(3), lit(2))).show()
+
+df.select(power(lit(3), lit(2))).show()
+
++-----------+
+|POWER(3, 2)|
++-----------+
+|        9.0|
++-----------+
+
