@@ -14,3 +14,57 @@ Examples
 df = spark.createDataFrame([("Alice", 2), ("Bob", 5)], ("name", "age"))
 
 df.select(array('age', 'age').alias("arr")).collect()
+
++------+
+|   arr|
++------+
+|[2, 2]|
+|[5, 5]|
++------+
+
+df.select(array('age').alias("arr")).show()
+
++---+
+|arr|
++---+
+|[2]|
+|[5]|
++---+
+
+df.select(array('name').alias("arr")).show()
+
++-------+
+|    arr|
++-------+
+|[Alice]|
+|  [Bob]|
++-------+
+
+df.select(array('name', 'age').alias("arr")).show()
+
++----------+
+|       arr|
++----------+
+|[Alice, 2]|
+|  [Bob, 5]|
++----------+
+
+df.select(array('*').alias("arr")).show()
+
++----------+
+|       arr|
++----------+
+|[Alice, 2]|
+|  [Bob, 5]|
++----------+
+
+df = spark.createDataFrame([("Alice", 2, None), ("Bob", 5, 2)], ("name", "age", "ghj"))
+
+df.select(array('*').alias("arr")).show()
+
++----------------+
+|             arr|
++----------------+
+|[Alice, 2, NULL]|
+|     [Bob, 5, 2]|
++----------------+
