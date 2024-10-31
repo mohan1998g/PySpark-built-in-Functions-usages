@@ -1,0 +1,22 @@
+pyspark.sql.functions.quarter
+
+Extract the quarter of a given date/timestamp as integer.
+
+Parameters
+col : Column or str
+          target date/timestamp column to work on.
+
+Returns : Column
+          quarter of the date/timestamp as integer.
+
+Examples
+
+df = spark.createDataFrame([('2015-04-08',)], ['dt'])
+
+df.select(quarter('dt').alias('quarter')).show()
+
++-------+
+|quarter|
++-------+
+|      2|
++-------+
