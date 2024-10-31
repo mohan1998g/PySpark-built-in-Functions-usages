@@ -1,0 +1,53 @@
+pyspark.sql.functions.degrees
+
+Converts an angle measured in radians to an approximately equivalent angle measured in degrees.
+
+Parameters
+col : Column or str
+          angle in radians
+
+Returns : Column
+          angle in degrees, as if computed by java.lang.Math.toDegrees()
+
+Examples
+
+import math
+
+df = spark.range(1)
+
+df.select(degrees(lit(math.pi))).show()
+
++--------------------------+
+|DEGREES(3.141592653589793)|
++--------------------------+
+|                     180.0|
++--------------------------+
+
+-----------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.toRadians
+
+Deprecated since version 2.1.0: Use radians() instead.
+
+-----------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.radians
+
+Converts an angle measured in degrees to an approximately equivalent angle measured in radians.
+
+Parameters
+col : Column or str
+        angle in degrees
+
+Returns : Column
+        angle in radians, as if computed by java.lang.Math.toRadians()
+
+Examples
+
+df.select(radians(lit(180))).show()
+
++-----------------+
+|     RADIANS(180)|
++-----------------+
+|3.141592653589793|
++-----------------+
