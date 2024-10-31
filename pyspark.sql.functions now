@@ -1,0 +1,18 @@
+pyspark.sql.functions.now
+
+Returns the current timestamp at the start of query evaluation.
+
+Returns : Column
+          current timestamp at the start of query evaluation.
+
+Examples
+
+df = spark.range(1)
+
+df.select(now()).show(truncate=False) 
+
++-----------------------+
+|now()    |
++-----------------------+
+|2022-08-26 21:23:22.716|
++-----------------------+
