@@ -1,0 +1,33 @@
+pyspark.sql.functions.pmod
+
+Returns the positive value of dividend mod divisor.
+
+Parameters
+dividend : str, Column or float
+        the column that contains dividend, or the specified dividend value
+
+divisor : str, Column or float
+        the column that contains divisor, or the specified divisor value
+
+Returns : Column
+        positive value of dividend mod divisor.
+
+Examples
+
+df = spark.createDataFrame([ (1.0, float('nan')), (float('nan'), 2.0), (10.0, 3.0), (float('nan'), float('nan')), (-3.0, 4.0), (-10.0, 3.0),
+(-5.0, -6.0), (7.0, -8.0), (1.0, 2.0)], ("a", "b"))
+df.select(pmod("a", "b")).show()
+
++----------+
+|pmod(a, b)|
++----------+
+|       NaN|
+|       NaN|
+|       1.0|
+|       NaN|
+|       1.0|
+|       2.0|
+|      -5.0|
+|       7.0|
+|       1.0|
++----------+
