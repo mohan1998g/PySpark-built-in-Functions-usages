@@ -1,4 +1,4 @@
-pyspark.sql.functions.date_diff
+pyspark.sql.functions.date_diff, pyspark.sql.functions.datediff
 
 Returns the number of days from start to end. 
 
@@ -21,6 +21,14 @@ Examples
 df = spark.createDataFrame([('2015-04-08','2015-05-10')], ['d1', 'd2'])
 
 df.select(date_diff(df.d2, df.d1).alias('diff')).show()
+
++----+
+|diff|
++----+
+|  32|
++----+
+
+df.select(datediff(df.d2, df.d1).alias('diff')).show()
 
 +----+
 |diff|
