@@ -1,0 +1,27 @@
+pyspark.sql.functions.curdate, pyspark.sql.functions.current_date
+
+Returns the current date at the start of query evaluation as a DateType column. All calls of current_date within the same query return the same value.
+
+Returns : Column
+        current date.
+
+Examples
+
+spark.range(1).select(curdate()).show() 
+
++--------------+
+|current_date()|
++--------------+
+|    2022-08-26|
++--------------+
+
+
+df = spark.range(1)
+
+df.select(current_date()).show() 
+
++--------------+
+|current_date()|
++--------------+
+|    2022-08-26|
++--------------+
