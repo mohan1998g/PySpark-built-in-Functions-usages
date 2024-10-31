@@ -1,0 +1,77 @@
+pyspark.sql.functions.date_add
+
+Returns the date that is days days after start. If days is a negative value then these amount of days will be deducted from start.
+
+Parameters
+start : Column or str 
+        date column to work on.
+
+days : Column or str or int
+        how many days after the given date to calculate. Accepts negative value as well to calculate backwards in time.
+
+Returns : Column
+        a date after/before given number of days.
+
+-----------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.date_sub
+
+Returns the date that is days days before start. If days is a negative value then these amount of days will be added to start.
+
+Parameters
+start : Column or str
+        date column to work on.
+
+days : Column or str or int
+        how many days before the given date to calculate. Accepts negative value as well to calculate forward in time.
+
+Returns : Column
+        a date before/after given number of days.
+
+-----------------------------------------------------------------------------------------------
+
+Examples
+
+df = spark.createDataFrame([('2015-04-08', 2,)], ['dt', 'value'])
+
+df.select(date_add(df.dt, 1).alias('next_date')).show()
++----------+
+| next_date|
++----------+
+|2015-04-09|
++----------+
+
+df.select(date_add(df.dt, df.value.cast('integer')).alias('next_date')).show()
++----------+
+| next_date|
++----------+
+|2015-04-10|
++----------+
+
+df.select(date_add('dt', -1).alias('prev_date')).show()
++----------+
+| prev_date|
++----------+
+|2015-04-07|
++----------+
+
+df.select(date_sub(df.dt, 1).alias('prev_date')).show()
++----------+
+| prev_date|
++----------+
+|2015-04-07|
++----------+
+
+df.select(date_sub(df.dt, df.value.cast('integer')).alias('prev_date')).show()
++----------+
+| prev_date|
++----------+
+|2015-04-06|
++----------+
+
+df.select(date_sub('dt', -1).alias('next_date')).show()
++----------+
+| next_date|
++----------+
+|2015-04-09|
++----------+
