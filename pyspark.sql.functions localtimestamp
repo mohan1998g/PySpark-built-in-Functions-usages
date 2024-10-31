@@ -1,0 +1,19 @@
+pyspark.sql.functions.localtimestamp
+
+Returns the current timestamp without time zone at the start of query evaluation as a timestamp without time zone column. All calls of localtimestamp within the same query return the same value.
+
+
+Returns : Column
+        current local date and time.
+
+Examples
+
+df = spark.range(1)
+
+df.select(localtimestamp()).show(truncate=False) 
+
++-----------------------+
+|localtimestamp()       |
++-----------------------+
+|2022-08-26 21:28:34.639|
++-----------------------+
