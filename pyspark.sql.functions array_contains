@@ -1,0 +1,41 @@
+pyspark.sql.functions.array_contains
+
+Collection function: returns null if the array is null, true if the array contains the given value, and false otherwise.
+
+Parameters
+col : Column or str
+            name of column containing array
+
+value :
+            value or column to check for in array
+
+Returns : Column
+            a column of Boolean type.
+
+Examples
+
+df = spark.createDataFrame([(["a", "b", "c"],), ([],)], ['data'])
+
+df.show()
++---------+
+|     data|
++---------+
+|[a, b, c]|
+|       []|
++---------+
+
+df.select(array_contains(df.data, "a")).show()
++-----------------------+
+|array_contains(data, a)|
++-----------------------+
+|                   true|
+|                  false|
++-----------------------+
+
+df.select(array_contains(df.data, lit("a"))).show()
++-----------------------+
+|array_contains(data, a)|
++-----------------------+
+|                   true|
+|                  false|
++-----------------------+
