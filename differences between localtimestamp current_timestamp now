@@ -1,0 +1,71 @@
+df = spark.range(1)
+
+df.select(current_timestamp()).show(truncate=False) 
+
++-----------------------+
+|current_timestamp()    |
++-----------------------+
+|2022-08-26 21:23:22.716|
++-----------------------+
+
+-----------------------------------------------------------------------------------------------
+
+df = spark.range(1)
+
+df.select(localtimestamp()).show(truncate=False) 
+
++-----------------------+
+|localtimestamp()       |
++-----------------------+
+|2022-08-26 21:28:34.639|
++-----------------------+
+
+-----------------------------------------------------------------------------------------------
+
+df = spark.range(1)
+
+df.select(now()).show(truncate=False) 
+
++-----------------------+
+|now()
++-----------------------+
+|2022-08-26 21:23:22.716|
++-----------------------+
+
+-----------------------------------------------------------------------------------------------
+
+In PySpark, now, localtimestamp, and current_timestamp functions are all used to obtain the current date and time, 
+but they differ slightly in their usage and context. 
+Here’s a comparison:
+
+Function	              Description	                               Example Output	                                      Typical Usage
+now()	                Returns the current timestamp in the                 2024-10-30 14:30:45.123456                Data processing when you need 
+                        session's timezone.                                                                            the exact current time.
+                        Similar to current_timestamp().		
+
+
+localtimestamp()	Returns the local timestamp without                  2024-10-30 14:30:45.123456                Capturing local time, 
+                        any timezone adjustments;                                                                      often used in logging.
+                        captures the local time as-is.		
+
+
+current_timestamp()	Alias for now() in PySpark;                          2024-10-30 14:30:45.123456                For compatibility with SQL standards 
+                        returns the timestamp in the                                                                   and exact timestamp capture.
+                        session timezone with microseconds.		
+
+
+Detailed Differences:
+
+Timezone Handling:
+now() and current_timestamp() both return the current timestamp adjusted to the session’s timezone setting.
+localtimestamp() captures the time without any timezone adjustment, preserving the raw local time.
+
+SQL Compatibility:
+current_timestamp() is SQL-standard, making it useful if you want code compatibility across different SQL-based systems or databases.
+now() is often interchangeable with current_timestamp() in Spark and typically gives the same result.
+
+Typical Usage Scenarios:
+Use now() or current_timestamp() for general purposes when capturing the exact time in Spark workflows, particularly if timezone-aware time is required.
+Use localtimestamp() if you need to log the raw local time or when timezone adjustments are not desired.
+
+In summary, now() and current_timestamp() are almost identical in functionality, while localtimestamp() offers a timezone-unadjusted version of the current time.
