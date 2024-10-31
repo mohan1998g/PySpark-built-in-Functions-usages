@@ -1,0 +1,26 @@
+pyspark.sql.functions.factorial
+
+Computes the factorial of the given value.
+
+Parameters
+col : Column or str
+        a column to calculate factorial for.
+
+Returns : Column
+        factorial of given value.
+
+Examples
+
+df = spark.createDataFrame([(5,)], ['n'])
+
+df.select(factorial(df.n).alias('f')).show()
+
+df = spark.createDataFrame([(5,)], ['n'])
+
+df.select(factorial(df.n).alias('f')).show()
+
++---+
+|  f|
++---+
+|120|
++---+
