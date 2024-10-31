@@ -1,0 +1,23 @@
+pyspark.sql.functions.shiftright
+
+(Signed) shift the given value numBits right.
+
+Parameters
+col : Column or str
+        input column of values to shift.
+
+numBits : int
+        number of bits to shift.
+
+Returns : Column
+        shifted values.
+
+Examples
+
+spark.createDataFrame([(42,)], ['a']).select(shiftright('a', 1).alias('r')).show()
+
++---+
+|  r|
++---+
+| 21|
++---+
