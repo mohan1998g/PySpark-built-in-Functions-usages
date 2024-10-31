@@ -1,0 +1,25 @@
+pyspark.sql.functions.shiftrightunsigned
+
+Unsigned shift the given value numBits right.
+
+Parameters
+col : Column or str
+      input column of values to shift.
+
+numBits :int
+      number of bits to shift.
+
+Returns :  Column
+      shifted value.
+
+Examples
+
+df = spark.createDataFrame([(-42,)], ['a'])
+
+df.select(shiftrightunsigned('a', 1).alias('r')).collect()
+
++-------------------+
+|                  r|
++-------------------+
+|9223372036854775787|
++-------------------+
