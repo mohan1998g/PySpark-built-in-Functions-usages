@@ -1,0 +1,20 @@
+pyspark.sql.functions.sign
+
+Computes the signum of the given value.
+
+Parameters
+col : Column or str
+          target column to compute on.
+
+Returns : Column
+          the column for computed results.
+
+Examples
+
+spark.range(1).select(sign(lit(-5)), sign(lit(6))).show()
+
++--------+-------+
+|sign(-5)|sign(6)|
++--------+-------+
+|    -1.0|    1.0|
++--------+-------+
