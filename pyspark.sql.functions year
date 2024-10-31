@@ -1,0 +1,22 @@
+pyspark.sql.functions.year
+
+Extract the year of a given date/timestamp as integer.
+
+Parameters
+col : Column or str
+          target date/timestamp column to work on.
+
+Returns : Column
+          year part of the date/timestamp as integer.
+
+Examples
+
+df = spark.createDataFrame([('2015-04-08',)], ['dt'])
+
+df.select(year('dt').alias('year')).show()
+
++----+
+|year|
++----+
+|2015|
++----+
