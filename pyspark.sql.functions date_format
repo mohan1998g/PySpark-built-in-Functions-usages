@@ -1,0 +1,31 @@
+pyspark.sql.functions.date_format
+
+Converts a date/timestamp/string to a value of string in the format specified by the date format given by the second argument.
+
+A pattern could be for instance dd.MM.yyyy and could return a string like ‘18.03.1993’. 
+All pattern letters of datetime pattern. can be used.
+
+Parameters
+date : Column or str
+              input column of values to format.
+
+format: str
+              format to use to represent datetime values.
+
+Returns : Column
+              string value representing formatted datetime.
+
+Notes
+
+Whenever possible, use specialized functions like year.
+
+Examples
+
+df = spark.createDataFrame([('2015-04-08',)], ['dt'])
+df.select(date_format('dt', 'MM/dd/yyy').alias('date')).show()
+
++----------+
+|      date|
++----------+
+|04/08/2015|
++----------+
