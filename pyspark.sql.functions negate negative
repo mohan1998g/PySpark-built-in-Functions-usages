@@ -1,4 +1,4 @@
-pyspark.sql.functions.negate
+pyspark.sql.functions.negate, pyspark.sql.functions.negative
 
 Returns the negative value.
 
@@ -20,20 +20,6 @@ spark.range(3).select(negative("id")).show()
 |          -2|
 +------------+
 
------------------------------------------------------------------------------------------------
-
-pyspark.sql.functions.negative
-
-Returns the negative value.
-
-Parameters
-col : Column or str
-        column to calculate negative value for.
-
-Returns : Column
-        negative value.
-
-Examples
 
 spark.range(3).select(negative("id")).show()
 
