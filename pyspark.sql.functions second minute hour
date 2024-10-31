@@ -1,0 +1,79 @@
+pyspark.sql.functions.second
+
+Extract the seconds of a given date as integer.
+
+Parameters
+col : Column or str
+            target date/timestamp column to work on.
+
+Returns : Column
+            seconds part of the timestamp as integer.
+
+Examples
+
+import datetime
+
+df = spark.createDataFrame([(datetime.datetime(2015, 4, 8, 13, 8, 15),)], ['ts'])
+
+df.select(second('ts').alias('second')).show()
+
++------+
+|second|
++------+
+|    15|
++------+
+
+-----------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.minute
+
+Extract the minutes of a given timestamp as integer.
+
+Parameters
+col : Column or str
+            target date/timestamp column to work on.
+
+Returns : Column
+            minutes part of the timestamp as integer.
+
+Examples
+
+import datetime
+
+df = spark.createDataFrame([(datetime.datetime(2015, 4, 8, 13, 8, 15),)], ['ts'])
+
+df.select(minute('ts').alias('minute')).show()
+
++------+
+|minute|
++------+
+|     8|
++------+
+
+-----------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.hour
+
+Extract the hours of a given timestamp as integer.
+
+Parameters
+col : Column or str
+            target date/timestamp column to work on.
+
+Returns : Column
+            hour part of the timestamp as integer.
+
+Examples
+
+import datetime
+
+
+df = spark.createDataFrame([(datetime.datetime(2015, 4, 8, 13, 8, 15),)], ['ts'])
+
+df.select(hour('ts').alias('hour')).show()
+
++----+
+|hour|
++----+
+|  13|
++----+
