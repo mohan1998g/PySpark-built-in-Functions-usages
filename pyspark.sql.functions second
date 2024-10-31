@@ -1,0 +1,24 @@
+pyspark.sql.functions.second
+
+Extract the seconds of a given date as integer.
+
+Parameters
+col : Column or str
+            target date/timestamp column to work on.
+
+Returns : Column
+            seconds part of the timestamp as integer.
+
+Examples
+
+import datetime
+
+df = spark.createDataFrame([(datetime.datetime(2015, 4, 8, 13, 8, 15),)], ['ts'])
+
+df.select(second('ts').alias('second')).show()
+
++------+
+|second|
++------+
+|    15|
++------+
