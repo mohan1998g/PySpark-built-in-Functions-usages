@@ -1,0 +1,131 @@
+pyspark.sql.functions.ceil / pyspark.sql.functions.ceiling
+
+Computes the ceiling of the given value.
+
+Parameters
+col : Column or str
+        target column to compute on.
+
+Returns : Column
+        the column for computed results.
+
+Examples
+
+df = spark.range(1)
+df.select(ceil(lit(-0.1))).show()
++----------+
+|CEIL(-0.1)|
++----------+
+|         0|
++----------+
+
+------------------------------------------------------------------------------------------------------
+
+spark.range(1).select(ceiling(lit(-0.1))).show()
+
++----------+
+|ceiling(-0.1)|
++----------+
+|         0|
++----------+
+
+------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.floor
+
+Computes the floor of the given value.
+
+Parameters
+col : Column or str
+        column to find floor for.
+
+Returns : Column
+        nearest integer that is less than or equal to given value.
+
+Examples
+
+df = spark.range(1)
+df.select(floor(lit(2.5))).show()
+
++----------+
+|FLOOR(2.5)|
++----------+
+|         2|
++----------+
+
+-----------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.rint
+
+Returns the double value that is closest in value to the argument and is equal to a mathematical integer.
+
+Parameters
+col : Column or str
+        target column to compute on.
+
+Returns : Column
+        the column for computed results.
+
+Examples
+
+df = spark.range(1)
+
+df.select(rint(lit(10.6))).show()
+
++----------+
+|rint(10.6)|
++----------+
+|      11.0|
++----------+
+
+-----------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.round
+
+Round the given value to scale decimal places using HALF_UP rounding mode if scale >= 0 or at integral part when scale < 0.
+
+Parameters
+col : Column or str
+        input column to round.
+
+scale : int optional default 0
+        scale value.
+
+Returns : Column
+        rounded values.
+
+Examples
+
+spark.createDataFrame([(2.5,)], ['a']).select(round('a', 0).alias('r')).show()
+
++---+
+|  r|
++---+
+|3.0|
++---+
+
+-----------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.bround
+
+Round the given value to scale decimal places using HALF_EVEN rounding mode if scale >= 0 or at integral part when scale < 0.
+
+Parameters
+col : Column or str
+        input column to round.
+
+scale : int optional default 0
+        scale value.
+
+Returns : Column
+        rounded values.
+
+Examples
+
+spark.createDataFrame([(2.5,)], ['a']).select(bround('a', 0).alias('r')).show()
+
++---+
+|  r|
++---+
+|2.0|
++---+
