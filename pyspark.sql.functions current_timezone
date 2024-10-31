@@ -1,0 +1,22 @@
+pyspark.sql.functions.current_timezone
+
+Returns the current session local timezone.
+
+Returns : Column
+          current session local timezone.
+
+Examples
+
+spark.range(1).select(current_timezone()).show()
+
++-------------------+
+| current_timezone()|
++-------------------+
+|America/Los_Angeles|
++-------------------+
+
+To set and unset the timezones, follow the below settings
+
+spark.conf.set("spark.sql.session.timeZone", "America/Los_Angeles")
+
+spark.conf.unset("spark.sql.session.timeZone")
