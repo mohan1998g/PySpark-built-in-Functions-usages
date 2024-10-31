@@ -1,4 +1,4 @@
-pyspark.sql.functions.sign
+pyspark.sql.functions.sign,  pyspark.sql.functions.signum
 
 Computes the signum of the given value.
 
@@ -18,3 +18,11 @@ spark.range(1).select(sign(lit(-5)), sign(lit(6))).show()
 +--------+-------+
 |    -1.0|    1.0|
 +--------+-------+
+
+spark.range(1).select( signum(lit(-5)), signum(lit(6))).show()
+
++----------+---------+
+|SIGNUM(-5)|SIGNUM(6)|
++----------+---------+
+|      -1.0|      1.0|
++----------+---------+
