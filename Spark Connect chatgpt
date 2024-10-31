@@ -1,0 +1,61 @@
+Spark Connect is an interface introduced in Apache Spark 3.4 that enables remote clients to connect to a Spark cluster using a 
+client-server architecture. This allows users to work with Spark from different environments (e.g., Jupyter notebooks, IDEs) 
+by interacting with Spark applications via API calls over network connections.
+
+Here's a list of core Spark SQL functions that Spark Connect supports. 
+These functions can be used in queries or DataFrame operations with Spark Connect:
+
+
+1. Aggregate Functions
+
+avg (or mean)        count        countDistinct        first        last        max        min        sum        approx_count_distinct        
+collect_list        collect_set        cor        covar_pop        covar_samp        kurtosis        skewness        stddev        
+stddev_pop        stddev_samp        var_pop        var_samp        variance        
+
+
+2. Window Functions
+row_number        rank        dense_rank        ntile        lead        lag        percent_rank        cume_dist
+first_value        last_value
+
+
+3. Date and Time Functions
+current_date        current_timestamp        date_format        year, month, dayofmonth, hour, minute, second
+weekofyear        dayofweek        next_day        last_day        months_between        to_date        to_timestamp        add_months
+date_add        date_sub        datediff        from_unixtime        unix_timestamp        
+
+
+4. String Functions
+ascii        base64        concat        concat_ws        decode        encode        format_number        initcap
+instr        length        lower, upper        ltrim, rtrim, trim        regexp_extract        regexp_replace
+split        substring        translate        overlay
+
+
+5. Math Functions
+abs        acos, asin, atan, atan2        bin        ceil        conv        cos, cosh, sin, sinh, tan, tanh
+exp        floor        log, log10, log1p        pow or power        round        sqrt        signum        rand, randn        
+
+
+6. Conditional Functions
+coalesce        fnull, isnull        when, otherwise        greatest, least        nvl        nvl2
+
+
+7. Collection Functions
+array        array_contains        explode        posexplode        size        map        map_keys, map_values
+
+
+8. Data Type Functions
+cast        typeof        isnan
+
+
+9. Miscellaneous Functions
+monotonically_increasing_id        input_file_name        spark_partition_id
+
+
+10. User-Defined Functions (UDFs)
+udf (Python, Scala, or Java UDFs)
+pandas_udf (for vectorized operations with Pandas UDFs)
+Notes
+SQL Expressions: With Spark Connect, you can still execute SQL expressions that combine these functions, 
+just as you would in a typical Spark SQL query.
+PySpark, Scala, Java, and R APIs: Most functions are accessible across all Spark-supported languages, but Spark Connect primarily enhances Python API accessibility, which is commonly used in interactive or notebook environments.
+API Limitations: While Spark Connect is powerful, it is still expanding its functionality, so some specialized operations may require checking Spark Connect’s compatibility in the version being used.
