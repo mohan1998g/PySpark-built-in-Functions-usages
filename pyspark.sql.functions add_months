@@ -1,0 +1,41 @@
+pyspark.sql.functions.add_months
+
+Returns the date that is months months after start. If months is a negative value then these amount of months will be deducted from the start.
+
+Parameters
+start : Column or str
+            date column to work on.
+
+months : Column or str or int
+            how many months after the given date to calculate. Accepts negative value as well to calculate backwards.
+
+Returns : Column
+            a date after/before given number of months.
+
+Examples
+
+df = spark.createDataFrame([('2015-04-08', 2)], ['dt', 'add'])
+
+df.select("dt", add_months(df.dt, 1).alias('next_month')).show()
+
++----------+----------+
+|        dt|next_month|
++----------+----------+
+|2015-04-08|2015-05-08|
++----------+----------+
+
+df.select("dt", add_months(df.dt, df.add.cast('integer')).alias('2_months_added')).show()
+
++----------+--------------+
+|        dt|2_months_added|
++----------+--------------+
+|2015-04-08|    2015-06-08|
++----------+--------------+
+
+df.select("dt", add_months('dt', -2).alias('prev_month')).show()
+
++----------+----------+
+|        dt|prev_month|
++----------+----------+
+|2015-04-08|2015-02-08|
++----------+----------+
