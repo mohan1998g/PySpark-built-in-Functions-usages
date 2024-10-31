@@ -1,0 +1,22 @@
+pyspark.sql.functions.month
+
+Extract the month of a given date/timestamp as integer.
+
+Parameters
+col : Column or str
+        target date/timestamp column to work on.
+
+Returns : Column
+        month part of the date/timestamp as integer.
+
+Examples
+
+df = spark.createDataFrame([('2015-04-08',)], ['dt'])
+
+df.select(month('dt').alias('month')).show()
+
++-----+
+|month|
++-----+
+|    4|
++-----+
