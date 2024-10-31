@@ -1,0 +1,34 @@
+pyspark.sql.functions.date_trunc
+
+Returns timestamp truncated to the unit specified by the format.
+
+Parameters
+format : str
+‘year’, ‘yyyy’, ‘yy’ to truncate by year, ‘month’, ‘mon’, ‘mm’ to truncate by month, ‘day’, ‘dd’ to truncate by day, 
+Other options are: ‘microsecond’, ‘millisecond’, ‘second’, ‘minute’, ‘hour’, ‘week’, ‘quarter’
+
+timestamp : Column or str
+input column of values to truncate.
+
+Returns : Column
+truncated timestamp.
+
+Examples
+
+df = spark.createDataFrame([('1997-02-28 05:02:11',)], ['t'])
+
+df.select(date_trunc('year', df.t).alias('year')).show()
+
++-------------------+
+|               year|
++-------------------+
+|1997-01-01 00:00:00|
++-------------------+
+
+df.select(date_trunc('mon', df.t).alias('month')).show()
+
++-------------------+
+|              month|
++-------------------+
+|1997-02-01 00:00:00|
++-------------------+
