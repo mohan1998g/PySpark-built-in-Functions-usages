@@ -1,0 +1,52 @@
+pyspark.sql.functions.hex
+
+Computes hex value of the given column, which could be pyspark.sql.types.StringType, pyspark.sql.types.BinaryType, 
+pyspark.sql.types.IntegerType or pyspark.sql.types.LongType.
+
+Parameters
+col : Column or str
+          target column to work on.
+
+Returns : Column
+          hexadecimal representation of given value as string.
+
+Examples
+
+spark.createDataFrame([('ABC', 3)], ['a', 'b']).select(hex('a'), hex('b')).show()
+
++------+------+
+|hex(a)|hex(b)|
++------+------+
+|414243|     3|
++------+------+
+
+------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.unhex
+
+Inverse of hex. Interprets each pair of characters as a hexadecimal number and converts to the byte representation of number.
+
+Parameters
+col : Column or str
+          target column to work on.
+
+Returns : Column
+          string representation of given hexadecimal value.
+
+Examples
+
+spark.createDataFrame([('414243',)], ['a']).select(unhex('a')).show()
+
++----------+
+|  unhex(a)|
++----------+
+|[41 42 43]|
++----------+
+
+Note: 
+
+A hex value is a number in the hexadecimal number system, which is a base-16 system that uses 16 symbols to represent numbers
+
+Symbols
+
+The symbols used in the hexadecimal system are 0–9 and A–F, where 0–9 represent the same values as in the decimal system, and A–F represent the values 10–15
