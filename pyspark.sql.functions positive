@@ -1,0 +1,24 @@
+pyspark.sql.functions.positive
+
+Returns the value.
+
+Parameters
+col : Column or str
+        input value column.
+
+Returns : Column
+        value.
+
+Examples
+
+df = spark.createDataFrame([(-1,), (0,), (1,)], ['v'])
+
+df.select(positive("v").alias("p")).show()
+
++---+
+|  p|
++---+
+| -1|
+|  0|
+|  1|
++---+
