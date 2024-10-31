@@ -1,4 +1,4 @@
-pyspark.sql.functions.date_add
+pyspark.sql.functions.date_add, pyspark.sql.functions.dateadd
 
 Returns the date that is days days after start. If days is a negative value then these amount of days will be deducted from start.
 
@@ -49,6 +49,27 @@ df.select(date_add(df.dt, df.value.cast('integer')).alias('next_date')).show()
 +----------+
 
 df.select(date_add('dt', -1).alias('prev_date')).show()
++----------+
+| prev_date|
++----------+
+|2015-04-07|
++----------+
+
+df.select(dateadd(df.dt, 1).alias('next_date')).show()
++----------+
+| next_date|
++----------+
+|2015-04-09|
++----------+
+
+df.select(dateadd(df.dt, df.value.cast('integer')).alias('next_date')).show()
++----------+
+| next_date|
++----------+
+|2015-04-10|
++----------+
+
+df.select(dateadd('dt', -1).alias('prev_date')).show()
 +----------+
 | prev_date|
 +----------+
