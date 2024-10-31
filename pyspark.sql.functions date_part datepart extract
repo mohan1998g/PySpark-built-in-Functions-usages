@@ -1,4 +1,4 @@
-pyspark.sql.functions.date_part, pyspark.sql.functions.datepart
+pyspark.sql.functions.date_part, pyspark.sql.functions.datepart, pyspark.sql.functions.extract
 
 Extracts a part of the date/timestamp or interval source.
 
@@ -39,6 +39,21 @@ df.select(
         datepart(lit('D'), 'ts').alias('day'),
         datepart(lit('M'), 'ts').alias('minute'),
         datepart(lit('S'), 'ts').alias('second')
+).show()
+
++----+-----+----+---+------+---------+
+|year|month|week|day|minute|   second|
++----+-----+----+---+------+---------+
+|2015|    4|  15|  8|     8|15.000000|
++----+-----+----+---+------+---------+
+
+df.select(
+    extract(lit('YEAR'), 'ts').alias('year'),
+    extract(lit('month'), 'ts').alias('month'),
+    extract(lit('WEEK'), 'ts').alias('week'),
+    extract(lit('D'), 'ts').alias('day'),
+    extract(lit('M'), 'ts').alias('minute'),
+    extract(lit('S'), 'ts').alias('second')
 ).show()
 
 +----+-----+----+---+------+---------+
