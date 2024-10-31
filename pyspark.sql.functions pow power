@@ -1,4 +1,4 @@
-pyspark.sql.functions.pow
+pyspark.sql.functions.pow, pyspark.sql.functions.power
 
 Returns the value of the first argument raised to the power of the second argument.
 
@@ -12,23 +12,7 @@ col2 : str, Column or float
 Returns : Column
         the base rased to the power the argument.
 
------------------------------------------------------------------------------------------------
-
-pyspark.sql.functions.power
-
-Returns the value of the first argument raised to the power of the second argument.
-
-Parameters
-col1 : str, Column or float
-          the base number.
-
-col2 : str, Column or float
-          the exponent number.
-
-Returns : Column
-          the base rased to the power the argument.
-
------------------------------------------------------------------------------------------------
+Examples 
 
 df = spark.range(1)
 
