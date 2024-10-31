@@ -1,8 +1,10 @@
 pyspark.sql.functions.date_diff
 
-Returns the number of days from start to end.
+Returns the number of days from start to end. 
 
-New in version 3.5.0.
+Syntax : date_diff(d1 , d2) ------>    d2 - d1
+
+It will not give absolute value
 
 Parameters
 end : Column or str
