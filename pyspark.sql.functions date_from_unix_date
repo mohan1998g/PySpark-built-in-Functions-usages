@@ -1,0 +1,22 @@
+pyspark.sql.functions.date_from_unix_date
+
+Create date from the number of days since 1970-01-01.
+
+Parameters
+days : Column or str
+            the target column to work on.
+
+Returns : Column
+            the date from the number of days since 1970-01-01.
+
+Examples
+
+df = spark.range(1)
+
+df.select(date_from_unix_date(lit(1))).show()
+
++----------------------+
+|date_from_unix_date(1)|
++----------------------+
+|            1970-01-02|
++----------------------+
