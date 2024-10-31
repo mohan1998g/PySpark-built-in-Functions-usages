@@ -1,0 +1,18 @@
+pyspark.sql.functions.current_timestamp
+
+Returns the current timestamp at the start of query evaluation as a TimestampType column. All calls of current_timestamp within the same query return the same value.
+
+Returns : Column
+            current date and time.
+
+Examples
+
+df = spark.range(1)
+
+df.select(current_timestamp()).show(truncate=False) 
+
++-----------------------+
+|current_timestamp()    |
++-----------------------+
+|2022-08-26 21:23:22.716|
++-----------------------+
