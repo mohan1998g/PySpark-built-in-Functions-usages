@@ -1,0 +1,28 @@
+pyspark.sql.functions.make_date
+
+Returns a column with a date built from the year, month and day columns.
+
+Parameters
+year : Column or str
+          The year to build the date
+
+month : Column or str
+          The month to build the date
+
+day : Column or str
+          The day to build the date
+
+Returns : Column
+          a date built from given parts.
+
+Examples
+
+df = spark.createDataFrame([(2020, 6, 26)], ['Y', 'M', 'D'])
+
+df.select(make_date(df.Y, df.M, df.D).alias("datefield")).show()
+
++----------+
+| datefield|
++----------+
+|2020-06-26|
++----------+
