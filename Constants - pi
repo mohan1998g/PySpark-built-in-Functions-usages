@@ -1,0 +1,13 @@
+pyspark.sql.functions.pi
+
+Returns Pi.
+
+Examples
+
+spark.range(1).select(pi()).show()
++-----------------+
+|             PI()|
++-----------------+
+|3.141592653589793|
++-----------------+
+
