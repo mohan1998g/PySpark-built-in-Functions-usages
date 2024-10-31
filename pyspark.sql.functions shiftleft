@@ -1,0 +1,23 @@
+pyspark.sql.functions.shiftleft
+
+Shift the given value numBits left.
+
+Parameters
+col : Column or str
+        input column of values to shift.
+
+numBits : int
+        number of bits to shift.
+
+Returns : Column
+        shifted value.
+
+Examples
+
+spark.createDataFrame([(21,)], ['a']).select(shiftleft('a', 1).alias('r')).collect()
+
++---+
+|  r|
++---+
+| 42|
++---+
