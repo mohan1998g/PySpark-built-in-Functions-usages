@@ -1,0 +1,45 @@
+pyspark.sql.functions.array_join
+
+Concatenates the elements of column using the delimiter. Null values are replaced with null_replacement if set, otherwise they are ignored.
+
+
+Parameters
+col : Column or str
+        target column to work on.
+
+delimiter : str
+        delimiter used to concatenate elements
+
+null_replacement : str, optional
+        if set then null values will be replaced by this value
+
+Returns : Column
+        a column of string type. Concatenated values.
+
+Examples
+
+df = spark.createDataFrame([(["a", "b", "c"],), (["a", None],)], ['data'])
+
+df.show()
++---------+
+|     data|
++---------+
+|[a, b, c]|
+|[a, NULL]|
++---------+
+
+df.select(array_join(df.data, ",").alias("joined")).show()
++------+
+|joined|
++------+
+| a,b,c|
+|     a|
++------+
+
+df.select(array_join(df.data, ",", "NULL").alias("joined")).show()
++------+
+|joined|
++------+
+| a,b,c|
+|a,NULL|
++------+
