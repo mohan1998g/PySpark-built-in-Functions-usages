@@ -1,0 +1,30 @@
+pyspark.sql.functions.arrays_overlap
+
+Collection function: returns true if the arrays contain any common non-null element; 
+             if not, returns null if both the arrays are non-empty and any of them contains a null element; 
+                     returns false otherwise.
+
+
+Returns : Column
+          a column of Boolean type.
+
+Examples
+
+df = spark.createDataFrame([(["a", "b"], ["b", "c"]), (["a"], ["b", "c"])], ['x', 'y'])
+
+df.show()
++------+------+
+|     x|     y|
++------+------+
+|[a, b]|[b, c]|
+|   [a]|[b, c]|
++------+------+
+
+df.select(arrays_overlap(df.x, df.y).alias("overlap")).show()
+
++-------+
+|overlap|
++-------+
+|   true|
+|  false|
++-------+
