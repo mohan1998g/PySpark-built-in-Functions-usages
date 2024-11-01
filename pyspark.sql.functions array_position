@@ -1,0 +1,38 @@
+pyspark.sql.functions.array_position
+
+Collection function: Locates the position of the first occurrence of the given value in the given array. Returns null if either of the arguments are null.
+
+Parameters
+col : Column or str
+          target column to work on.
+
+value : Any
+          value to look for.
+
+Returns : Column
+          position of the value in the given array if found and 0 otherwise.
+
+
+Examples
+
+df = spark.createDataFrame([(["c", "b", "a"],), ([],)], ['data'])
+df.show()
++---------+
+|     data|
++---------+
+|[c, b, a]|
+|       []|
++---------+
+
+df.select(array_position(df.data, "a")).show()
++-----------------------+
+|array_position(data, a)|
++-----------------------+
+|                      3|
+|                      0|
++-----------------------+
+
+
+Notes
+
+The position is not zero based, but 1 based index. Returns 0 if the given value could not be found in the array.
