@@ -1,0 +1,38 @@
+pyspark.sql.functions.slice
+
+Collection function: returns an array containing all the elements in x from index start (array indices start at 1, or from the end if start is negative) 
+with the specified length.
+
+Parameters
+x : Column or str
+        column name or column containing the array to be sliced
+
+start : Column or str or int
+        column name, column, or int containing the starting index
+
+length : Column or str or int
+        column name, column, or int containing the length of the slice
+
+Returns : Column
+        a column of array type. Subset of array.
+
+Examples
+
+df = spark.createDataFrame([([1, 2, 3],), ([4, 5],)], ['x'])
+
+df.show()
++---------+
+|        x|
++---------+
+|[1, 2, 3]|
+|   [4, 5]|
++---------+
+
+df.select(slice(df.x, 2, 2).alias("sliced")).show()
++------+
+|sliced|
++------+
+|[2, 3]|
+|   [5]|
++------+
+
