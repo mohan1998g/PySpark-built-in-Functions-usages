@@ -1,0 +1,35 @@
+pyspark.sql.functions.create_map
+
+Creates a new map column.
+
+Parameters
+cols : Column or str
+            column names or Columns that are grouped as key-value pairs, e.g. (key1, value1, key2, value2, …).
+
+Examples
+
+df = spark.createDataFrame([("Alice", 2), ("Bob", 5)], ("name", "age"))
+
+df.show()
++-----+---+
+| name|age|
++-----+---+
+|Alice|  2|
+|  Bob|  5|
++-----+---+
+
+df.select(create_map('name', 'age').alias("map")).show()
++------------+
+|         map|
++------------+
+|{Alice -> 2}|
+|  {Bob -> 5}|
++------------+
+
+df.select(create_map([df.name, df.age]).alias("map")).show()
++------------+
+|         map|
++------------+
+|{Alice -> 2}|
+|  {Bob -> 5}|
++------------+
