@@ -1,0 +1,49 @@
+pyspark.sql.functions.array_append
+
+Collection function: returns an array of the elements in col1 along with the added element in col2 at the last of the array.
+
+Parameters
+col : Column or str
+          name of column containing array
+
+value :
+          a literal value, or a Column expression.
+
+Returns : Column
+          an array of values from first array along with the element.
+
+Examples
+
+from pyspark.sql import Row
+
+df = spark.createDataFrame([Row(c1=["b", "a", "c"], c2="c")])
+
+df.show()
++---------+---+
+|       c1| c2|
++---------+---+
+|[b, a, c]|  c|
++---------+---+
+
+df.select(array_append(df.c1, df.c2)).show()
++--------------------+
+|array_append(c1, c2)|
++--------------------+
+|        [b, a, c, c]|
++--------------------+
+
+df.select(array_append(df.c1, 'x')).show()
++-------------------+
+|array_append(c1, x)|
++-------------------+
+|       [b, a, c, x]|
++-------------------+
+
+print(df.collect())
+[Row(c1=['b', 'a', 'c'], c2='c')]
+
+print(df.select(array_append(df.c1, df.c2)).collect())
+[Row(array_append(c1, c2)=['b', 'a', 'c', 'c'])]
+
+print(df.select(array_append(df.c1, 'x')).collect())
+[Row(array_append(c1, x)=['b', 'a', 'c', 'x'])]
