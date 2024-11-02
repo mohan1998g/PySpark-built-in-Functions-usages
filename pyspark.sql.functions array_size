@@ -1,0 +1,23 @@
+pyspark.sql.functions.array_size
+
+Returns the total number of elements in the array. The function returns null for null input.
+
+Parameters
+col : Column or str
+          target column to compute on.
+
+Returns : Column
+          total number of elements in the array.
+
+Examples
+
+df = spark.createDataFrame([([2, 1, 3],), (None,)], ['data'])
+
+df.select("data", array_size(df.data).alias('r')).show()
+
++---------+----------+
+|     data|array size|
++---------+----------+
+|[2, 1, 3]|         3|
+|     NULL|      NULL|
++---------+----------+
