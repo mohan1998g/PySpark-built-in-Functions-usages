@@ -1,0 +1,106 @@
+In PySpark, array_append and concat both work with arrays but serve different purposes.
+
+
+1. array_append
+The array_append function appends an element to an array column. 
+This function is useful when you want to add a single element to each array in the array column.
+
+from pyspark.sql.functions import array_append
+
+# Example
+df = spark.createDataFrame([([1, 2, 3],)], ["col1"])
+df.select(array_append(df.col1, 4)).show()
+
+Example Output:
+
++-------------------+
+| array_append(col1)|
++-------------------+
+|          [1,2,3,4]|
++-------------------+
+
+
+2. concat
+The concat function combines multiple arrays (or columns) element-wise. 
+It takes multiple arrays and combines them into a single array. This is useful when you want to merge several array columns together.
+
+from pyspark.sql.functions import concat
+
+# Example
+df = spark.createDataFrame([([1, 2, 3], [4, 5])], ["col1", "col2"])
+df.select(concat(df.col1, df.col2)).show()
+Example Output:
+
++----------------+
+| concat(col1, col2)|
++----------------+
+|       [1,2,3,4,5] |
++----------------+
+
+Key Differences
+Operation: array_append adds a single element to an array, while concat combines arrays or array-like columns.
+
+Arguments: array_append takes an array and a single element, whereas concat takes multiple arrays or columns to merge.
+
+Use Cases: Use array_append for adding elements, and concat for merging arrays.
+
+Suppose we have a DataFrame with two columns, each containing an array. 
+We'll show how array_append can add a single element to an array in each row, and how concat can merge the two arrays into a single one.
+
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import array_append, concat, lit
+
+# Initialize Spark session
+spark = SparkSession.builder.appName("ArrayFunctionsExample").getOrCreate()
+
+# Sample DataFrame with array columns
+data = [([1, 2], [3, 4]), ([5, 6], [7, 8])]
+df = spark.createDataFrame(data, ["array_col1", "array_col2"])
+
+# Show the initial DataFrame
+print("Original DataFrame:")
+df.show()
+
+# Using array_append to add a single element (e.g., 9) to 'array_col1'
+df_with_appended = df.withColumn("array_col1_appended", array_append("array_col1", lit(9)))
+print("After array_append:")
+df_with_appended.show()
+
+# Using concat to merge 'array_col1' and 'array_col2' into a single array
+
+df_with_concatenated = df.withColumn("concatenated_array", concat("array_col1", "array_col2"))
+print("After concat:")
+df_with_concatenated.show()
+
+Explanation:
+Data Preparation: We create a DataFrame df with two array columns, array_col1 and array_col2.
+array_append: We add the number 9 to each array in array_col1 using array_append.
+concat: We merge array_col1 and array_col2 into a single array column called concatenated_array using concat.
+Expected Output:
+The show() output should look something like this:
+
+Original DataFrame
+
++----------+----------+
+|array_col1|array_col2|
++----------+----------+
+|   [1, 2] |   [3, 4] |
+|   [5, 6] |   [7, 8] |
++----------+----------+
+
+After array_append
++----------+----------+-----------------+
+|array_col1|array_col2|array_col1_appended|
++----------+----------+-----------------+
+|   [1, 2] |   [3, 4] |        [1, 2, 9] |
+|   [5, 6] |   [7, 8] |        [5, 6, 9] |
++----------+----------+-----------------+
+
+After concat
+
++----------+----------+-----------------+
+|array_col1|array_col2|concatenated_array|
++----------+----------+-----------------+
+|   [1, 2] |   [3, 4] |     [1, 2, 3, 4]|
+|   [5, 6] |   [7, 8] |     [5, 6, 7, 8]|
++----------+----------+-----------------+
