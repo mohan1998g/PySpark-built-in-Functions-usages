@@ -1,0 +1,26 @@
+pyspark.sql.functions.array_remove
+
+Collection function: Remove all elements that equal to element from the given array.
+
+Parameters
+col : Column or str
+        name of column containing array
+
+element :
+        element to be removed from the array
+
+Returns : Column
+        an array excluding given value.
+
+Examples
+
+df = spark.createDataFrame([([1, 2, 3, 1, 1],), ([],)], ['data'])
+
+df.select(array_remove(df.data, 1)).show()
+
++---------------------+
+|array_remove(data, 1)|
++---------------------+
+|               [2, 3]|
+|                   []|
++---------------------+
