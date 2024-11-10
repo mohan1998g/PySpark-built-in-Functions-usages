@@ -1,0 +1,27 @@
+pyspark.sql.functions.array_union
+
+Collection function: returns an array of the elements in the union of col1 and col2, without duplicates.
+
+Parameters
+col1 : Column or str
+            name of column containing array
+
+col2 : Column or str
+            name of column containing array
+
+Returns : Column
+            an array of values in union of two arrays.
+
+Examples
+
+from pyspark.sql import Row
+
+df = spark.createDataFrame([Row(c1=["b", "a", "c"], c2=["c", "d", "a", "f"])])
+
+df.select(array_union(df.c1, df.c2)).show()
+
++-------------------+
+|array_union(c1, c2)|
++-------------------+
+|    [b, a, c, d, f]|
++-------------------+
