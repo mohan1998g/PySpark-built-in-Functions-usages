@@ -1,0 +1,23 @@
+pyspark.sql.functions.array_compact
+
+Collection function: removes null values from the array.
+
+Parameters
+col : Column or str
+            name of column or expression
+
+Returns : Column
+            an array by excluding the null values.
+
+Examples
+
+df = spark.createDataFrame([([1, None, 2, 3],), ([4, 5, None, 4],)], ['data'])
+
+df.select(array_compact(df.data)).show()
+
++-------------------+
+|array_compact(data)|
++-------------------+
+|          [1, 2, 3]|
+|          [4, 5, 4]|
++-------------------+
