@@ -1,0 +1,28 @@
+pyspark.sql.functions.array_prepend
+
+Collection function: Returns an array containing element as well as all elements from array. The new element is positioned at the beginning of the array.
+
+Parameters
+col : Column or str
+        name of column containing array
+
+value :
+        a literal value, or a Column expression.
+
+Returns : Column
+        an array excluding given value.
+
+Examples
+
+df = spark.createDataFrame([([2, 3, 4],), ([],)], ['data'])
+
+df.select(array_prepend(df.data, 1)).show()
+
++----------------------+
+|array_prepend(data, 1)|
++----------------------+
+|          [1, 2, 3, 4]|
+|                   [1]|
++----------------------+
+
+
