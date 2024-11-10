@@ -1,0 +1,24 @@
+pyspark.sql.functions.array_distinct
+
+Collection function: removes duplicate values from the array.
+
+
+Parameters
+col : Column or str
+        name of column or expression
+
+Returns : Column
+        an array of unique values.
+
+Examples
+
+df = spark.createDataFrame([([1, 2, 3, 2],), ([4, 5, 5, 4],)], ['data'])
+
+df.select(array_distinct(df.data)).show()
+
++--------------------+
+|array_distinct(data)|
++--------------------+
+|           [1, 2, 3]|
+|              [4, 5]|
++--------------------+
