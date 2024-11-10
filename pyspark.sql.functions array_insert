@@ -1,0 +1,42 @@
+pyspark.sql.functions.array_insert
+
+Collection function: adds an item into a given array at a specified array index. 
+Array indices start at 1, or start from the end if index is negative. 
+Index above array size appends the array, or prepends the array if index is negative, with ‘null’ elements.
+
+Parameters
+arr : Column or str
+          name of column containing an array
+
+pos : Column or str or int
+          name of Numeric type column indicating position of insertion (starting at index 1, negative position is a start from the back of the array)
+
+value :
+          a literal value, or a Column expression.
+
+Returns : Column
+          an array of values, including the new specified value
+
+Examples
+
+df = spark.createDataFrame(
+        [(['a', 'b', 'c'], 2, 'd'), (['c', 'b', 'a'], -2, 'd')],
+        ['data', 'pos', 'val']
+)
+df.select(array_insert(df.data, df.pos.cast('integer'), df.val).alias('data')).show()
+
++------------+
+|        data|
++------------+
+|[a, d, b, c]|
+|[c, b, d, a]|
++------------+
+
+df.select(array_insert(df.data, 5, 'hello').alias('data')).show(truncate=False)
+
++----------------------+
+|data                  |
++----------------------+
+|[a, b, c, NULL, hello]|
+|[c, b, a, NULL, hello]|
++----------------------+
