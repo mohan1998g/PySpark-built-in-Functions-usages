@@ -10,4 +10,4 @@ make functions
 
 from unix time to window time
 
-https://spark.apache.org/docs/latest/api/python/reference/pyspark.sql/api/pyspark.sql.functions.array_insert.html#pyspark-sql-functions-array-insert
+https://spark.apache.org/docs/latest/api/python/reference/pyspark.sql/api/pyspark.sql.functions.transform.html#pyspark-sql-functions-transform
