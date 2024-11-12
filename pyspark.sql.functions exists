@@ -1,0 +1,28 @@
+pyspark.sql.functions.exists
+
+Returns whether a predicate holds for one or more elements in the array.
+
+Parameters
+col : Column or str
+          name of column or expression
+
+f : function
+          (x: Column) -> Column: ... returning the Boolean expression. 
+          Can use methods of Column, functions defined in pyspark.sql.functions and Scala UserDefinedFunctions. 
+          Python UserDefinedFunctions are not supported (SPARK-27052).
+
+Returns : Column
+          True if “any” element of an array evaluates to True when passed as an argument to given function and False otherwise.
+
+Examples
+
+df = spark.createDataFrame([(1, [1, 2, 3, 4]), (2, [3, -1, 0])],("key", "values"))
+
+df.select(exists("values", lambda x: x < 0).alias("any_negative")).show()
+
++------------+
+|any_negative|
++------------+
+|       false|
+|        true|
++------------+
