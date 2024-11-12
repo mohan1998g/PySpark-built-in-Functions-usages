@@ -1,0 +1,29 @@
+pyspark.sql.functions.get_json_object
+
+Extracts json object from a json string based on json path specified, and returns json string of the extracted json object. 
+It will return null if the input json string is invalid.
+
+Parameters
+col : Column or str
+        string column in json format
+
+path : str
+        path to the json object to extract
+
+Returns : Column
+        string representation of given JSON object value.
+
+Examples
+
+data = [("1", '''{"f1": "value1", "f2": "value2"}'''), ("2", '''{"f1": "value12"}''')]
+
+df = spark.createDataFrame(data, ("key", "jstring"))
+
+df.select(df.key, get_json_object(df.jstring, '$.f1').alias("c0"), get_json_object(df.jstring, '$.f2').alias("c1") ).show()
+
++---+-------+------+
+|key|     c0|    c1|
++---+-------+------+
+|  1| value1|value2|
+|  2|value12|  NULL|
++---+-------+------+
