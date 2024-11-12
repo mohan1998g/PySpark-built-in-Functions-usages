@@ -1,0 +1,22 @@
+pyspark.sql.functions.map_concat
+
+Returns the union of all the given maps.
+
+Parameters
+cols : Column or str
+          column names or Columns
+
+Returns : Column
+          a map of merged entries from other maps.
+
+Examples
+
+from pyspark.sql.functions import map_concat
+df = spark.sql("SELECT map(1, 'a', 2, 'b') as map1, map(3, 'c') as map2")
+
+df.select(map_concat("map1", "map2").alias("map3")).show(truncate=False)
++------------------------+
+|map3                    |
++------------------------+
+|{1 -> a, 2 -> b, 3 -> c}|
++------------------------+
