@@ -1,0 +1,25 @@
+pyspark.sql.functions.schema_of_json
+
+Parses a JSON string and infers its schema in DDL format.
+
+Parameters
+json : Column or str
+            a JSON string or a foldable string column containing a JSON string.
+
+options : dict, optional
+            options to control parsing. accepts the same options as the JSON datasource. See Data Source Option for the version you use.
+
+Returns : Column
+            a string representation of a StructType parsed from given JSON.
+
+Examples
+
+df = spark.range(1)
+
+df.select(schema_of_json(lit('{"a": 0}')).alias("json")).collect()
+[Row(json='STRUCT<a: BIGINT>')]
+
+schema = schema_of_json('{a: 1}', {'allowUnquotedFieldNames':'true'})
+
+df.select(schema.alias("json")).collect()
+[Row(json='STRUCT<a: BIGINT>')]
