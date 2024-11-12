@@ -1,0 +1,55 @@
+pyspark.sql.functions.inline
+
+Explodes an array of structs into a table.
+
+Parameters
+col : Column or str
+        input column of values to explode.
+
+Returns : Column
+        generator expression with the inline exploded result.
+
+Examples
+
+from pyspark.sql import Row
+
+df = spark.createDataFrame([Row(structlist=[Row(a=1, b=2), Row(a=3, b=4)])])
+
+df.select(inline(df.structlist)).show()
+
++---+---+
+|  a|  b|
++---+---+
+|  1|  2|
+|  3|  4|
++---+---+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.inline_outer
+
+Explodes an array of structs into a table. Unlike inline, if the array is null or empty then null is produced for each nested column.
+
+Parameters
+col : Column or str
+        input column of values to explode.
+
+Returns : Column
+        generator expression with the inline exploded result.
+
+Examples
+
+from pyspark.sql import Row
+df = spark.createDataFrame([
+    Row(id=1, structlist=[Row(a=1, b=2), Row(a=3, b=4)]),
+    Row(id=2, structlist=[])
+])
+
+df.select('id', inline_outer(df.structlist)).show()
++---+----+----+
+| id|   a|   b|
++---+----+----+
+|  1|   1|   2|
+|  1|   3|   4|
+|  2|NULL|NULL|
++---+----+----+
