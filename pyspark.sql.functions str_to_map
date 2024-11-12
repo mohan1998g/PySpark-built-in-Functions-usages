@@ -1,0 +1,27 @@
+pyspark.sql.functions.str_to_map
+
+Creates a map after splitting the text into key/value pairs using delimiters. Both pairDelim and keyValueDelim are treated as regular expressions.
+
+Parameters
+text : Column or str
+            Input column or strings.
+
+pairDelim : Column or str, optional
+            delimiter to use to split pair.
+
+keyValueDelim : Column or str, optional
+            delimiter to use to split key/value.
+
+Examples
+
+df = spark.createDataFrame([("a:1,b:2,c:3",)], ["e"])
+df.select(str_to_map(df.e, lit(","), lit(":")).alias('r')).collect()
+[Row(r={'a': '1', 'b': '2', 'c': '3'})]
+
+df = spark.createDataFrame([("a:1,b:2,c:3",)], ["e"])
+df.select(str_to_map(df.e, lit(",")).alias('r')).collect()
+[Row(r={'a': '1', 'b': '2', 'c': '3'})]
+
+df = spark.createDataFrame([("a:1,b:2,c:3",)], ["e"])
+df.select(str_to_map(df.e).alias('r')).collect()
+[Row(r={'a': '1', 'b': '2', 'c': '3'})]
