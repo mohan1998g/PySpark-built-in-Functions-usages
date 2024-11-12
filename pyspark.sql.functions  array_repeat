@@ -1,0 +1,19 @@
+pyspark.sql.functions.array_repeat
+
+Collection function: creates an array containing a column repeated count times.
+
+Parameters
+col : Column or str
+        column name or column that contains the element to be repeated
+
+count : Column or str or int
+        column name, column, or int containing the number of times to repeat the first argument
+
+Returns : Column
+        an array of repeated elements.
+
+Examples
+
+df = spark.createDataFrame([('ab',)], ['data'])
+df.select(array_repeat(df.data, 3).alias('r')).collect()
+[Row(r=['ab', 'ab', 'ab'])]
