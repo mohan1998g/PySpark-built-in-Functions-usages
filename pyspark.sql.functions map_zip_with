@@ -1,0 +1,31 @@
+pyspark.sql.functions.map_zip_with
+
+Merge two given maps, key-wise into a single map using a function.
+
+Parameters
+col1 : Column or str
+            name of the first column or expression
+
+col2 : Column or str
+            name of the second column or expression
+
+f : function
+            a ternary function (k: Column, v1: Column, v2: Column) -> Column... Can use methods of Column, functions defined in pyspark.sql.functions and Scala UserDefinedFunctions. Python UserDefinedFunctions are not supported (SPARK-27052).
+
+Returns : Column
+            zipped map where entries are calculated by applying given function to each pair of arguments.
+
+Examples
+
+df = spark.createDataFrame([
+    (1, {"IT": 24.0, "SALES": 12.00}, {"IT": 2.0, "SALES": 1.4})],
+    ("id", "base", "ratio")
+)
+
+row = df.select(map_zip_with(
+    "base", "ratio", lambda k, v1, v2: round(v1 * v2, 2)).alias("updated_data")
+).head()
+
+print(sorted(row["updated_data"].items()))
+
+[('IT', 48.0), ('SALES', 16.8)]
