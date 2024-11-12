@@ -1,0 +1,30 @@
+pyspark.sql.functions.flatten
+
+Collection function: creates a single array from an array of arrays. If a structure of nested arrays is deeper than two levels, only one level of nesting is removed.
+
+Parameters
+col : Column or str
+          name of column or expression
+
+Returns : Column
+          flattened array.
+
+Examples
+
+df = spark.createDataFrame([([[1, 2, 3], [4, 5], [6]],), ([None, [4, 5]],)], ['data'])
+df.show(truncate=False)
+
++------------------------+
+|data                    |
++------------------------+
+|[[1, 2, 3], [4, 5], [6]]|
+|[NULL, [4, 5]]          |
++------------------------+
+
+df.select(flatten(df.data).alias('r')).show()
++------------------+
+|                 r|
++------------------+
+|[1, 2, 3, 4, 5, 6]|
+|              NULL|
++------------------+
