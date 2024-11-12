@@ -1,0 +1,16 @@
+pyspark.sql.functions.json_object_keys
+
+Returns all the keys of the outermost JSON object as an array. If a valid JSON object is given, all the keys of the outermost object will be returned as an array. If it is any other valid JSON string, an invalid JSON string or an empty string, the function returns null.
+
+Parameters
+col: :class:`~pyspark.sql.Column` or str
+          target column to compute on.
+
+Returns : Column
+          all the keys of the outermost JSON object.
+
+Examples
+
+df = spark.createDataFrame([(None,), ('{}',), ('{"key1":1, "key2":2}',)], ['data'])
+df.select(json_object_keys(df.data).alias('r')).collect()
+[Row(r=None), Row(r=[]), Row(r=['key1', 'key2'])]
