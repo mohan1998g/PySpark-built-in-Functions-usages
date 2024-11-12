@@ -1,0 +1,133 @@
+pyspark.sql.functions.explode
+
+Returns a new row for each element in the given array or map. Uses the default column name col for elements in the array and key and value for elements in the map unless specified otherwise.
+
+Parameters
+col : Column or str
+        target column to work on.
+
+Returns : Column
+        one row per array item or map key value.
+
+Examples
+
+from pyspark.sql import Row
+df = spark.createDataFrame([Row(a=1, intlist=[1,2,3], mapfield={"a": "b"})])
+
+df.select(explode(df.intlist).alias("anInt")).collect()
+[Row(anInt=1), Row(anInt=2), Row(anInt=3)]
+
+df.select(explode(df.mapfield).alias("key", "value")).show()
++---+-----+
+|key|value|
++---+-----+
+|  a|    b|
++---+-----+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.explode_outer
+
+Returns a new row for each element in the given array or map. Unlike explode, if the array/map is null or empty then null is produced. Uses the default column name col for elements in the array and key and value for elements in the map unless specified otherwise.
+
+Parameters
+col : Column or str
+        target column to work on.
+
+Returns : Column
+        one row per array item or map key value.
+
+Examples
+
+df = spark.createDataFrame(
+    [(1, ["foo", "bar"], {"x": 1.0}), (2, [], {}), (3, None, None)],
+    ("id", "an_array", "a_map")
+)
+
+df.select("id", "an_array", explode_outer("a_map")).show()
++---+----------+----+-----+
+| id|  an_array| key|value|
++---+----------+----+-----+
+|  1|[foo, bar]|   x|  1.0|
+|  2|        []|NULL| NULL|
+|  3|      NULL|NULL| NULL|
++---+----------+----+-----+
+
+df.select("id", "a_map", explode_outer("an_array")).show()
++---+----------+----+
+| id|     a_map| col|
++---+----------+----+
+|  1|{x -> 1.0}| foo|
+|  1|{x -> 1.0}| bar|
+|  2|        {}|NULL|
+|  3|      NULL|NULL|
++---+----------+----+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.posexplode
+
+Returns a new row for each element with position in the given array or map. Uses the default column name pos for position, and col for elements in the array and key and value for elements in the map unless specified otherwise.
+
+Parameters
+col : Column or str
+        target column to work on.
+
+Returns : Column
+        one row per array item or map key value including positions as a separate column.
+
+Examples
+
+from pyspark.sql import Row
+df = spark.createDataFrame([Row(a=1, intlist=[1,2,3], mapfield={"a": "b"})])
+
+df.select(posexplode(df.intlist)).collect()
+[Row(pos=0, col=1), Row(pos=1, col=2), Row(pos=2, col=3)]
+
+df.select(posexplode(df.mapfield)).show()
++---+---+-----+
+|pos|key|value|
++---+---+-----+
+|  0|  a|    b|
++---+---+-----+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.posexplode_outer
+
+Returns a new row for each element with position in the given array or map. 
+Unlike posexplode, if the array/map is null or empty then the row (null, null) is produced. 
+Uses the default column name pos for position, and col for elements in the array and key and value for elements in the map unless specified otherwise.
+
+Parameters
+col : Column or str
+        target column to work on.
+
+Returns : Column
+        one row per array item or map key value including positions as a separate column.
+
+Examples
+
+df = spark.createDataFrame(
+    [(1, ["foo", "bar"], {"x": 1.0}), (2, [], {}), (3, None, None)],
+    ("id", "an_array", "a_map")
+)
+
+df.select("id", "an_array", posexplode_outer("a_map")).show()
++---+----------+----+----+-----+
+| id|  an_array| pos| key|value|
++---+----------+----+----+-----+
+|  1|[foo, bar]|   0|   x|  1.0|
+|  2|        []|NULL|NULL| NULL|
+|  3|      NULL|NULL|NULL| NULL|
++---+----------+----+----+-----+
+
+df.select("id", "a_map", posexplode_outer("an_array")).show()
++---+----------+----+----+
+| id|     a_map| pos| col|
++---+----------+----+----+
+|  1|{x -> 1.0}|   0| foo|
+|  1|{x -> 1.0}|   1| bar|
+|  2|        {}|NULL|NULL|
+|  3|      NULL|NULL|NULL|
++---+----------+----+----+
