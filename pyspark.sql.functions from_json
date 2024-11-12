@@ -1,0 +1,57 @@
+pyspark.sql.functions.from_json
+
+Parses a column containing a JSON string into a MapType with StringType as keys type, StructType or ArrayType with the specified schema. 
+Returns null, in the case of an unparseable string.
+
+Parameters
+col : Column or str
+        a column or column name in JSON format
+
+schema : Data Type or str
+        a StructType, ArrayType of StructType or Python string literal with a DDL-formatted string to use when parsing the json column
+
+options : dict, optional
+        options to control parsing. accepts the same options as the json datasource. See Data Source Option for the version you use.
+
+Returns : Column
+        a new column of complex type from given JSON object.
+
+Examples
+
+from pyspark.sql.types import *
+
+data = [(1, '''{"a": 1}''')]
+
+schema = StructType([StructField("a", IntegerType())])
+
+df = spark.createDataFrame(data, ("key", "value"))
+
+df.select(from_json(df.value, schema).alias("json")).collect()
+[Row(json=Row(a=1))]
+
+df.select(from_json(df.value, "a INT").alias("json")).collect()
+[Row(json=Row(a=1))]
+
+df.select(from_json(df.value, "MAP<STRING,INT>").alias("json")).collect()
+[Row(json={'a': 1})]
+
+data = [(1, '''[{"a": 1}]''')]
+
+schema = ArrayType(StructType([StructField("a", IntegerType())]))
+
+df = spark.createDataFrame(data, ("key", "value"))
+
+df.select(from_json(df.value, schema).alias("json")).collect()
+[Row(json=[Row(a=1)])]
+
+schema = schema_of_json(lit('''{"a": 0}'''))
+df.select(from_json(df.value, schema).alias("json")).collect()
+[Row(json=Row(a=None))]
+
+data = [(1, '''[1, 2, 3]''')]
+schema = ArrayType(IntegerType())
+
+df = spark.createDataFrame(data, ("key", "value"))
+
+df.select(from_json(df.value, schema).alias("json")).collect()
+[Row(json=[1, 2, 3])]
