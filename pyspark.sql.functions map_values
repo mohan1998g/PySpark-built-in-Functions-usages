@@ -1,0 +1,23 @@
+pyspark.sql.functions.map_values
+
+Collection function: Returns an unordered array containing the values of the map.
+
+Parameters
+col : Column or str
+        name of column or expression
+
+Returns : Column
+        values of the map as an array.
+
+Examples
+
+from pyspark.sql.functions import map_values
+
+df = spark.sql("SELECT map(1, 'a', 2, 'b') as data")
+
+df.select(map_values("data").alias("values")).show()
++------+
+|values|
++------+
+|[a, b]|
++------+
