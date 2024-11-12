@@ -1,0 +1,22 @@
+pyspark.sql.functions.map_keys
+
+Collection function: Returns an unordered array containing the keys of the map.
+
+Parameters
+col : Column or str
+        name of column or expression
+
+Returns : Column
+        keys of the map as an array.
+
+Examples
+
+from pyspark.sql.functions import map_keys
+df = spark.sql("SELECT map(1, 'a', 2, 'b') as data")
+
+df.select(map_keys("data").alias("keys")).show()
++------+
+|  keys|
++------+
+|[1, 2]|
++------+
