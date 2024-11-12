@@ -1,0 +1,31 @@
+pyspark.sql.functions.arrays_zip
+
+Collection function: Returns a merged array of structs in which the N-th struct contains all N-th values of input arrays. If one of the arrays is shorter than others then resulting struct type value will be a null for missing elements.
+
+Parameters
+cols : Column or str
+        columns of arrays to be merged.
+
+Returns : Column
+        merged array of entries.
+
+Examples
+
+from pyspark.sql.functions import arrays_zip
+df = spark.createDataFrame([([1, 2, 3], [2, 4, 6], [3, 6])], ['vals1', 'vals2', 'vals3'])
+
+df = df.select(arrays_zip(df.vals1, df.vals2, df.vals3).alias('zipped'))
+df.show(truncate=False)
++------------------------------------+
+|zipped                              |
++------------------------------------+
+|[{1, 2, 3}, {2, 4, 6}, {3, 6, NULL}]|
++------------------------------------+
+
+df.printSchema()
+root
+ |-- zipped: array (nullable = true)
+ |    |-- element: struct (containsNull = false)
+ |    |    |-- vals1: long (nullable = true)
+ |    |    |-- vals2: long (nullable = true)
+ |    |    |-- vals3: long (nullable = true)
