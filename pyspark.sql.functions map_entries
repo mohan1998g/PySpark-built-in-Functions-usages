@@ -1,0 +1,30 @@
+pyspark.sql.functions.map_entries
+
+Collection function: Returns an unordered array of all entries in the given map.
+
+Parameters
+col : Column or str
+        name of column or expression
+
+Returns : Column
+        an array of key value pairs as a struct type
+
+Examples
+
+from pyspark.sql.functions import map_entries
+df = spark.sql("SELECT map(1, 'a', 2, 'b') as data")
+
+df = df.select(map_entries("data").alias("entries"))
+df.show()
++----------------+
+|         entries|
++----------------+
+|[{1, a}, {2, b}]|
++----------------+
+
+df.printSchema()
+root
+ |-- entries: array (nullable = false)
+ |    |-- element: struct (containsNull = false)
+ |    |    |-- key: integer (nullable = false)
+ |    |    |-- value: string (nullable = false)
