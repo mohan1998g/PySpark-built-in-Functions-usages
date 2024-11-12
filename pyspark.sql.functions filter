@@ -1,0 +1,38 @@
+pyspark.sql.functions.filter
+
+Returns an array of elements for which a predicate holds in a given array.
+
+Parameters
+col : Column or str
+          name of column or expression
+
+f : function
+          A function that returns the Boolean expression. Can take one of the following forms:
+
+                    Unary (x: Column) -> Column: ...
+
+                    Binary (x: Column, i: Column) -> Column..., where the second argument is
+                    a 0-based index of the element.
+
+          and can use methods of Column, functions defined in pyspark.sql.functions and Scala UserDefinedFunctions. 
+          Python UserDefinedFunctions are not supported (SPARK-27052).
+
+Returns : Column
+          filtered array of elements where given function evaluated to True when passed as an argument.
+
+Examples
+
+df = spark.createDataFrame(
+    [(1, ["2018-09-20",  "2019-02-03", "2019-07-01", "2020-06-01"])],
+    ("key", "values")
+)
+def after_second_quarter(x):
+    return month(to_date(x)) > 6
+
+df.select(filter("values", after_second_quarter).alias("after_second_quarter")).show(truncate=False)
+
++------------------------+
+|after_second_quarter    |
++------------------------+
+|[2018-09-20, 2019-07-01]|
++------------------------+
