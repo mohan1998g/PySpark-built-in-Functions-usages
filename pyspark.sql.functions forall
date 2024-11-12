@@ -1,0 +1,31 @@
+pyspark.sql.functions.forall
+
+Returns whether a predicate holds for every element in the array.
+
+Parameters
+col : Column or str
+        name of column or expression
+
+f : function
+        (x: Column) -> Column: ... returning the Boolean expression. 
+        Can use methods of Column, functions defined in pyspark.sql.functions and Scala UserDefinedFunctions. 
+        Python UserDefinedFunctions are not supported (SPARK-27052).
+
+Returns : Column
+        True if “all” elements of an array evaluates to True when passed as an argument to given function and False otherwise.
+
+Examples
+
+df = spark.createDataFrame(
+    [(1, ["bar"]), (2, ["foo", "bar"]), (3, ["foobar", "foo"])],
+    ("key", "values")
+)
+df.select(forall("values", lambda x: x.rlike("foo")).alias("all_foo")).show()
+
++-------+
+|all_foo|
++-------+
+|  false|
+|  false|
+|   true|
++-------+
