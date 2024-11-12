@@ -1,0 +1,23 @@
+pyspark.sql.functions.schema_of_csv
+
+Parses a CSV string and infers its schema in DDL format.
+
+Parameters
+csv : Column or str
+          a CSV string or a foldable string column containing a CSV string.
+
+options : dict, optional
+          options to control parsing. accepts the same options as the CSV datasource. See Data Source Option for the version you use.
+
+Returns : Column
+          a string representation of a StructType parsed from given CSV.
+
+Examples
+
+df = spark.range(1)
+
+df.select(schema_of_csv(lit('1|a'), {'sep':'|'}).alias("csv")).collect()
+[Row(csv='STRUCT<_c0: INT, _c1: STRING>')]
+
+df.select(schema_of_csv('1|a', {'sep':'|'}).alias("csv")).collect()
+[Row(csv='STRUCT<_c0: INT, _c1: STRING>')]
