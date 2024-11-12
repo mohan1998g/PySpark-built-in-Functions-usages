@@ -1,0 +1,20 @@
+pyspark.sql.functions.shuffle
+
+Collection function: Generates a random permutation of the given array.
+
+Parameters
+col : Column or str
+            name of column or expression
+
+Returns :   Column
+            an array of elements in random order.
+
+Notes
+
+The function is non-deterministic.
+
+Examples
+
+df = spark.createDataFrame([([1, 20, 3, 5],), ([1, 20, None, 3],)], ['data'])
+df.select(shuffle(df.data).alias('s')).collect()  
+[Row(s=[3, 1, 5, 20]), Row(s=[20, None, 3, 1])]
