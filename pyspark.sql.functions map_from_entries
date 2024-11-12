@@ -1,0 +1,22 @@
+pyspark.sql.functions.map_from_entries
+
+Collection function: Converts an array of entries (key value struct types) to a map of values.
+
+Parameters
+col : Column or str
+          name of column or expression
+
+Returns : Column
+          a map created from the given array of entries.
+
+Examples
+
+from pyspark.sql.functions import map_from_entries
+df = spark.sql("SELECT array(struct(1, 'a'), struct(2, 'b')) as data")
+
+df.select(map_from_entries("data").alias("map")).show()
++----------------+
+|             map|
++----------------+
+|{1 -> a, 2 -> b}|
++----------------+
