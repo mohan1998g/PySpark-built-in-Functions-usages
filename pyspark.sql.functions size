@@ -1,0 +1,16 @@
+pyspark.sql.functions.size
+
+Collection function: returns the length of the array or map stored in the column.
+
+Parameters
+col : Column or str
+        name of column or expression
+
+Returns : Column
+        length of the array/map.
+
+Examples
+
+df = spark.createDataFrame([([1, 2, 3],),([1],),([],)], ['data'])
+df.select(size(df.data)).collect()
+[Row(size(data)=3), Row(size(data)=1), Row(size(data)=0)]
