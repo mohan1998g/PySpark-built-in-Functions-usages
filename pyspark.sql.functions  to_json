@@ -1,0 +1,48 @@
+pyspark.sql.functions.to_json
+
+Converts a column containing a StructType, ArrayType or a MapType into a JSON string. Throws an exception, in the case of an unsupported type.
+
+Parameters
+col : Column or str
+          name of column containing a struct, an array or a map.
+
+options : dict, optional
+          options to control converting. accepts the same options as the JSON datasource. See Data Source Option for the version you use. Additionally the function supports the pretty option which enables pretty JSON generation.
+
+Returns : Column
+          JSON object as string column.
+
+Examples
+
+from pyspark.sql import Row
+from pyspark.sql.types import *
+
+data = [(1, Row(age=2, name='Alice'))]
+df = spark.createDataFrame(data, ("key", "value"))
+
+df.select(to_json(df.value).alias("json")).collect()
+[Row(json='{"age":2,"name":"Alice"}')]
+
+data = [(1, [Row(age=2, name='Alice'), Row(age=3, name='Bob')])]
+df = spark.createDataFrame(data, ("key", "value"))
+
+df.select(to_json(df.value).alias("json")).collect()
+[Row(json='[{"age":2,"name":"Alice"},{"age":3,"name":"Bob"}]')]
+
+data = [(1, {"name": "Alice"})]
+df = spark.createDataFrame(data, ("key", "value"))
+
+df.select(to_json(df.value).alias("json")).collect()
+[Row(json='{"name":"Alice"}')]
+
+data = [(1, [{"name": "Alice"}, {"name": "Bob"}])]
+df = spark.createDataFrame(data, ("key", "value"))
+
+df.select(to_json(df.value).alias("json")).collect()
+[Row(json='[{"name":"Alice"},{"name":"Bob"}]')]
+
+data = [(1, ["Alice", "Bob"])]
+df = spark.createDataFrame(data, ("key", "value"))
+
+df.select(to_json(df.value).alias("json")).collect()
+[Row(json='["Alice","Bob"]')]
