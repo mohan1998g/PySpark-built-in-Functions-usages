@@ -1,0 +1,23 @@
+pyspark.sql.functions.cardinality
+
+Collection function: returns the length of the array or map stored in the column.
+
+Parameters
+col : Column or str
+          target column to compute on.
+
+Returns : Column
+          length of the array/map.
+
+Examples
+
+import pyspark.sql.functions as sf
+spark.createDataFrame([([1, 2, 3],),([1],),([],)], ['data']).select(sf.cardinality("data")).show()
+
++-----------------+
+|cardinality(data)|
++-----------------+
+|                3|
+|                1|
+|                0|
++-----------------+
