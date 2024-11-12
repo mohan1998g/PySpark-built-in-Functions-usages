@@ -1,0 +1,16 @@
+pyspark.sql.functions.json_array_length
+
+Returns the number of elements in the outermost JSON array. NULL is returned in case of any other valid JSON string, NULL or an invalid JSON.
+
+Parameters
+col: :class:`~pyspark.sql.Column` or str
+          target column to compute on.
+
+Returns : Column
+          length of json array.
+
+Examples
+
+df = spark.createDataFrame([(None,), ('[1, 2, 3]',), ('[]',)], ['data'])
+df.select(json_array_length(df.data).alias('r')).collect()
+[Row(r=None), Row(r=3), Row(r=0)]
