@@ -1,0 +1,24 @@
+pyspark.sql.functions.map_filter
+
+Returns a map whose key-value pairs satisfy a predicate.
+
+Parameters
+col : Column or str
+          name of column or expression
+
+f : function
+          a binary function (k: Column, v: Column) -> Column... Can use methods of Column, functions defined in pyspark.sql.functions and Scala UserDefinedFunctions. 
+          Python UserDefinedFunctions are not supported (SPARK-27052).
+
+Returns : Column
+          filtered map.
+
+Examples
+
+df = spark.createDataFrame([(1, {"foo": 42.0, "bar": 1.0, "baz": 32.0})], ("id", "data"))
+
+row = df.select(map_filter("data", lambda _, v: v > 30.0).alias("data_filtered")).head()
+
+print(sorted(row["data_filtered"].items()))
+
+[('baz', 32.0), ('foo', 42.0)]
