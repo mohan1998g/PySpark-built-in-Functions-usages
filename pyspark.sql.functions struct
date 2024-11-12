@@ -1,0 +1,20 @@
+pyspark.sql.functions.struct
+
+Creates a new struct column.
+
+Parameters
+cols : list, set, str or Column
+            column names or Columns to contain in the output struct.
+
+Returns : Column
+            a struct type column of given columns.
+
+Examples
+
+df = spark.createDataFrame([("Alice", 2), ("Bob", 5)], ("name", "age"))
+
+df.select(struct('age', 'name').alias("struct")).collect()
+[Row(struct=Row(age=2, name='Alice')), Row(struct=Row(age=5, name='Bob'))]
+
+df.select(struct([df.age, df.name]).alias("struct")).collect()
+[Row(struct=Row(age=2, name='Alice')), Row(struct=Row(age=5, name='Bob'))]
