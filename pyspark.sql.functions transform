@@ -1,0 +1,44 @@
+pyspark.sql.functions.transform
+
+Returns an array of elements after applying a transformation to each element in the input array.
+
+Parameters
+col : Column or str
+          name of column or expression
+
+f : function
+          a function that is applied to each element of the input array. Can take one of the following forms:
+
+                      Unary (x: Column) -> Column: ...
+
+                      Binary (x: Column, i: Column) -> Column..., where the second argument is
+                      a 0-based index of the element.
+
+          and can use methods of Column, functions defined in pyspark.sql.functions and Scala UserDefinedFunctions. 
+          Python UserDefinedFunctions are not supported (SPARK-27052).
+
+Returns : Column
+          a new array of transformed elements.
+
+Examples
+
+df = spark.createDataFrame([(1, [1, 2, 3, 4])], ("key", "values"))
+
+df.select(transform("values", lambda x: x * 2).alias("doubled")).show()
+
++------------+
+|     doubled|
++------------+
+|[2, 4, 6, 8]|
++------------+
+
+def alternate(x, i):
+    return when(i % 2 == 0, x).otherwise(-x)
+
+df.select(transform("values", alternate).alias("alternated")).show()
+
++--------------+
+|    alternated|
++--------------+
+|[1, -2, 3, -4]|
++--------------+
