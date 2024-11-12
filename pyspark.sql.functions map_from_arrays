@@ -1,0 +1,34 @@
+pyspark.sql.functions.map_from_arrays
+
+Creates a new map from two arrays.
+
+Parameters
+col1 : Column or str
+              name of column containing a set of keys. All elements should not be null
+
+col2 : Column or str
+              name of column containing a set of values
+
+Returns : Column
+              a column of map type.
+
+Examples
+
+df = spark.createDataFrame([([2, 5], ['a', 'b'])], ['k', 'v'])
+
+df = df.select(map_from_arrays(df.k, df.v).alias("col"))
+
+df.show()
+
++----------------+
+|             col|
++----------------+
+|{2 -> a, 5 -> b}|
++----------------+
+
+df.printSchema()
+
+root
+ |-- col: map (nullable = true)
+ |    |-- key: long
+ |    |-- value: string (valueContainsNull = true)
