@@ -1,0 +1,31 @@
+pyspark.sql.functions.map_contains_key
+
+Returns true if the map contains the key.
+
+Parameters
+col : Column or str
+          name of column or expression
+
+value :
+          a literal value
+
+Returns : Column
+          True if key is in the map and False otherwise.
+
+Examples
+
+from pyspark.sql.functions import map_contains_key
+df = spark.sql("SELECT map(1, 'a', 2, 'b') as data")
+df.select(map_contains_key("data", 1)).show()
++---------------------------------+
+|array_contains(map_keys(data), 1)|
++---------------------------------+
+|                             true|
++---------------------------------+
+
+df.select(map_contains_key("data", -1)).show()
++----------------------------------+
+|array_contains(map_keys(data), -1)|
++----------------------------------+
+|                             false|
++----------------------------------+
