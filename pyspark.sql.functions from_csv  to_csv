@@ -34,3 +34,28 @@ df = spark.createDataFrame(data, ("value",))
 options = {'ignoreLeadingWhiteSpace': True}
 df.select(from_csv(df.value, "s string", options).alias("csv")).collect()
 [Row(csv=Row(s='abc'))]
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.to_csv
+
+Converts a column containing a StructType into a CSV string. Throws an exception, in the case of an unsupported type.
+
+Parameters
+col : Column or str
+          name of column containing a struct.
+
+options: dict, optional
+          options to control converting. accepts the same options as the CSV datasource. See Data Source Option for the version you use.
+
+Returns : Column
+          a CSV string converted from given StructType.
+
+Examples
+
+from pyspark.sql import Row
+data = [(1, Row(age=2, name='Alice'))]
+df = spark.createDataFrame(data, ("key", "value"))
+
+df.select(to_csv(df.value).alias("csv")).collect()
+[Row(csv='2,Alice')]
