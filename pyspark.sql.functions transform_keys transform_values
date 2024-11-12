@@ -1,0 +1,50 @@
+pyspark.sql.functions.transform_keys
+
+Applies a function to every key-value pair in a map and returns a map with the results of those applications as the new keys for the pairs.
+
+Parameters
+col : Column or str
+          name of column or expression
+
+f : function
+          a binary function (k: Column, v: Column) -> Column... Can use methods of Column, functions defined in pyspark.sql.functions and Scala UserDefinedFunctions. 
+          Python UserDefinedFunctions are not supported (SPARK-27052).
+
+Returns : Column
+          a new map of enties where new keys were calculated by applying given function to each key value argument.
+
+Examples
+
+df = spark.createDataFrame([(1, {"foo": -2.0, "bar": 2.0})], ("id", "data"))
+
+row = df.select(transform_keys("data", lambda k, _: upper(k)).alias("data_upper")).head()
+
+print(sorted(row["data_upper"].items()))
+
+[('BAR', 2.0), ('FOO', -2.0)]
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.transform_values
+
+Applies a function to every key-value pair in a map and returns a map with the results of those applications as the new values for the pairs.
+
+Parameters
+col :  Column or str
+          name of column or expression
+
+f : function
+          a binary function (k: Column, v: Column) -> Column... Can use methods of Column, functions defined in pyspark.sql.functions and Scala UserDefinedFunctions. Python UserDefinedFunctions are not supported (SPARK-27052).
+
+Returns : Column
+          a new map of enties where new values were calculated by applying given function to each key value argument.
+
+Examples
+
+df = spark.createDataFrame([(1, {"IT": 10.0, "SALES": 2.0, "OPS": 24.0})], ("id", "data"))
+
+row = df.select(transform_values("data", lambda k, v: when(k.isin("IT", "OPS"), v + 10.0).otherwise(v)).alias("new_data")).head()
+
+print(sorted(row["new_data"].items()))
+
+[('IT', 20.0), ('OPS', 34.0), ('SALES', 2.0)]
