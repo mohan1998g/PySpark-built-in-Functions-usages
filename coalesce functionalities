@@ -4,7 +4,7 @@ pyspark.sql.functions.coalesce                     Returns the first column that
 pyspark.RDD.coalesce                               Return a new RDD that is reduced into numPartitions partitions.
 pyspark.sql.DataFrame.coalesce                     Returns a new DataFrame that has exactly numPartitions partitions.
 
-
+---------------------------------------------------------------------------------------------------------------------------------------------------
 
 pyspark.sql.functions.coalesce
 Returns the first column that is not null.
@@ -28,6 +28,7 @@ cDf.show()
 |   1|NULL|
 |NULL|   2|
 +----+----+
+
 cDf.select(coalesce(cDf["a"], cDf["b"])).show()
 +--------------+
 |coalesce(a, b)|
@@ -36,6 +37,7 @@ cDf.select(coalesce(cDf["a"], cDf["b"])).show()
 |             1|
 |             2|
 +--------------+
+
 cDf.select('*', coalesce(cDf["a"], lit(0.0))).show()
 +----+----+----------------+
 |   a|   b|coalesce(a, 0.0)|
@@ -45,6 +47,7 @@ cDf.select('*', coalesce(cDf["a"], lit(0.0))).show()
 |NULL|   2|             0.0|
 +----+----+----------------+
 
+---------------------------------------------------------------------------------------------------------------------------------------------------
 
 pyspark.RDD.coalesce
 Return a new RDD that is reduced into numPartitions partitions.
@@ -66,6 +69,7 @@ sc.parallelize([1, 2, 3, 4, 5], 3).glom().collect()
 sc.parallelize([1, 2, 3, 4, 5], 3).coalesce(1).glom().collect()
 [[1, 2, 3, 4, 5]]
 
+---------------------------------------------------------------------------------------------------------------------------------------------------
 
 pyspark.sql.DataFrame.coalesce
 Returns a new DataFrame that has exactly numPartitions partitions.
