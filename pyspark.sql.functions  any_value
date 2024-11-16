@@ -1,0 +1,35 @@
+pyspark.sql.functions.any_value
+
+Returns some value of col for a group of rows.
+
+Parameters
+col : Column or str
+            target column to work on.
+
+ignorenulls : Column or bool
+            if first value is null then look for first non-null value.
+
+Returns : Column
+            some value of col for a group of rows.
+
+Examples
+
+df = spark.createDataFrame([(None, 1),
+                            ("a", 2),
+                            ("a", 3),
+                            ("b", 8),
+                            ("b", 2)], ["c1", "c2"])
+
+df.select(any_value('c1'), any_value('c2')).show()
++-------------+-------------+
+|any_value(c1)|any_value(c2)|
++-------------+-------------+
+|         NULL|            1|
++-------------+-------------+
+
+df.select(any_value('c1', True), any_value('c2', True)).show()
++-------------+-------------+
+|any_value(c1)|any_value(c2)|
++-------------+-------------+
+|            a|            1|
++-------------+-------------+
