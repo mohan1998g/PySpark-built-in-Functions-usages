@@ -1,0 +1,29 @@
+pyspark.sql.functions.corr
+
+Returns a new Column for the Pearson Correlation Coefficient for col1 and col2.
+
+Parameters
+col1 : Column or str
+            first column to calculate correlation.
+
+col1 : Column or str
+            second column to calculate correlation.
+
+Returns : Column
+            Pearson Correlation Coefficient of these two column values.
+
+Examples
+
+a = range(20)
+
+b = [2 * x for x in range(20)]
+
+df = spark.createDataFrame(zip(a, b), ["a", "b"])
+
+df.agg(corr("a", "b").alias('c')).show()
+
++---+
+|  c|
++---+
+|1.0|
++---+
