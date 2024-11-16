@@ -1,0 +1,71 @@
+pyspark.sql.functions.years
+
+Partition transform function: A transform for timestamps and dates to partition data into years.
+
+Parameters
+col : Column or str
+        target date or timestamp column to work on.
+
+Returns : Column
+        data partitioned by years.
+
+Examples
+
+df.writeTo("catalog.db.table").partitionedBy(years("ts")).createOrReplace()
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.months
+
+Partition transform function: A transform for timestamps and dates to partition data into months.
+
+Parameters
+col : Column or str
+        target date or timestamp column to work on.
+
+Returns : Column
+        data partitioned by months.
+
+Examples
+
+df.writeTo("catalog.db.table").partitionedBy(months("ts")).createOrReplace()  
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.days
+
+Partition transform function: A transform for timestamps and dates to partition data into days.
+
+Parameters
+col : Column or str
+        target date or timestamp column to work on.
+
+Returns : Column
+        data partitioned by days.
+
+Examples
+
+df.writeTo("catalog.db.table").partitionedBy(days("ts")).createOrReplace()
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.hours
+
+Partition transform function: A transform for timestamps to partition data into hours.
+
+Parameters
+col : Column or str
+        target date or timestamp column to work on.
+
+Returns : Column
+        data partitioned by hours.
+
+Examples
+
+df.writeTo("catalog.db.table").partitionedBy(hours("ts")).createOrReplace()
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+Notes
+
+All these functions can be used only in combination with partitionedBy() method of the DataFrameWriterV2.
