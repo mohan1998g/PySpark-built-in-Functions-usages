@@ -66,6 +66,23 @@ df.writeTo("catalog.db.table").partitionedBy(hours("ts")).createOrReplace()
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 
+pyspark.sql.functions.bucket
+
+Partition transform function: A transform for any type that partitions by a hash of the input column.
+
+Parameters
+col : Column or str
+        target date or timestamp column to work on.
+
+Returns : Column
+        data partitioned by given columns.
+
+Examples
+
+df.writeTo("catalog.db.table").partitionedBy(bucket(42, "ts")).createOrReplace()
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
 Notes
 
 All these functions can be used only in combination with partitionedBy() method of the DataFrameWriterV2.
