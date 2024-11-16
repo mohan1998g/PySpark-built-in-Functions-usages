@@ -1,0 +1,22 @@
+pyspark.sql.functions.avg
+
+Aggregate function: returns the average of the values in a group.
+
+Parameters
+col : Column or str
+        target column to compute on.
+
+Returns : Column
+        the column for computed results.
+
+Examples
+
+df = spark.range(10)
+
+df.select(avg(col("id"))).show()
+
++-------+
+|avg(id)|
++-------+
+|    4.5|
++-------+
