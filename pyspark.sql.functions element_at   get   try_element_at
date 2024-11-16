@@ -99,3 +99,46 @@ df.select(get(df.data, col("index") - 1)).show()
 +----------------------+
 |                     a|
 +----------------------+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.try_element_at
+
+(array, index) - Returns element of array at given (1-based) index. 
+If Index is 0, Spark will throw an error. If index < 0, accesses elements from the last to the first. 
+The function always returns NULL if the index exceeds the length of the array.
+
+(map, key) - Returns value for given key. The function always returns NULL if the key is not contained in the map.
+
+
+Parameters
+col : Column or str
+          name of column containing array or map
+
+extraction :
+          index to check for in array or key to check for in map
+
+Examples
+
+df = spark.createDataFrame([(["a", "b", "c"],)], ['data'])
+df.select(try_element_at(df.data, lit(1)).alias('r')).show()
++---+
+|  r|
++---+
+|  a|
++---+
+
+df.select(try_element_at(df.data, lit(-1)).alias('r')).show()
++---+
+|  r|
++---+
+|  c|
++---+
+
+df = spark.createDataFrame([({"a": 1.0, "b": 2.0},)], ['data'])
+df.select(try_element_at(df.data, lit("a")).alias('r')).show()
++---+
+|  r|
++---+
+|1.0|
++---+
