@@ -1,0 +1,67 @@
+pyspark.sql.functions.bit_and
+
+Aggregate function: returns the bitwise AND of all non-null input values, or null if none.
+
+Parameters
+col : Column or str
+        target column to compute on.
+
+Returns : Column
+        the bitwise AND of all non-null input values, or null if none.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.bit_or
+
+Aggregate function: returns the bitwise OR of all non-null input values, or null if none.
+
+Parameters
+col : Column or str
+        target column to compute on.
+
+Returns : Column
+        the bitwise OR of all non-null input values, or null if none.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.bit_xor
+
+Aggregate function: returns the bitwise XOR of all non-null input values, or null if none.
+
+Parameters
+col : Column or str
+        target column to compute on.
+
+Returns : Column
+        the bitwise XOR of all non-null input values, or null if none.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+Examples
+
+df = spark.createDataFrame([[1],[1],[2]], ["c"])
+
+df.select(bit_and("c")).show()
++----------+
+|bit_and(c)|
++----------+
+|         0|
++----------+
+
+df = spark.createDataFrame([[1],[1],[2]], ["c"])
+
+df.select(bit_or("c")).show()
++---------+
+|bit_or(c)|
++---------+
+|        3|
++---------+
+
+df = spark.createDataFrame([[1],[1],[2]], ["c"])
+
+df.select(bit_xor("c")).show()
++----------+
+|bit_xor(c)|
++----------+
+|         2|
++----------+
