@@ -1,0 +1,53 @@
+pyspark.sql.functions.collect_list
+
+Aggregate function: returns a list of objects with duplicates.
+
+Parameters
+col : Column or str
+        target column to compute on.
+
+Returns : Column
+        list of objects with duplicates.
+
+Examples
+
+df2 = spark.createDataFrame([(2,), (5,), (5,)], ('age',))
+
+df2.agg(collect_list('age')).show()
+
++-----------------+
+|collect_list(age)|
++-----------------+
+|        [2, 5, 5]|
++-----------------+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.collect_set
+
+Aggregate function: returns a set of objects with duplicate elements eliminated.
+
+Parameters
+col : Column or str
+        target column to compute on.
+
+Returns : Column
+        list of objects with no duplicates.
+
+Examples
+
+df2 = spark.createDataFrame([(2,), (5,), (5,)], ('age',))
+
+df2.agg(array_sort(collect_set('age')).alias('c')).show()
+
++------+
+|     c|
++------+
+|[2, 5]|
++------+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+Notes
+
+The above functions are non-deterministic because the order of collected results depends on the order of the rows which may be non-deterministic after a shuffle.
