@@ -1,0 +1,75 @@
+pyspark.sql.functions.bool_and
+
+Aggregate function: returns true if all values of col are true.
+
+Parameters
+col : Column or str
+        column to check if all values are true.
+
+Returns : Column
+        true if all values of col are true, false otherwise.
+
+Examples
+
+df = spark.createDataFrame([[True], [True], [True]], ["flag"])
+df.select(bool_and("flag")).show()
++--------------+
+|bool_and(flag)|
++--------------+
+|          true|
++--------------+
+
+df = spark.createDataFrame([[True], [False], [True]], ["flag"])
+df.select(bool_and("flag")).show()
++--------------+
+|bool_and(flag)|
++--------------+
+|         false|
++--------------+
+
+df = spark.createDataFrame([[False], [False], [False]], ["flag"])
+df.select(bool_and("flag")).show()
++--------------+
+|bool_and(flag)|
++--------------+
+|         false|
++--------------+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.bool_or
+
+Aggregate function: returns true if at least one value of col is true.
+
+Parameters
+col : Column or str
+        column to check if at least one value is true.
+
+Returns : Column
+        true if at least one value of col is true, false otherwise.
+
+Examples
+
+df = spark.createDataFrame([[True], [True], [True]], ["flag"])
+df.select(bool_or("flag")).show()
++-------------+
+|bool_or(flag)|
++-------------+
+|         true|
++-------------+
+
+df = spark.createDataFrame([[True], [False], [True]], ["flag"])
+df.select(bool_or("flag")).show()
++-------------+
+|bool_or(flag)|
++-------------+
+|         true|
++-------------+
+
+df = spark.createDataFrame([[False], [False], [False]], ["flag"])
+df.select(bool_or("flag")).show()
++-------------+
+|bool_or(flag)|
++-------------+
+|        false|
++-------------+
