@@ -1,0 +1,22 @@
+pyspark.sql.functions.array_agg
+
+Aggregate function: returns a list of objects with duplicates.
+
+Parameters
+col : Column or str
+            target column to compute on.
+
+Returns : Column
+            list of objects with duplicates.
+
+Examples
+
+df = spark.createDataFrame([[1],[1],[2]], ["c"])
+
+df.agg(array_agg('c').alias('r')).collect()
+
++---------+
+|        r|
++---------+
+|[1, 1, 2]|
++---------+
