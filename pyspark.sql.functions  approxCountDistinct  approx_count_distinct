@@ -1,0 +1,29 @@
+pyspark.sql.functions.approxCountDistinct
+
+Deprecated since version 2.1.0: Use approx_count_distinct() instead.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.approx_count_distinct
+
+Aggregate function: returns a new Column for approximate distinct count of column col.
+
+Parameters
+col : Column or str
+        rsdfloat, optional
+        maximum relative standard deviation allowed (default = 0.05). For rsd < 0.01, it is more efficient to use count_distinct()
+
+Returns : Column
+        the column of computed results.
+
+Examples
+
+df = spark.createDataFrame([1,2,2,3], "INT")
+
+df.agg(approx_count_distinct("value").alias('distinct_values')).show()
+
++---------------+
+|distinct_values|
++---------------+
+|              3|
++---------------+
