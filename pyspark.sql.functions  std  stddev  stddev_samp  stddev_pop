@@ -1,0 +1,85 @@
+pyspark.sql.functions.std
+
+Aggregate function: alias for stddev_samp.
+
+Parameters
+col : Column or str
+        target column to compute on.
+
+Returns : Column
+        standard deviation of given column.
+
+Examples
+
+spark.range(6).select(std("id")).show()
++------------------+
+|           std(id)|
++------------------+
+|1.8708286933869...|
++------------------+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.stddev
+
+Aggregate function: alias for stddev_samp.
+
+Parameters
+col : Column or str
+        target column to compute on.
+
+Returns : Column
+        standard deviation of given column.
+
+Examples
+
+spark.range(6).select(stddev("id")).show()
++------------------+
+|        stddev(id)|
++------------------+
+|1.8708286933869...|
++------------------+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.stddev_pop
+
+Aggregate function: returns population standard deviation of the expression in a group.
+
+Parameters
+col : Column or str
+        target column to compute on.
+
+Returns : Column
+        standard deviation of given column.
+
+Examples
+
+spark.range(6).select(stddev_pop("id")).show()
++-----------------+
+|   stddev_pop(id)|
++-----------------+
+|1.707825127659...|
++-----------------+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.stddev_samp
+
+Aggregate function: returns the unbiased sample standard deviation of the expression in a group.
+
+Parameters
+col : Column or str
+        target column to compute on.
+
+Returns : Column
+        standard deviation of given column.
+
+Examples
+
+spark.range(6).select(sf.stddev_samp("id")).show()
++------------------+
+|   stddev_samp(id)|
++------------------+
+|1.8708286933869...|
++------------------+
