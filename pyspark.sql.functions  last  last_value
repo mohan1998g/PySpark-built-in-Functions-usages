@@ -1,0 +1,80 @@
+pyspark.sql.functions.last
+
+Aggregate function: returns the last value in a group.
+
+The function by default returns the last values it sees. 
+It will return the last non-null value it sees when ignoreNulls is set to true. If all values are null, then null is returned.
+
+Parameters
+col : Column or str
+        column to fetch last value for.
+
+ignorenulls : Column or str
+        if last value is null then look for non-null value.    
+
+Returns : Column
+        last value of the group.
+
+Notes
+
+The function is non-deterministic because its results depends on the order of the rows which may be non-deterministic after a shuffle.
+
+Examples
+
+df = spark.createDataFrame([("Alice", 2), ("Bob", 5), ("Alice", None)], ("name", "age"))
+df = df.orderBy(df.age.desc())
+
+df.groupby("name").agg(last("age")).orderBy("name").show()
++-----+---------+
+| name|last(age)|
++-----+---------+
+|Alice|     NULL|
+|  Bob|        5|
++-----+---------+
+
+Now, to ignore any nulls we needs to set ignorenulls to True
+
+df.groupby("name").agg(last("age", ignorenulls=True)).orderBy("name").show()
++-----+---------+
+| name|last(age)|
++-----+---------+
+|Alice|        2|
+|  Bob|        5|
++-----+---------+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.last_value
+
+Returns the last value of col for a group of rows. 
+It will return the last non-null value it sees when ignoreNulls is set to true. If all values are null, then null is returned.
+
+Parameters
+col : Column or str
+        target column to work on.
+
+ignorenulls : Column or bool
+        if first value is null then look for first non-null value.
+
+Returns : Column
+        some value of col for a group of rows.
+
+Examples
+
+spark.createDataFrame(
+    [("a", 1), ("a", 2), ("a", 3), ("b", 8), (None, 2)], ["a", "b"]
+).select(last_value('a'), sf.last_value('b')).show()
++-------------+-------------+
+|last_value(a)|last_value(b)|
++-------------+-------------+
+|         NULL|            2|
++-------------+-------------+
+
+spark.createDataFrame(
+    [("a", 1), ("a", 2), ("a", 3), ("b", 8), (None, 2)], ["a", "b"]
+).select(last_value('a', True), sf.last_value('b', True)).show()
++-------------+-------------+
+|last_value(a)|last_value(b)|
++-------------+-------------+
+|            b|            2|
++-------------+-------------+
