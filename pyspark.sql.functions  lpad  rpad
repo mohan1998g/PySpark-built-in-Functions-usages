@@ -1,0 +1,51 @@
+pyspark.sql.functions.lpad
+
+Left-pad the string column to width len with pad.
+
+Parameters
+col : Column or str
+        target column to work on.
+
+len : int
+        length of the final string.
+
+pad : str
+        chars to prepend.
+
+Returns : Column
+        left padded result.
+
+Examples
+
+df = spark.createDataFrame([('abcd',)], ['s',])
+
+df.select(lpad(df.s, 6, '#').alias('s')).collect()
+
+[Row(s='##abcd')]
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.rpad
+
+Right-pad the string column to width len with pad.
+
+Parameters
+col : Column or str
+        target column to work on.
+
+len : int
+        length of the final string.
+
+pad : str
+        chars to append.
+
+Returns : Column
+        right padded result.
+
+Examples
+
+df = spark.createDataFrame([('abcd',)], ['s',])
+
+df.select(rpad(df.s, 6, '#').alias('s')).collect()
+
+[Row(s='abcd##')]
