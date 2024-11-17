@@ -1,0 +1,36 @@
+pyspark.sql.functions.lcase
+
+Returns str with all characters changed to lowercase.
+
+Parameters
+str : Column or str
+        Input column or strings.
+
+Examples
+
+
+spark.range(1).select(lcase(sf.lit("Spark"))).show()
++------------+
+|lcase(Spark)|
++------------+
+|       spark|
++------------+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.ucase
+
+Returns str with all characters changed to uppercase.
+
+Parameters
+str : Column or str
+        Input column or strings.
+
+Examples
+
+spark.range(1).select(ucase(sf.lit("Spark"))).show()
++------------+
+|ucase(Spark)|
++------------+
+|       SPARK|
++------------+
