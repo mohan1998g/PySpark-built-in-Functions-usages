@@ -1,0 +1,19 @@
+pyspark.sql.functions.concat_ws
+
+Concatenates multiple input string columns together into a single string column, using the given separator.
+
+Parameters
+sep : str
+            words separator.
+
+cols : Column or str
+            list of columns to work on.
+
+Returns : Column
+            string of concatenated words.
+
+Examples
+
+df = spark.createDataFrame([('abcd','123')], ['s', 'd'])
+df.select(concat_ws('-', df.s, df.d).alias('s')).collect()
+[Row(s='abcd-123')]
