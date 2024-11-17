@@ -1,0 +1,16 @@
+pyspark.sql.functions.skewness
+
+Aggregate function: returns the skewness of the values in a group.
+
+Parameters
+col : Column or str
+      target column to compute on.
+
+Returns : Column
+      skewness of given column.
+
+Examples
+
+df = spark.createDataFrame([[1],[1],[2]], ["c"])
+df.select(skewness(df.c)).first()
+Row(skewness(c)=0.70710...)
