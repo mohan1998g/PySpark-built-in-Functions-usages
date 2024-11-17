@@ -1,0 +1,39 @@
+pyspark.sql.functions.character_length
+
+Returns the character length of string data or number of bytes of binary data. 
+The length of string data includes the trailing spaces. 
+The length of binary data includes binary zeros.
+
+Parameters
+str : Column or str
+        Input column or strings.
+
+Examples
+
+spark.range(1).select(character_length(sf.lit("SparkSQL"))).show()
++--------------------------+
+|character_length(SparkSQL)|
++--------------------------+
+|                         8|
++--------------------------+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.char_length
+
+Returns the character length of string data or number of bytes of binary data. 
+The length of string data includes the trailing spaces. 
+The length of binary data includes binary zeros.
+
+Parameters
+str : Column or str
+        Input column or strings.
+
+Examples
+
+spark.range(1).select(char_length(sf.lit("SparkSQL"))).show()
++---------------------+
+|char_length(SparkSQL)|
++---------------------+
+|                    8|
++---------------------+
