@@ -1,0 +1,138 @@
+pyspark.sql.functions.count
+
+Aggregate function: returns the number of items in a group.
+
+Parameters
+col : Column or str
+        target column to compute on.
+
+Returns : Column
+        column for computed results.
+
+Examples
+
+Count by all columns (start), and by a column that does not count None.
+
+df = spark.createDataFrame([(None,), ("a",), ("b",), ("c",)], schema=["alphabets"])
+
+df.select(count(expr("*")), count(df.alphabets)).show()
++--------+----------------+
+|count(1)|count(alphabets)|
++--------+----------------+
+|       4|               3|
++--------+----------------+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.count_distinct
+
+Returns a new Column for distinct count of col or cols.
+
+Parameters
+col : Column or str
+        first column to compute on.
+
+cols : Column or str
+        other columns to compute on.        
+
+Returns : Column
+        distinct values of these two column values.
+
+Examples
+
+from pyspark.sql import types
+
+df1 = spark.createDataFrame([1, 1, 3], types.IntegerType())
+
+df2 = spark.createDataFrame([1, 2], types.IntegerType())
+
+df1.join(df2).show()
++-----+-----+
+|value|value|
++-----+-----+
+|    1|    1|
+|    1|    2|
+|    1|    1|
+|    1|    2|
+|    3|    1|
+|    3|    2|
++-----+-----+
+
+df1.join(df2).select(count_distinct(df1.value, df2.value)).show()
++----------------------------+
+|count(DISTINCT value, value)|
++----------------------------+
+|                           4|
++----------------------------+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.countDistinct
+
+Returns a new Column for distinct count of col or cols.
+
+An alias of count_distinct(), and it is encouraged to use count_distinct() directly.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.count_min_sketch
+
+Returns a count-min sketch of a column with the given esp, confidence and seed. 
+The result is an array of bytes, which can be deserialized to a CountMinSketch before usage. 
+Count-min sketch is a probabilistic data structure used for cardinality estimation using sub-linear space.
+
+Parameters
+col : Column or str
+        target column to compute on.
+
+eps : Column or str
+        relative error, must be positive
+
+confidence : Column or str
+        confidence, must be positive and less than 1.0
+
+seed : Column or str
+        random seed
+
+Returns : Column
+        count-min sketch of the column
+
+Examples
+
+df = spark.createDataFrame([[1], [2], [1]], ['data'])
+df = df.agg(count_min_sketch(df.data, lit(0.5), lit(0.5), lit(1)).alias('sketch'))
+df.select(hex(df.sketch).alias('r')).show(truncate=False)
+
++------------------------------------------------------------------------------------------------------------------------+
+|r                                                                                                                       |
++------------------------------------------------------------------------------------------------------------------------+
+|0000000100000000000000030000000100000004000000005D8D6AB90000000000000000000000000000000200000000000000010000000000000000|
++------------------------------------------------------------------------------------------------------------------------+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.count_if
+
+Returns the number of TRUE values for the col.
+
+Parameters
+col : Column or str
+        target column to work on.
+
+Returns : Column
+        the number of TRUE values for the col.
+
+Examples
+
+df = spark.createDataFrame([("a", 1),
+                            ("a", 2),
+                            ("a", 3),
+                            ("b", 8),
+                            ("b", 2)], ["c1", "c2"])
+df.select(count_if(col('c2') % 2 == 0)).show()
+
++------------------------+
+|count_if(((c2 % 2) = 0))|
++------------------------+
+|                       3|
++------------------------+
