@@ -1,0 +1,15 @@
+pyspark.sql.functions.length
+
+Computes the character length of string data or number of bytes of binary data. The length of character data includes the trailing spaces. The length of binary data includes binary zeros.
+
+Parameters
+col : Column or str
+            target column to work on.
+
+Returns : Column
+            length of the value.
+
+Examples
+
+spark.createDataFrame([('ABC ',)], ['a']).select(length('a').alias('length')).collect()
+[Row(length=4)]
