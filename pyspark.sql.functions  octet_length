@@ -1,0 +1,17 @@
+pyspark.sql.functions.octet_length
+
+Calculates the byte length for the specified string column.
+
+Parameters
+col : Column or str
+        Source column or strings
+
+Returns : Column
+        Byte length of the col
+
+Examples
+
+from pyspark.sql.functions import octet_length
+spark.createDataFrame([('cat',), ( '🐈',)], ['cat']).select(octet_length('cat')).collect()
+    
+[Row(octet_length(cat)=3), Row(octet_length(cat)=4)]
