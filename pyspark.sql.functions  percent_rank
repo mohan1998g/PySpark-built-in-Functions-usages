@@ -1,0 +1,23 @@
+pyspark.sql.functions.percent_rank
+
+Window function: returns the relative rank (i.e. percentile) of rows within a window partition.
+
+Returns : Column
+          the column for calculating relative rank.
+
+Examples
+
+from pyspark.sql import Window, types
+df = spark.createDataFrame([1, 1, 2, 3, 3, 4], types.IntegerType())
+w = Window.orderBy("value")
+df.withColumn("pr", percent_rank().over(w)).show()
++-----+---+
+|value| pr|
++-----+---+
+|    1|0.0|
+|    1|0.0|
+|    2|0.4|
+|    3|0.6|
+|    3|0.6|
+|    4|1.0|
++-----+---+
