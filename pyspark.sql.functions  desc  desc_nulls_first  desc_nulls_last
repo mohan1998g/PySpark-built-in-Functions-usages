@@ -1,0 +1,79 @@
+pyspark.sql.functions.desc
+
+Returns a sort expression based on the descending order of the given column name.
+
+Parameters
+col : Column or str
+        target column to sort by in the descending order.
+
+Returns : Column
+        the column specifying the order.
+
+Examples
+
+Sort by the column ‘id’ in the descending order.
+
+spark.range(5).orderBy(desc("id")).show()
++---+
+| id|
++---+
+|  4|
+|  3|
+|  2|
+|  1|
+|  0|
++---+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.desc_nulls_first
+
+Returns a sort expression based on the descending order of the given column name, and null values appear before non-null values.
+
+Parameters
+col : Column or str
+        target column to sort by in the descending order.
+
+Returns : Column
+        the column specifying the order.
+
+Examples
+
+df1 = spark.createDataFrame([(0, None),
+                             (1, "Bob"),
+                             (2, "Alice")], ["age", "name"])
+df1.sort(desc_nulls_first(df1.name)).show()
++---+-----+
+|age| name|
++---+-----+
+|  0| NULL|
+|  1|  Bob|
+|  2|Alice|
++---+-----+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.desc_nulls_last
+
+Returns a sort expression based on the descending order of the given column name, and null values appear after non-null values.
+
+Parameters
+col : Column or str
+        target column to sort by in the descending order.
+
+Returns : Column
+        the column specifying the order.
+
+Examples
+
+df1 = spark.createDataFrame([(0, None),
+                             (1, "Bob"),
+                             (2, "Alice")], ["age", "name"])
+df1.sort(desc_nulls_last(df1.name)).show()
++---+-----+
+|age| name|
++---+-----+
+|  1|  Bob|
+|  2|Alice|
+|  0| NULL|
++---+-----+
