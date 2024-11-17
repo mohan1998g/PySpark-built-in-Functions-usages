@@ -1,0 +1,58 @@
+pyspark.sql.functions.locate
+
+Locate the position of the first occurrence of substr in a string column, after position pos.
+
+Parameters
+substr : str
+        a string
+
+str : Column or str
+        a Column of pyspark.sql.types.StringType
+
+pos : int, optional
+        start position (zero based)
+
+Returns : Column
+        position of the substring.
+
+Notes
+
+The position is not zero based, but 1 based index. Returns 0 if substr could not be found in str.
+
+Examples
+
+df = spark.createDataFrame([('abcd',)], ['s',])
+df.select(locate('b', df.s, 1).alias('s')).collect()
+[Row(s=2)]
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.position
+
+Returns the position of the first occurrence of substr in str after position start. The given start and return value are 1-based.
+
+Parameters
+substr : Column or str
+        A column of string, substring.
+
+str : Column or str
+        A column of string.
+
+start : Column or str, optional
+        A column of string, start position.
+
+Examples
+
+spark.createDataFrame([("bar", "foobarbar", 5,)], ["a", "b", "c"]).select(position("a", "b", "c")).show()
++-----------------+
+|position(a, b, c)|
++-----------------+
+|                7|
++-----------------+
+
+spark.createDataFrame([("bar", "foobarbar", 5,)], ["a", "b", "c"]).select(sf.position("a", "b")).show()
++-----------------+
+|position(a, b, 1)|
++-----------------+
+|                4|
++-----------------+
