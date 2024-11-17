@@ -1,0 +1,49 @@
+pyspark.sql.functions.base64
+
+Computes the BASE64 encoding of a binary column and returns it as a string column.
+
+Parameters
+col : Column or str
+          target column to work on.
+
+Returns : Column
+          BASE64 encoding of string value.
+
+Examples
+
+df = spark.createDataFrame(["Spark", "PySpark", "Pandas API"], "STRING")
+df.select(base64("value")).show()
++----------------+
+|   base64(value)|
++----------------+
+|        U3Bhcms=|
+|    UHlTcGFyaw==|
+|UGFuZGFzIEFQSQ==|
++----------------+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.unbase64
+
+Decodes a BASE64 encoded string column and returns it as a binary column.
+
+Parameters
+col : Column or str
+          target column to work on.
+
+Returns : Column
+          encoded string value.
+
+Examples
+
+df = spark.createDataFrame(["U3Bhcms=",
+                            "UHlTcGFyaw==",
+                            "UGFuZGFzIEFQSQ=="], "STRING")
+df.select(unbase64("value")).show()
++--------------------+
+|     unbase64(value)|
++--------------------+
+|    [53 70 61 72 6B]|
+|[50 79 53 70 61 7...|
+|[50 61 6E 64 61 7...|
++--------------------+
