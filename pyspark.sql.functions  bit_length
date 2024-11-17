@@ -1,0 +1,18 @@
+pyspark.sql.functions.bit_length
+
+Calculates the bit length for the specified string column.
+
+Parameters
+col : Column or str
+          Source column or strings
+
+Returns : Column
+          Bit length of the col
+
+Examples
+
+from pyspark.sql.functions import bit_length
+
+spark.createDataFrame([('cat',), ( '🐈',)], ['cat']).select(bit_length('cat')).collect()
+
+[Row(bit_length(cat)=24), Row(bit_length(cat)=32)]
