@@ -1,0 +1,21 @@
+pyspark.sql.functions.regr_count
+
+Aggregate function: returns the number of non-null number pairs in a group, where y is the dependent variable and x is the independent variable.
+
+Parameters
+y : Column or str
+        the dependent variable.
+
+x : Column or str
+        the independent variable.
+
+Returns : Column
+        the number of non-null number pairs in a group.
+
+Examples
+
+x = (col("id") % 3).alias("x")
+y = (randn(42) + x * 10).alias("y")
+df = spark.range(0, 1000, 1, 1).select(x, y)
+df.select(regr_count("y", "x")).first()
+Row(regr_count(y, x)=1000)
