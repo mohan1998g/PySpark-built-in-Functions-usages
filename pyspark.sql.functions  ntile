@@ -1,0 +1,43 @@
+pyspark.sql.functions.ntile
+
+Window function: returns the ntile group id (from 1 to n inclusive) in an ordered window partition. For example, if n is 4, the first quarter of the rows will get value 1, the second quarter will get 2, the third quarter will get 3, and the last quarter will get 4.
+
+This is equivalent to the NTILE function in SQL.
+
+Parameters
+n : int
+      an integer
+
+Returns : Column
+      portioned group id.
+
+Examples
+
+from pyspark.sql import Window
+df = spark.createDataFrame([("a", 1),
+                            ("a", 2),
+                            ("a", 3),
+                            ("b", 8),
+                            ("b", 2)], ["c1", "c2"])
+df.show()
++---+---+
+| c1| c2|
++---+---+
+|  a|  1|
+|  a|  2|
+|  a|  3|
+|  b|  8|
+|  b|  2|
++---+---+
+w = Window.partitionBy("c1").orderBy("c2")
+
+df.withColumn("ntile", ntile(2).over(w)).show()
++---+---+-----+
+| c1| c2|ntile|
++---+---+-----+
+|  a|  1|    1|
+|  a|  2|    1|
+|  a|  3|    2|
+|  b|  2|    1|
+|  b|  8|    2|
++---+---+-----+
