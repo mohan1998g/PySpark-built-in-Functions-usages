@@ -1,0 +1,51 @@
+pyspark.sql.functions.sum
+
+Aggregate function: returns the sum of all values in the expression.
+
+Parameters
+col : Column or str
+        target column to compute on.
+
+Returns : Column
+        the column for computed results.
+
+Examples
+
+df = spark.range(10)
+df.select(sum(df["id"])).show()
++-------+
+|sum(id)|
++-------+
+|     45|
++-------+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.sum_distinct
+
+Aggregate function: returns the sum of distinct values in the expression.
+
+Parameters
+col : Column or str
+        target column to compute on.
+
+Returns : Column
+        the column for computed results.
+
+Examples
+
+df = spark.createDataFrame([(None,), (1,), (1,), (2,)], schema=["numbers"])
+df.select(sum_distinct(col("numbers"))).show()
++---------------------+
+|sum(DISTINCT numbers)|
++---------------------+
+|                    3|
++---------------------+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.sumDistinct
+
+Aggregate function: returns the sum of distinct values in the expression.
+
+Deprecated since version 3.2.0: Use sum_distinct() instead.
