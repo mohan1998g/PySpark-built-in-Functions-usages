@@ -1,0 +1,33 @@
+pyspark.sql.functions.some
+
+Aggregate function: returns true if at least one value of col is true.
+
+Parameters
+col : Column or str
+        column to check if at least one value is true.
+
+Returns : Column
+        true if at least one value of col is true, false otherwise.
+
+Examples
+
+spark.createDataFrame([[True], [True], [True]], ["flag"]).select(some("flag")).show()
++----------+
+|some(flag)|
++----------+
+|      true|
++----------+
+
+spark.createDataFrame([[True], [False], [True]], ["flag"]).select(some("flag")).show()
++----------+
+|some(flag)|
++----------+
+|      true|
++----------+
+
+spark.createDataFrame([[False], [False], [False]], ["flag"]).select(sf.some("flag")).show()
++----------+
+|some(flag)|
++----------+
+|     false|
++----------+
