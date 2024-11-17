@@ -1,0 +1,28 @@
+pyspark.sql.functions.rank
+
+Window function: returns the rank of rows within a window partition.
+
+The difference between rank and dense_rank is that dense_rank leaves no gaps in ranking sequence when there are ties. 
+That is, if you were ranking a competition using dense_rank and had three people tie for second place, you would say that all three were in second place and that the next person came in third. Rank would give me sequential numbers, making the person that came in third place (after the ties) would register as coming in fifth.
+
+This is equivalent to the RANK function in SQL.
+
+Returns : Column
+        the column for calculating ranks.
+
+Examples
+
+from pyspark.sql import Window, types
+df = spark.createDataFrame([1, 1, 2, 3, 3, 4], types.IntegerType())
+w = Window.orderBy("value")
+df.withColumn("drank", rank().over(w)).show()
++-----+-----+
+|value|drank|
++-----+-----+
+|    1|    1|
+|    1|    1|
+|    2|    3|
+|    3|    4|
+|    3|    4|
+|    4|    6|
++-----+-----+
