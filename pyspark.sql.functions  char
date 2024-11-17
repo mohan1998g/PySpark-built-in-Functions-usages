@@ -1,0 +1,16 @@
+pyspark.sql.functions.char
+
+Returns the ASCII character having the binary equivalent to col. If col is larger than 256 the result is equivalent to char(col % 256)
+
+Parameters
+col : Column or str
+        Input column or strings.
+
+Examples
+
+spark.range(1).select(char(sf.lit(65))).show()
++--------+
+|char(65)|
++--------+
+|       A|
++--------+
