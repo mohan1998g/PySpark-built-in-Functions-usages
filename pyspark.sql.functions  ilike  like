@@ -1,0 +1,68 @@
+pyspark.sql.functions.ilike
+
+Returns true if str matches pattern with escape case-insensitively, null if any arguments are null, false otherwise. The default escape character is the ‘’.
+
+Parameters
+str : Column or str
+        A string.
+
+pattern : Column or str
+        A string. The pattern is a string which is matched literally, with exception to the following special symbols:
+        _ matches any one character in the input (similar to . in posix regular expressions) % matches zero or more characters in the input 
+        (similar to .* in posix regular expressions) Since Spark 2.0, string literals are unescaped in our SQL parser. 
+        For example, in order to match “bc”, the pattern should be “abc”. When SQL config ‘spark.sql.parser.escapedStringLiterals’ is enabled, 
+        it falls back to Spark 1.6 behavior regarding string literal parsing. For example, 
+        if the config is enabled, the pattern to match “bc” should be “bc”.
+
+escape : Column
+        An character added since Spark 3.0. The default escape character is the ‘’. 
+        If an escape character precedes a special symbol or another escape character, the following character is matched literally. 
+        It is invalid to escape any other character.
+
+Examples
+
+df = spark.createDataFrame([("Spark", "_park")], ['a', 'b'])
+df.select(ilike(df.a, df.b).alias('r')).collect()
+[Row(r=True)]
+
+df = spark.createDataFrame(
+    [("%SystemDrive%/Users/John", "/%SystemDrive/%//Users%")],
+    ['a', 'b']
+)
+df.select(ilike(df.a, df.b, lit('/')).alias('r')).collect()
+[Row(r=True)]
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.like
+
+Returns true if str matches pattern with escape, null if any arguments are null, false otherwise. The default escape character is the ‘’.
+
+Parameters
+str : Column or str
+A string.
+
+pattern : Column or str
+        A string. The pattern is a string which is matched literally, with exception to the following special symbols: 
+        _ matches any one character in the input (similar to . in posix regular expressions) % matches zero or more characters in the input 
+        (similar to .* in posix regular expressions) Since Spark 2.0, string literals are unescaped in our SQL parser. 
+        For example, in order to match “bc”, the pattern should be “abc”. When SQL config ‘spark.sql.parser.escapedStringLiterals’ is enabled, 
+        it falls back to Spark 1.6 behavior regarding string literal parsing. 
+        For example, if the config is enabled, the pattern to match “bc” should be “bc”.
+
+escape : Column
+        An character added since Spark 3.0. The default escape character is the ‘’. 
+        If an escape character precedes a special symbol or another escape character, the following character is matched literally. 
+        It is invalid to escape any other character.
+
+Examples
+
+df = spark.createDataFrame([("Spark", "_park")], ['a', 'b'])
+df.select(like(df.a, df.b).alias('r')).collect()
+[Row(r=True)]
+df = spark.createDataFrame(
+    [("%SystemDrive%/Users/John", "/%SystemDrive/%//Users%")],
+    ['a', 'b']
+)
+df.select(like(df.a, df.b, lit('/')).alias('r')).collect()
+[Row(r=True)]
