@@ -1,0 +1,48 @@
+pyspark.sql.functions.regr_avgx
+
+Aggregate function: returns the average of the independent variable for non-null pairs in a group, 
+where y is the dependent variable and x is the independent variable.
+
+Parameters
+y : Column or str
+        the dependent variable.
+
+x : Column or str
+        the independent variable.
+
+Returns : Column
+        the average of the independent variable for non-null pairs in a group.
+
+Examples
+
+x = (col("id") % 3).alias("x")
+y = (randn(42) + x * 10).alias("y")
+df = spark.range(0, 1000, 1, 1).select(x, y)
++---+--------------------+
+|  x|                   y|
++---+--------------------+
+|  0|   2.384479054241165|
+|  1|  10.192093404129352|
+|  2|  20.733733653328656|
+|  0| -0.5224480195716871|
+|  1|  12.060084179317831|
+|  2|   20.20963383826634|
+|  0|  -0.548526047771831|
+|  1|  11.907968332171668|
+|  2|   19.58294134171013|
+|  0|  1.0872260173387922|
+|  1|  10.952245128862655|
+|  2|  20.851099321073143|
+|  0|-0.14118066384892058|
+|  1|  11.747713204892616|
+|  2|  20.101499268535783|
+|  0|  0.9645306446729486|
+|  1|  11.099625011136304|
+|  2|  19.121528921881442|
+|  0| -0.6581329650674823|
+|  1|   9.473145943186166|
++---+--------------------+
+
+print(df.select(regr_avgx("y", "x")).first())
+Row(regr_avgx(y, x)=0.999)
+
