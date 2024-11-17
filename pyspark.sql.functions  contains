@@ -1,0 +1,34 @@
+pyspark.sql.functions.contains
+
+Returns a boolean. 
+The value is True if right is found inside left. 
+Returns NULL if either input expression is NULL. 
+Otherwise, returns False. 
+Both left or right must be of STRING or BINARY type.
+
+Parameters
+left : Column or str
+        The input column or strings to check, may be NULL.
+
+right : Column or str
+        The input column or strings to find, may be NULL.
+
+Examples
+
+df = spark.createDataFrame([("Spark SQL", "Spark")], ['a', 'b'])
+df.select(contains(df.a, df.b).alias('r')).collect()
+[Row(r=True)]
+
+df = spark.createDataFrame([("414243", "4243",)], ["c", "d"])
+df = df.select(to_binary("c").alias("c"), to_binary("d").alias("d"))
+df.printSchema()
+root
+ |-- c: binary (nullable = true)
+ |-- d: binary (nullable = true)
+
+df.select(contains("c", "d"), contains("d", "c")).show()
++--------------+--------------+
+|contains(c, d)|contains(d, c)|
++--------------+--------------+
+|          true|         false|
++--------------+--------------+
