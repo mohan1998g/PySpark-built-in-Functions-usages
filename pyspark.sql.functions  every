@@ -1,0 +1,36 @@
+pyspark.sql.functions.every
+pyspark.sql.functions.every(col: ColumnOrName) → pyspark.sql.column.Column[source]
+Aggregate function: returns true if all values of col are true.
+
+New in version 3.5.0.
+
+Parameters
+colColumn or str
+column to check if all values are true.
+
+Returns
+Column
+true if all values of col are true, false otherwise.
+
+Examples
+
+spark.createDataFrame([[True], [True], [True]], ["flag"]).select(every("flag")).show()
++-----------+
+|every(flag)|
++-----------+
+|       true|
++-----------+
+
+spark.createDataFrame([[True], [False], [True]], ["flag"]).select(every("flag")).show()
++-----------+
+|every(flag)|
++-----------+
+|      false|
++-----------+
+
+spark.createDataFrame([[False], [False], [False]], ["flag"]).select(every("flag")).show()
++-----------+
+|every(flag)|
++-----------+
+|      false|
++-----------+
