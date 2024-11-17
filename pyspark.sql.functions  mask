@@ -1,0 +1,40 @@
+pyspark.sql.functions.mask
+
+Masks the given string value. This can be useful for creating copies of tables with sensitive information removed.
+
+Parameters
+col: :class:`~pyspark.sql.Column` or str
+          target column to compute on.
+
+upperChar: :class:`~pyspark.sql.Column` or str
+          character to replace upper-case characters with. Specify NULL to retain original character.
+
+lowerChar: :class:`~pyspark.sql.Column` or str
+          character to replace lower-case characters with. Specify NULL to retain original character.
+
+digitChar: :class:`~pyspark.sql.Column` or str
+          character to replace digit characters with. Specify NULL to retain original character.
+
+otherChar: :class:`~pyspark.sql.Column` or str
+          character to replace all other characters with. Specify NULL to retain original character.
+
+Returns : Column
+
+Examples
+
+df = spark.createDataFrame([("AbCD123-@$#",), ("abcd-EFGH-8765-4321",)], ['data'])
+
+df.select(mask(df.data).alias('r')).collect()
+[Row(r='XxXXnnn-@$#'), Row(r='xxxx-XXXX-nnnn-nnnn')]
+
+df.select(mask(df.data, lit('Y')).alias('r')).collect()
+[Row(r='YxYYnnn-@$#'), Row(r='xxxx-YYYY-nnnn-nnnn')]
+
+df.select(mask(df.data, lit('Y'), lit('y')).alias('r')).collect()
+[Row(r='YyYYnnn-@$#'), Row(r='yyyy-YYYY-nnnn-nnnn')]
+
+df.select(mask(df.data, lit('Y'), lit('y'), lit('d')).alias('r')).collect()
+[Row(r='YyYYddd-@$#'), Row(r='yyyy-YYYY-dddd-dddd')]
+
+df.select(mask(df.data, lit('Y'), lit('y'), lit('d'), lit('*')).alias('r')).collect()
+[Row(r='YyYYddd****'), Row(r='yyyy*YYYY*dddd*dddd')]
