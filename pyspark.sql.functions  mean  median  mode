@@ -1,0 +1,79 @@
+pyspark.sql.functions.mean
+
+Aggregate function: returns the average of the values in a group. An alias of avg().
+
+Parameters
+col : Column or str
+        target column to compute on.
+
+Returns : Column
+        the column for computed results.
+
+Examples
+
+df = spark.range(10)
+df.select(mean(df.id)).show()
++-------+
+|avg(id)|
++-------+
+|    4.5|
++-------+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.median
+
+Returns the median of the values in a group.
+
+Parameters
+col : Column or str
+        target column to compute on.
+
+Returns : Column
+        the median of the values in a group.
+
+Examples
+
+df = spark.createDataFrame([
+    ("Java", 2012, 20000), ("dotNET", 2012, 5000),
+    ("Java", 2012, 22000), ("dotNET", 2012, 10000),
+    ("dotNET", 2013, 48000), ("Java", 2013, 30000)],
+    schema=("course", "year", "earnings"))
+
+df.groupby("course").agg(median("earnings")).show()
++------+----------------+
+|course|median(earnings)|
++------+----------------+
+|  Java|         22000.0|
+|dotNET|         10000.0|
++------+----------------+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.mode
+
+Returns the most frequent value in a group.
+
+Parameters
+col : Column or str
+        target column to compute on.
+
+Returns : Column
+        the most frequent value in a group.
+
+Examples
+
+df = spark.createDataFrame([
+    ("Java", 2012, 20000), ("dotNET", 2012, 5000),
+    ("Java", 2012, 20000), ("dotNET", 2012, 5000),
+    ("dotNET", 2013, 48000), ("Java", 2013, 30000)],
+    schema=("course", "year", "earnings"))
+
+df.groupby("course").agg(mode("year")).show()
++------+----------+
+|course|mode(year)|
++------+----------+
+|  Java|      2012|
+|dotNET|      2012|
++------+----------+
+
