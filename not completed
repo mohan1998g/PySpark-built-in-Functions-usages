@@ -10,4 +10,8 @@ make functions
 
 from unix time to window time
 
-https://spark.apache.org/docs/latest/api/python/reference/pyspark.sql/api/pyspark.sql.functions.try_element_at.html#pyspark-sql-functions-try-element-at
+https://spark.apache.org/docs/latest/api/python/reference/pyspark.sql/api/pyspark.sql.functions.histogram_numeric.html#pyspark-sql-functions-histogram-numeric
+
+to
+
+https://spark.apache.org/docs/latest/api/python/reference/pyspark.sql/api/pyspark.sql.functions.hll_union_agg.html#pyspark-sql-functions-hll-union-agg
