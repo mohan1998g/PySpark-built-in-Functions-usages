@@ -1,0 +1,21 @@
+pyspark.sql.functions.repeat
+
+Repeats a string column n times, and returns it as a new string column.
+
+Parameters
+col : Column or str
+        target column to work on.
+
+n : int
+        number of times to repeat value.
+
+Returns : Column
+        string with repeated values.
+
+Examples
+
+df = spark.createDataFrame([('ab',)], ['s',])
+
+df.select(repeat(df.s, 3).alias('s')).collect()
+
+[Row(s='ababab')]
