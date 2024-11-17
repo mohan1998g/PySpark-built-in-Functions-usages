@@ -1,0 +1,51 @@
+pyspark.sql.functions.max
+
+Aggregate function: returns the maximum value of the expression in a group.
+
+Parameters
+col : Column or str
+        target column to compute on.
+
+Returns : Column
+        column for computed results.
+
+Examples
+
+df = spark.range(10)
+df.select(max(col("id"))).show()
++-------+
+|max(id)|
++-------+
+|      9|
++-------+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.max_by
+
+Returns the value associated with the maximum value of ord.
+
+Parameters
+col : Column or str
+        target column to compute on.
+
+ord : Column or str
+        column to be maximized
+
+Returns : Column
+        value associated with the maximum value of ord.
+
+Examples
+
+df = spark.createDataFrame([
+    ("Java", 2012, 20000), ("dotNET", 2012, 5000),
+    ("dotNET", 2013, 48000), ("Java", 2013, 30000)],
+    schema=("course", "year", "earnings"))
+
+df.groupby("course").agg(max_by("year", "earnings")).show()
++------+----------------------+
+|course|max_by(year, earnings)|
++------+----------------------+
+|  Java|                  2013|
+|dotNET|                  2013|
++------+----------------------+
