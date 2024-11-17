@@ -1,0 +1,57 @@
+pyspark.sql.functions.covar_pop
+
+Returns a new Column for the population covariance of col1 and col2.
+
+Parameters
+col1 : Column or str
+        first column to calculate covariance.
+
+col1 : Column or str
+        second column to calculate covariance.
+
+Returns : Column
+        covariance of these two column values.
+
+Examples
+
+a = [1] * 10
+b = [1] * 10
+
+df = spark.createDataFrame(zip(a, b), ["a", "b"])
+
+df.agg(covar_pop("a", "b").alias('c')).show()
++---+
+|  c|
++---+
+|0.0|
++---+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.covar_samp
+
+Returns a new Column for the sample covariance of col1 and col2.
+
+Parameters
+col1 : Column or str
+          first column to calculate covariance.
+
+col1 : Column or str
+          second column to calculate covariance.
+
+Returns : Column
+          sample covariance of these two column values.
+
+Examples
+
+a = [1] * 10
+b = [1] * 10
+
+df = spark.createDataFrame(zip(a, b), ["a", "b"])
+
+df.agg(covar_samp("a", "b").alias('c')).show()
++---+
+|  c|
++---+
+|0.0|
++---+
