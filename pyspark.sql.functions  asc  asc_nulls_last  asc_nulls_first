@@ -1,0 +1,93 @@
+pyspark.sql.functions.asc
+
+Returns a sort expression based on the ascending order of the given column name.
+
+Parameters
+col : Column or str
+        target column to sort by in the ascending order.
+
+Returns : Column
+        the column specifying the order.
+
+Examples
+
+Sort by the column ‘id’ in the descending order.
+
+df = spark.range(5)
+df = df.sort(desc("id"))
+df.show()
++---+
+| id|
++---+
+|  4|
+|  3|
+|  2|
+|  1|
+|  0|
++---+
+Sort by the column ‘id’ in the ascending order.
+
+df.orderBy(asc("id")).show()
++---+
+| id|
++---+
+|  0|
+|  1|
+|  2|
+|  3|
+|  4|
++---+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.asc_nulls_first
+
+Returns a sort expression based on the ascending order of the given column name, and null values return before non-null values.
+
+Parameters
+col : Column or str
+        target column to sort by in the ascending order.
+
+Returns : Column
+        the column specifying the order.
+
+Examples
+
+df1 = spark.createDataFrame([(1, "Bob"),
+                             (0, None),
+                             (2, "Alice")], ["age", "name"])
+df1.sort(asc_nulls_first(df1.name)).show()
++---+-----+
+|age| name|
++---+-----+
+|  0| NULL|
+|  2|Alice|
+|  1|  Bob|
++---+-----+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.asc_nulls_last
+
+Returns a sort expression based on the ascending order of the given column name, and null values appear after non-null values.
+
+Parameters
+col : Column or str
+        target column to sort by in the ascending order.
+
+Returns : Column
+        the column specifying the order.
+
+Examples
+
+df1 = spark.createDataFrame([(0, None),
+                             (1, "Bob"),
+                             (2, "Alice")], ["age", "name"])
+df1.sort(asc_nulls_last(df1.name)).show()
++---+-----+
+|age| name|
++---+-----+
+|  2|Alice|
+|  1|  Bob|
+|  0| NULL|
++---+-----+
