@@ -1,0 +1,26 @@
+pyspark.sql.functions.levenshtein
+
+Computes the Levenshtein distance of the two given strings.
+
+Parameters
+left : Column or str
+        first column value.
+
+right : Column or str
+        second column value.
+
+threshold : int, optional
+        if set when the levenshtein distance of the two given strings less than or equal to a given threshold then return result distance, or -1
+
+Returns : Column
+        Levenshtein distance as integer value.
+
+Examples
+
+df0 = spark.createDataFrame([('kitten', 'sitting',)], ['l', 'r'])
+
+df0.select(levenshtein('l', 'r').alias('d')).collect()
+[Row(d=3)]
+
+df0.select(levenshtein('l', 'r', 2).alias('d')).collect()
+[Row(d=-1)]
