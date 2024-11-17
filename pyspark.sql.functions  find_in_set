@@ -1,0 +1,16 @@
+pyspark.sql.functions.find_in_set
+
+Returns the index (1-based) of the given string (str) in the comma-delimited list (strArray). Returns 0, if the string was not found or if the given string (str) contains a comma.
+
+Parameters
+str : Column or str
+        The given string to be found.
+
+str_array : Column or str
+        The comma-delimited list.
+
+Examples
+
+df = spark.createDataFrame([("ab", "abc,b,ab,c,def")], ['a', 'b'])
+df.select(find_in_set(df.a, df.b).alias('r')).collect()
+[Row(r=3)]
