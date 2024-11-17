@@ -1,0 +1,21 @@
+pyspark.sql.functions.regr_syy
+
+Aggregate function: returns REGR_COUNT(y, x) * VAR_POP(y) for non-null pairs in a group, where y is the dependent variable and x is the independent variable.
+
+Parameters
+y : Column or str
+        the dependent variable.
+
+x : Column or str
+        the independent variable.
+
+Returns : Column
+        REGR_COUNT(y, x) * VAR_POP(y) for non-null pairs in a group.
+
+Examples
+
+x = (col("id") % 3).alias("x")
+y = (randn(42) + x * 10).alias("y")
+df = spark.range(0, 1000, 1, 1).select(x, y)
+df.select(regr_syy("y", "x")).first()
+Row(regr_syy(y, x)=68250.53503811295)
