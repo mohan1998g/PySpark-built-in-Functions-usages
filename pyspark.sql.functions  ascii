@@ -1,0 +1,23 @@
+pyspark.sql.functions.ascii
+
+Computes the numeric value of the first character of the string column.
+
+Parameters
+col : Column or str
+          target column to work on.
+
+Returns : Column
+          numeric value.
+
+Examples
+
+df = spark.createDataFrame(["Spark", "PySpark", "Pandas API"], "STRING")
+
+df.select(ascii("value")).show()
++------------+
+|ascii(value)|
++------------+
+|          83|
+|          80|
+|          80|
++------------+
