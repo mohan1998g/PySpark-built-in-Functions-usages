@@ -1,0 +1,71 @@
+pyspark.sql.functions.lead
+
+Window function: returns the value that is offset rows after the current row, and default if there is less than offset rows after the current row. For example, an offset of one will return the next row at any given point in the window partition.
+
+This is equivalent to the LEAD function in SQL.
+
+Parameters
+col : Column or str
+        name of column or expression
+
+offset : int, optional default 1
+        number of row to extend
+
+default : optional
+        default value
+
+Returns : Column
+        value after current row based on offset.
+
+Examples
+
+from pyspark.sql import Window
+df = spark.createDataFrame([("a", 1),
+                            ("a", 2),
+                            ("a", 3),
+                            ("b", 8),
+                            ("b", 2)], ["c1", "c2"])
+df.show()
++---+---+
+| c1| c2|
++---+---+
+|  a|  1|
+|  a|  2|
+|  a|  3|
+|  b|  8|
+|  b|  2|
++---+---+
+w = Window.partitionBy("c1").orderBy("c2")
+
+df.withColumn("next_value", lead("c2").over(w)).show()
++---+---+----------+
+| c1| c2|next_value|
++---+---+----------+
+|  a|  1|         2|
+|  a|  2|         3|
+|  a|  3|      NULL|
+|  b|  2|         8|
+|  b|  8|      NULL|
++---+---+----------+
+
+df.withColumn("next_value", lead("c2", 1, 0).over(w)).show()
++---+---+----------+
+| c1| c2|next_value|
++---+---+----------+
+|  a|  1|         2|
+|  a|  2|         3|
+|  a|  3|         0|
+|  b|  2|         8|
+|  b|  8|         0|
++---+---+----------+
+
+df.withColumn("next_value", lead("c2", 2, -1).over(w)).show()
++---+---+----------+
+| c1| c2|next_value|
++---+---+----------+
+|  a|  1|         3|
+|  a|  2|        -1|
+|  a|  3|        -1|
+|  b|  2|        -1|
+|  b|  8|        -1|
++---+---+----------+
