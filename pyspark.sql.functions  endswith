@@ -1,0 +1,30 @@
+pyspark.sql.functions.endswith
+
+Returns a boolean. The value is True if str ends with suffix. Returns NULL if either input expression is NULL. Otherwise, returns False. Both str or suffix must be of STRING or BINARY type.
+
+Parameters
+str : Column or str
+        A column of string.
+
+suffix : Column or str
+        A column of string, the suffix.
+
+Examples
+
+df = spark.createDataFrame([("Spark SQL", "Spark",)], ["a", "b"])
+df.select(endswith(df.a, df.b).alias('r')).collect()
+[Row(r=False)]
+
+df = spark.createDataFrame([("414243", "4243",)], ["e", "f"])
+df = df.select(to_binary("e").alias("e"), to_binary("f").alias("f"))
+df.printSchema()
+root
+ |-- e: binary (nullable = true)
+ |-- f: binary (nullable = true)
+
+df.select(endswith("e", "f"), endswith("f", "e")).show()
++--------------+--------------+
+|endswith(e, f)|endswith(f, e)|
++--------------+--------------+
+|          true|         false|
++--------------+--------------+
