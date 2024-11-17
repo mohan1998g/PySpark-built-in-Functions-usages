@@ -1,0 +1,62 @@
+pyspark.sql.functions.variance
+
+Aggregate function: alias for var_samp
+
+Parameters
+col : Column or str
+        target column to compute on.
+
+Returns : Column
+        variance of given column.
+
+Examples
+
+df = spark.range(6)
+df.select(variance(df.id)).show()
++------------+
+|var_samp(id)|
++------------+
+|         3.5|
++------------+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.var_samp
+
+Aggregate function: returns the unbiased sample variance of the values in a group.
+
+Parameters
+col : Column or str
+        target column to compute on.
+
+Returns : Column
+        variance of given column.
+
+Examples
+
+df = spark.range(6)
+df.select(var_samp(df.id)).show()
++------------+
+|var_samp(id)|
++------------+
+|         3.5|
++------------+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.var_pop
+
+Aggregate function: returns the population variance of the values in a group.
+
+Parameters
+col : Column or str
+        target column to compute on.
+
+Returns : Column
+        variance of given column.
+
+Examples
+
+df = spark.range(6)
+df.select(var_pop(df.id)).first()
+Row(var_pop(id)=2.91666...)
