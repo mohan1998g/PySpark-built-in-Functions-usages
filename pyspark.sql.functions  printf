@@ -1,0 +1,20 @@
+pyspark.sql.functions.printf
+
+Formats the arguments in printf-style and returns the result as a string column.
+
+Parameters
+format : Column or str
+            string that can contain embedded format tags and used as result column’s value
+
+cols : Column or str
+            column names or Columns to be used in formatting
+
+Examples
+
+
+spark.createDataFrame([("aa%d%s", 123, "cc",)], ["a", "b", "c"]).select(sf.printf("a", "b", "c")).show()
++---------------+
+|printf(a, b, c)|
++---------------+
+|        aa123cc|
++---------------+
