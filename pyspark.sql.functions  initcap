@@ -1,0 +1,15 @@
+pyspark.sql.functions.initcap
+
+Translate the first letter of each word to upper case in the sentence.
+
+Parameters
+col : Column or str
+          target column to work on.
+
+Returns : Column
+          string with all first letters are uppercase in each word.
+
+Examples
+
+spark.createDataFrame([('ab cd',)], ['a']).select(initcap("a").alias('v')).collect()
+[Row(v='Ab Cd')]
