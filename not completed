@@ -15,3 +15,5 @@ https://spark.apache.org/docs/latest/api/python/reference/pyspark.sql/api/pyspar
 to
 
 https://spark.apache.org/docs/latest/api/python/reference/pyspark.sql/api/pyspark.sql.functions.kurtosis.html#pyspark-sql-functions-kurtosis
+
+https://spark.apache.org/docs/latest/api/python/reference/pyspark.sql/api/pyspark.sql.functions.parse_url.html#pyspark-sql-functions-parse-url
