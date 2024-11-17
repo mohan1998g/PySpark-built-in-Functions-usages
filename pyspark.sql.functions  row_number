@@ -1,0 +1,20 @@
+pyspark.sql.functions.row_number
+
+Window function: returns a sequential number starting at 1 within a window partition.
+
+Returns : Column
+          the column for calculating row numbers.
+
+Examples
+
+from pyspark.sql import Window
+df = spark.range(3)
+w = Window.orderBy(df.id.desc())
+df.withColumn("desc_order", row_number().over(w)).show()
++---+----------+
+| id|desc_order|
++---+----------+
+|  2|         1|
+|  1|         2|
+|  0|         3|
++---+----------+
