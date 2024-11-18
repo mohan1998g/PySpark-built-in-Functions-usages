@@ -1,0 +1,18 @@
+pyspark.sql.functions.to_number
+
+Convert string ‘col’ to a number based on the string format ‘format’. Throws an exception if the conversion fails. The format can consist of the following characters, case insensitive: ‘0’ or ‘9’: Specifies an expected digit between 0 and 9. A sequence of 0 or 9 in the format string matches a sequence of digits in the input string. If the 0/9 sequence starts with 0 and is before the decimal point, it can only match a digit sequence of the same size. Otherwise, if the sequence starts with 9 or is after the decimal point, it can match a digit sequence that has the same or smaller size. ‘.’ or ‘D’: Specifies the position of the decimal point (optional, only allowed once). ‘,’ or ‘G’: Specifies the position of the grouping (thousands) separator (,). There must be a 0 or 9 to the left and right of each grouping separator. ‘col’ must match the grouping separator relevant for the size of the number. ‘′:Specifiesthelocationofthe
+ currency sign. This character may only be specified once. ‘S’ or ‘MI’: Specifies the position of a ‘-‘ or ‘+’ sign (optional, only allowed once at the beginning or end of the format string). Note that ‘S’ allows ‘-‘ but ‘MI’ does not. ‘PR’: Only allowed at the end of the format string; specifies that ‘col’ indicates a negative number with wrapping angled brackets.
+
+Parameters
+col : Column or str
+        Input column or strings.
+
+format : Column or str, optional
+        format to use to convert number values.
+
+Examples
+
+df = spark.createDataFrame([("$78.12",)], ["e"])
+
+df.select(to_number(df.e, lit("$99.99")).alias('r')).collect()
+[Row(r=Decimal('78.12'))]
