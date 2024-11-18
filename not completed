@@ -17,3 +17,10 @@ to
 https://spark.apache.org/docs/latest/api/python/reference/pyspark.sql/api/pyspark.sql.functions.kurtosis.html#pyspark-sql-functions-kurtosis
 
 https://spark.apache.org/docs/latest/api/python/reference/pyspark.sql/api/pyspark.sql.functions.parse_url.html#pyspark-sql-functions-parse-url
+
+
+https://spark.apache.org/docs/latest/api/python/reference/pyspark.sql/api/pyspark.sql.functions.bitmap_bit_position.html#pyspark-sql-functions-bitmap-bit-position
+
+TO
+
+https://spark.apache.org/docs/latest/api/python/reference/pyspark.sql/api/pyspark.sql.functions.java_method.html#pyspark-sql-functions-java-method
