@@ -1,0 +1,94 @@
+pyspark.sql.functions.substr
+
+Returns the substring of str that starts at pos and is of length len, or the slice of byte array that starts at pos and is of length len.
+
+Parameters
+src : Column or str
+        A column of string.
+
+pos : Column or str
+        A column of string, the substring of str that starts at pos.
+
+len : Column or str, optional
+        A column of string, the substring of str is of length len.
+
+Examples
+
+
+spark.createDataFrame([("Spark SQL", 5, 1,)], ["a", "b", "c"]).select(substr("a", "b", "c")).show()
++---------------+
+|substr(a, b, c)|
++---------------+
+|              k|
++---------------+
+
+spark.createDataFrame([("Spark SQL", 5, 1,)], ["a", "b", "c"]).select(substr("a", "b")).show()
++------------------------+
+|substr(a, b, 2147483647)|
++------------------------+
+|                   k SQL|
++------------------------+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.substring
+
+Substring starts at pos and is of length len when str is String type or returns the slice of byte array that starts at pos in byte 
+and is of length len when str is Binary type.
+
+Parameters
+str : Column or str
+        target column to work on.
+
+pos : int
+        starting position in str.
+
+len : int
+        length of chars.
+
+Returns : Column
+        substring of given value.
+
+Notes
+
+The position is not zero based, but 1 based index.
+
+Examples
+
+df = spark.createDataFrame([('abcd',)], ['s',])
+
+df.select(substring(df.s, 1, 2).alias('s')).collect()
+
+[Row(s='ab')]
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.substring_index
+
+Returns the substring from string str before count occurrences of the delimiter delim. 
+If count is positive, everything the left of the final delimiter (counting from left) is returned. 
+If count is negative, every to the right of the final delimiter (counting from the right) is returned. 
+substring_index performs a case-sensitive match when searching for delim.
+
+Parameters
+str : Column or str
+        target column to work on.
+
+delim : str
+        delimiter of values.
+
+count : int
+        number of occurrences.
+
+Returns : Column
+        substring of given value.
+
+Examples
+
+df = spark.createDataFrame([('a.b.c.d',)], ['s'])
+
+df.select(substring_index(df.s, '.', 2).alias('s')).collect()
+[Row(s='a.b')]
+
+df.select(substring_index(df.s, '.', -3).alias('s')).collect()
+[Row(s='b.c.d')]
