@@ -1,0 +1,37 @@
+pyspark.sql.functions.sentences
+
+Splits a string into arrays of sentences, where each sentence is an array of words. 
+The ‘language’ and ‘country’ arguments are optional, and if omitted, the default locale is used.
+
+Parameters
+string : Column or str
+          a string to be split
+
+language : Column or str, optional
+          a language of the locale
+
+country : Column or str, optional
+          a country of the locale
+
+Returns : Column
+          arrays of split sentences.
+
+Examples
+
+df = spark.createDataFrame([["This is an example sentence."]], ["string"])
+
+df.select(sentences(df.string, lit("en"), lit("US"))).show(truncate=False)
++-----------------------------------+
+|sentences(string, en, US)          |
++-----------------------------------+
+|[[This, is, an, example, sentence]]|
++-----------------------------------+
+
+df = spark.createDataFrame([["Hello world. How are you?"]], ["s"])
+
+df.select(sentences("s")).show(truncate=False)
++---------------------------------+
+|sentences(s, , )                 |
++---------------------------------+
+|[[Hello, world], [How, are, you]]|
++---------------------------------+
