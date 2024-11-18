@@ -1,0 +1,24 @@
+pyspark.sql.functions.to_binary
+
+Converts the input col to a binary value based on the supplied format. 
+The format can be a case-insensitive string literal of “hex”, “utf-8”, “utf8”, or “base64”. 
+By default, the binary format for conversion is “hex” if format is omitted. The function returns NULL if at least one of the input parameters is NULL.
+
+Parameters
+col : Column or str
+        Input column or strings.
+
+format : Column or str, optional
+        format to use to convert binary values.
+
+Examples
+
+df = spark.createDataFrame([("abc",)], ["e"])
+
+df.select(to_binary(df.e, lit("utf-8")).alias('r')).collect()
+[Row(r=bytearray(b'abc'))]
+
+df = spark.createDataFrame([("414243",)], ["e"])
+
+df.select(to_binary(df.e).alias('r')).collect()
+[Row(r=bytearray(b'ABC'))]
