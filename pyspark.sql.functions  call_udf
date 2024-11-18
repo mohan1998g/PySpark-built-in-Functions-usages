@@ -1,0 +1,43 @@
+pyspark.sql.functions.call_udf
+
+Call an user-defined function.
+
+Parameters
+udfName : str
+        name of the user defined function (UDF)
+
+cols : Column or str
+        column names or Columns to be used in the UDF
+
+Returns : Column
+        result of executed udf.
+
+Examples
+
+from pyspark.sql.functions import call_udf, col
+
+from pyspark.sql.types import IntegerType, StringType
+
+df = spark.createDataFrame([(1, "a"),(2, "b"), (3, "c")],["id", "name"])
+
+_ = spark.udf.register("intX2", lambda i: i * 2, IntegerType())
+
+df.select(call_udf("intX2", "id")).show()
++---------+
+|intX2(id)|
++---------+
+|        2|
+|        4|
+|        6|
++---------+
+
+_ = spark.udf.register("strX2", lambda s: s * 2, StringType())
+
+df.select(call_udf("strX2", col("name"))).show()
++-----------+
+|strX2(name)|
++-----------+
+|         aa|
+|         bb|
+|         cc|
++-----------+
