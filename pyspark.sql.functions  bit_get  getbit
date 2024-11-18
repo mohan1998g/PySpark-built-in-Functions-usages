@@ -1,0 +1,38 @@
+pyspark.sql.functions.bit_get 
+
+pyspark.sql.functions.getbit
+
+Returns the value of the bit (0 or 1) at the specified position. 
+The positions are numbered from right to left, starting at zero. 
+The position argument cannot be negative.
+
+Parameters
+col : Column or str
+        target column to compute on.
+
+pos : Column or str
+        The positions are numbered from right to left, starting at zero.
+
+Returns : Column
+        the value of the bit (0 or 1) at the specified position.
+
+Examples
+
+spark.createDataFrame([[1], [1], [2]], ["c"]).select(getbit("c", sf.lit(1))).show()
++------------+
+|getbit(c, 1)|
++------------+
+|           0|
+|           0|
+|           1|
++------------+
+
+df = spark.createDataFrame([[1],[1],[2]], ["c"])
+df.select(bit_get("c", lit(1))).show()
++-------------+
+|bit_get(c, 1)|
++-------------+
+|            0|
+|            0|
+|            1|
++-------------+
