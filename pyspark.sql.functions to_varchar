@@ -1,0 +1,19 @@
+pyspark.sql.functions.to_varchar
+
+Convert col to a string based on the format. Throws an exception if the conversion fails. The format can consist of the following characters, case insensitive: ‘0’ or ‘9’: Specifies an expected digit between 0 and 9. A sequence of 0 or 9 in the format string matches a sequence of digits in the input value, generating a result string of the same length as the corresponding sequence in the format string. The result string is left-padded with zeros if the 0/9 sequence comprises more digits than the matching part of the decimal value, starts with 0, and is before the decimal point. Otherwise, it is padded with spaces. ‘.’ or ‘D’: Specifies the position of the decimal point (optional, only allowed once). ‘,’ or ‘G’: Specifies the position of the grouping (thousands) separator (,). There must be a 0 or 9 to the left and right of each grouping separator. ‘′:Specifiesthelocationofthe
+ currency sign. This character may only be specified once. ‘S’ or ‘MI’: Specifies the position of a ‘-‘ or ‘+’ sign (optional, only allowed once at the beginning or end of the format string). Note that ‘S’ prints ‘+’ for positive values but ‘MI’ prints a space. ‘PR’: Only allowed at the end of the format string; specifies that the result string will be wrapped by angle brackets if the input value is negative.
+
+Parameters
+col : Column or str
+          Input column or strings.
+
+format : Column or str, optional
+          format to use to convert char values.
+
+Examples
+
+df = spark.createDataFrame([(78.12,)], ["e"])
+
+df.select(to_varchar(df.e, lit("$99.99")).alias('r')).collect()
+
+[Row(r='$78.12')]
