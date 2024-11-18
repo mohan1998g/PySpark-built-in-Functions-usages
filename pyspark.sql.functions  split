@@ -1,0 +1,32 @@
+pyspark.sql.functions.split
+
+Splits str around matches of the given pattern.
+
+Parameters
+str : Column or str
+        a string expression to split
+
+pattern : str
+        a string representing a regular expression. The regex string should be a Java regular expression.
+
+limit : int, optional
+        an integer which controls the number of times pattern is applied.
+
+        limit > 0: The resulting array’s length will not be more than limit, 
+                   and the resulting array’s last entry will contain all input beyond the last matched pattern.
+
+        limit <= 0: pattern will be applied as many times as possible, and the resulting
+                    array can be of any size.
+
+Returns : Column
+        array of separated strings.
+
+Examples
+
+df = spark.createDataFrame([('oneAtwoBthreeC',)], ['s',])
+
+df.select(split(df.s, '[ABC]', 2).alias('s')).collect()
+[Row(s=['one', 'twoBthreeC'])]
+
+df.select(split(df.s, '[ABC]', -1).alias('s')).collect()
+[Row(s=['one', 'two', 'three', ''])]
