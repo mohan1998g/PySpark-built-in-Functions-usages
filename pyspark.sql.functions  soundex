@@ -1,0 +1,24 @@
+pyspark.sql.functions.soundex
+
+Returns the SoundEx encoding for a string
+
+Parameters
+col : Column or str
+        target column to work on.
+
+Returns : Column
+        SoundEx encoded string.
+
+Examples
+
+df = spark.createDataFrame([("Peters",),("Uhrbach",)], ['name'])
+
+df.select(soundex(df.name).alias("soundex")).show()
+
++-------+
+|soundex|
++-------+
+|   P362|
+|   U612|
++-------+
+
