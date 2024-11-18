@@ -1,0 +1,68 @@
+pyspark.sql.functions.call_function
+
+Call a SQL function.
+
+Parameters
+func : Namestr
+        function name that follows the SQL identifier syntax (can be quoted, can be qualified)
+
+cols : Column or str
+        column names or Columns to be used in the function
+
+Returns : Column
+        result of executed function.
+
+Examples
+
+from pyspark.sql.functions import call_udf, col
+
+from pyspark.sql.types import IntegerType, StringType
+
+df = spark.createDataFrame([(1, "a"),(2, "b"), (3, "c")],["id", "name"])
+
+_ = spark.udf.register("intX2", lambda i: i * 2, IntegerType())
+
+df.select(call_function("intX2", "id")).show()
++---------+
+|intX2(id)|
++---------+
+|        2|
+|        4|
+|        6|
++---------+
+
+_ = spark.udf.register("strX2", lambda s: s * 2, StringType())
+df.select(call_function("strX2", col("name"))).show()
++-----------+
+|strX2(name)|
++-----------+
+|         aa|
+|         bb|
+|         cc|
++-----------+
+
+df.select(call_function("avg", col("id"))).show()
++-------+
+|avg(id)|
++-------+
+|    2.0|
++-------+
+
+_ = spark.sql("CREATE FUNCTION custom_avg AS 'test.org.apache.spark.sql.MyDoubleAvg'")
+
+df.select(call_function("custom_avg", col("id"))).show()
+
++------------------------------------+
+|spark_catalog.default.custom_avg(id)|
++------------------------------------+
+|                               102.0|
++------------------------------------+
+
+df.select(call_function("spark_catalog.default.custom_avg", col("id"))).show()
+
++------------------------------------+
+|spark_catalog.default.custom_avg(id)|
++------------------------------------+
+|                               102.0|
++------------------------------------+
+
