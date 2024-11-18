@@ -1,0 +1,43 @@
+pyspark.sql.Window.partitionBy
+
+Creates a WindowSpec with the partitioning defined.
+
+Parameters
+cols : str, Column or list
+          names of columns or expressions
+
+Returns : class
+          WindowSpec A WindowSpec with the partitioning defined.
+
+Examples
+
+from pyspark.sql import Window
+from pyspark.sql.functions import row_number
+
+df = spark.createDataFrame(
+     [(1, "a"), (1, "a"), (2, "a"), (1, "b"), (2, "b"), (3, "b")], ["id", "category"])
+df.show()
++---+--------+
+| id|category|
++---+--------+
+|  1|       a|
+|  1|       a|
+|  2|       a|
+|  1|       b|
+|  2|       b|
+|  3|       b|
++---+--------+
+Show row number order by id in partition category.
+
+window = Window.partitionBy("category").orderBy("id")
+df.withColumn("row_number", row_number().over(window)).show()
++---+--------+----------+
+| id|category|row_number|
++---+--------+----------+
+|  1|       a|         1|
+|  1|       a|         2|
+|  2|       a|         3|
+|  1|       b|         1|
+|  2|       b|         2|
+|  3|       b|         3|
++---+--------+----------+
