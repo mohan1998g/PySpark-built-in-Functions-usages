@@ -39,3 +39,15 @@ df.groupBy().avg('age', 'height').show()
 +--------+-----------+
 |     5.0|      110.0|
 +--------+-----------+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.GroupedData.mean
+
+Computes average values for each numeric columns for each group.
+
+mean() is an alias for avg().
+
+Parameters
+cols : str
+column names. Non-numeric columns are ignored.
