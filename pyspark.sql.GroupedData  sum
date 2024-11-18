@@ -1,0 +1,39 @@
+pyspark.sql.GroupedData.sum
+
+Computes the sum for each numeric columns for each group.
+
+Parameters
+cols : str
+        column names. Non-numeric columns are ignored.
+
+Examples
+
+df = spark.createDataFrame([
+    (2, "Alice", 80), (3, "Alice", 100),
+    (5, "Bob", 120), (10, "Bob", 140)], ["age", "name", "height"])
+df.show()
++---+-----+------+
+|age| name|height|
++---+-----+------+
+|  2|Alice|    80|
+|  3|Alice|   100|
+|  5|  Bob|   120|
+| 10|  Bob|   140|
++---+-----+------+
+Group-by name, and calculate the sum of the age in each group.
+
+df.groupBy("name").sum("age").sort("name").show()
++-----+--------+
+| name|sum(age)|
++-----+--------+
+|Alice|       5|
+|  Bob|      15|
++-----+--------+
+Calculate the sum of the age and height in all data.
+
+df.groupBy().sum("age", "height").show()
++--------+-----------+
+|sum(age)|sum(height)|
++--------+-----------+
+|      20|        440|
++--------+-----------+
