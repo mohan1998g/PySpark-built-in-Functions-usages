@@ -1,0 +1,23 @@
+pyspark.sql.functions.bit_count
+
+Returns the number of bits that are set in the argument expr as an unsigned 64-bit integer, or NULL if the argument is NULL.
+
+Parameters
+col : Column or str
+        target column to compute on.
+
+Returns : Column
+        the number of bits that are set in the argument expr as an unsigned 64-bit integer, or NULL if the argument is NULL.
+
+Examples
+
+df = spark.createDataFrame([[1],[1],[2]], ["c"])
+
+df.select(bit_count("c")).show()
++------------+
+|bit_count(c)|
++------------+
+|           1|
+|           1|
+|           1|
++------------+
