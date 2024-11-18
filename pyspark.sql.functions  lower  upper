@@ -1,0 +1,48 @@
+pyspark.sql.functions.lower
+
+Converts a string expression to lower case.
+
+Parameters
+col : Column or str
+        target column to work on.
+
+Returns : Column
+        lower case values.
+
+Examples
+
+df = spark.createDataFrame(["Spark", "PySpark", "Pandas API"], "STRING")
+df.select(lower("value")).show()
++------------+
+|lower(value)|
++------------+
+|       spark|
+|     pyspark|
+|  pandas api|
++------------+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.upper
+
+Converts a string expression to upper case.
+
+Parameters
+col : Column or str
+        target column to work on.
+
+Returns : Column
+        upper case values.
+
+Examples
+
+df = spark.createDataFrame(["Spark", "PySpark", "Pandas API"], "STRING")
+
+df.select(upper("value")).show()
++------------+
+|upper(value)|
++------------+
+|       SPARK|
+|     PYSPARK|
+|  PANDAS API|
++------------+
