@@ -33,3 +33,39 @@ Defines the partitioning columns in a WindowSpec.
 Parameters
 cols : str, Column or list
         names of columns or expressions
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.WindowSpec.rangeBetween
+
+Defines the frame boundaries, from start (inclusive) to end (inclusive).
+
+Both start and end are relative from the current row. For example, “0” means “current row”, while “-1” means one off before the current row, and “5” means the five off after the current row.
+
+We recommend users use Window.unboundedPreceding, Window.unboundedFollowing, and Window.currentRow to specify special boundary values, rather than using integral values directly.
+
+Parameters
+start : int
+boundary start, inclusive. The frame is unbounded if this is Window.unboundedPreceding, or any value less than or equal to max(-sys.maxsize, -9223372036854775808).
+
+end : int
+boundary end, inclusive. The frame is unbounded if this is Window.unboundedFollowing, or any value greater than or equal to min(sys.maxsize, 9223372036854775807).
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.WindowSpec.rowsBetween
+
+Defines the frame boundaries, from start (inclusive) to end (inclusive).
+
+Both start and end are relative positions from the current row. For example, “0” means “current row”, while “-1” means the row before the current row, and “5” means the fifth row after the current row.
+
+We recommend users use Window.unboundedPreceding, Window.unboundedFollowing, and Window.currentRow to specify special boundary values, rather than using integral values directly.
+
+New in version 1.4.0.
+
+Parameters
+start : int
+boundary start, inclusive. The frame is unbounded if this is Window.unboundedPreceding, or any value less than or equal to max(-sys.maxsize, -9223372036854775808).
+
+end : int
+boundary end, inclusive. The frame is unbounded if this is Window.unboundedFollowing, or any value greater than or equal to min(sys.maxsize, 9223372036854775807).
