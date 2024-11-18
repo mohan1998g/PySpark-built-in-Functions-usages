@@ -1,0 +1,4 @@
+pyspark.sql.Window.currentRow
+
+Window.currentRow: int = 0
+
