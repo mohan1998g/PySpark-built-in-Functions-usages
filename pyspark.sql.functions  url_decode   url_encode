@@ -1,0 +1,30 @@
+pyspark.sql.functions.url_decode
+
+Decodes a str in ‘application/x-www-form-urlencoded’ format using a specific encoding scheme.
+
+Parameters
+str : Column or str
+          A column of string to decode.
+
+Examples
+
+df = spark.createDataFrame([("https%3A%2F%2Fspark.apache.org",)], ["a"])
+df.select(url_decode(df.a).alias('r')).collect()
+[Row(r='https://spark.apache.org')]
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.url_encode
+
+Translates a string into ‘application/x-www-form-urlencoded’ format using a specific encoding scheme.
+
+Parameters
+str : Column or str
+          A column of string to encode.
+
+Examples
+
+df = spark.createDataFrame([("https://spark.apache.org",)], ["a"])
+df.select(url_encode(df.a).alias('r')).collect()
+[Row(r='https%3A%2F%2Fspark.apache.org')]
