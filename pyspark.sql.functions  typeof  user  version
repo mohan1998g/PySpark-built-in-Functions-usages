@@ -1,0 +1,43 @@
+pyspark.sql.functions.typeof
+
+Return DDL-formatted type string for the data type of the input.
+
+Parameters
+col : Column or str
+        Examples
+
+df = spark.createDataFrame([(1,)], ["a"])
+df.select(typeof(df.a).alias('r')).collect()
+[Row(r='bigint')]
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.user
+
+Returns the current database.
+
+Examples
+
+
+spark.range(1).select(user()).show() 
++--------------+
+|current_user()|
++--------------+
+| ruifeng.zheng|
++--------------+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.version
+
+Returns the Spark version. The string contains 2 fields, the first being a release version and the second being a git revision.
+
+Examples
+
+df = spark.range(1)
+df.select(version()).show(truncate=False) 
++----------------------------------------------+
+|version()                                     |
++----------------------------------------------+
+|3.5.0 cafbea5b13623276517a9d716f75745eff91f616|
++----------------------------------------------+
