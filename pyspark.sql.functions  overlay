@@ -1,0 +1,32 @@
+pyspark.sql.functions.overlay
+
+Overlay the specified portion of src with replace, starting from byte position pos of src and proceeding for len bytes.
+
+Parameters
+src : Column or str
+          column name or column containing the string that will be replaced
+
+replace : Column or str
+          column name or column containing the substitution string
+
+pos : Column or str or int
+          column name, column, or int containing the starting position in src
+
+len : Column or str or int, optional
+          column name, column, or int containing the number of bytes to replace in src string by ‘replace’ defaults to -1, which represents the length of the ‘replace’ string
+
+Returns : Column
+          string with replaced values.
+
+Examples
+
+df = spark.createDataFrame([("SPARK_SQL", "CORE")], ("x", "y"))
+
+df.select(overlay("x", "y", 7).alias("overlayed")).collect()
+[Row(overlayed='SPARK_CORE')]
+
+df.select(overlay("x", "y", 7, 0).alias("overlayed")).collect()
+[Row(overlayed='SPARK_CORESQL')]
+
+df.select(overlay("x", "y", 7, 2).alias("overlayed")).collect()
+[Row(overlayed='SPARK_COREL')]
