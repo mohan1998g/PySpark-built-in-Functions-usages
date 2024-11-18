@@ -1,0 +1,117 @@
+The above functions are called predicate Functions
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.equal_null
+
+Returns same result as the EQUAL(=) operator for non-null operands, but returns true if both are null, false if one of the them is null.
+
+Parameters
+col1 : Column or str
+
+col2 : Column or str
+
+Examples
+
+df = spark.createDataFrame([(None, None,), (1, 9,)], ["a", "b"])
+df.select(equal_null(df.a, df.b).alias('r')).collect()
+[Row(r=True), Row(r=False)]
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.ifnull
+
+Returns col2 if col1 is null, or col1 otherwise.
+
+Parameters
+col1 : Column or str
+
+col2 : Column or str
+
+Examples
+
+
+df = spark.createDataFrame([(None,), (1,)], ["e"])
+df.select(ifnull(df.e, sf.lit(8))).show()
++------------+
+|ifnull(e, 8)|
++------------+
+|           8|
+|           1|
++------------+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.isnotnull
+
+Returns true if col is not null, or false otherwise.
+
+Parameters
+col : Column or str
+
+Examples
+
+df = spark.createDataFrame([(None,), (1,)], ["e"])
+
+df.select(isnotnull(df.e).alias('r')).collect()
+
+[Row(r=False), Row(r=True)]
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.nullif
+
+Returns null if col1 equals to col2, or col1 otherwise.
+
+Parameters
+col1 : Column or str
+
+col2 : Column or str
+
+Examples
+
+df = spark.createDataFrame([(None, None,), (1, 9,)], ["a", "b"])
+
+df.select(nullif(df.a, df.b).alias('r')).collect()
+
+[Row(r=None), Row(r=1)]
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.nvl
+
+Returns col2 if col1 is null, or col1 otherwise.
+
+Parameters
+col1 : Column or str
+
+col2 : Column or str
+
+Examples
+
+df = spark.createDataFrame([(None, 8,), (1, 9,)], ["a", "b"])
+
+df.select(nvl(df.a, df.b).alias('r')).collect()
+
+[Row(r=8), Row(r=1)]
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.nvl2
+
+Returns col2 if col1 is not null, or col3 otherwise.
+
+Parameters
+col1 : Column or str
+
+col2 : Column or str
+
+col3 : Column or str
+
+Examples
+
+df = spark.createDataFrame([(None, 8, 6,), (1, 9, 9,)], ["a", "b", "c"])
+
+df.select(nvl2(df.a, df.b, df.c).alias('r')).collect()
+
+[Row(r=6), Row(r=9)]
