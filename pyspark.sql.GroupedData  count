@@ -1,0 +1,26 @@
+pyspark.sql.GroupedData.count
+
+Counts the number of records for each group.
+
+Examples
+
+df = spark.createDataFrame(
+     [(2, "Alice"), (3, "Alice"), (5, "Bob"), (10, "Bob")], ["age", "name"])
+df.show()
++---+-----+
+|age| name|
++---+-----+
+|  2|Alice|
+|  3|Alice|
+|  5|  Bob|
+| 10|  Bob|
++---+-----+
+Group-by name, and count each group.
+
+df.groupBy(df.name).count().sort("name").show()
++-----+-----+
+| name|count|
++-----+-----+
+|Alice|    2|
+|  Bob|    2|
++-----+-----+
