@@ -1,0 +1,46 @@
+pyspark.sql.functions.udf
+
+Creates a user defined function (UDF).
+
+Parameters
+f : function
+          python function if used as a standalone function
+
+returnType : pyspark.sql.types.DataType or str
+          the return type of the user-defined function. The value can be either a pyspark.sql.types.DataType object or a DDL-formatted type string.
+
+useArrow : bool or None
+          whether to use Arrow to optimize the (de)serialization. When it is None, the Spark config “spark.sql.execution.pythonUDF.arrow.enabled” takes effect.
+
+Notes
+
+The user-defined functions are considered deterministic by default. Due to optimization, duplicate invocations may be eliminated or the function may even be invoked more times than it is present in the query. If your function is not deterministic, call asNondeterministic on the user defined function. E.g.:
+
+from pyspark.sql.types import IntegerType
+import random
+random_udf = udf(lambda: int(random.random() * 100), IntegerType()).asNondeterministic()
+The user-defined functions do not support conditional expressions or short circuiting in boolean expressions and it ends up with being executed all internally. If the functions can fail on special rows, the workaround is to incorporate the condition into the functions.
+
+The user-defined functions do not take keyword arguments on the calling side.
+
+Examples
+
+from pyspark.sql.types import IntegerType
+slen = udf(lambda s: len(s), IntegerType())
+@udf
+def to_upper(s):
+    if s is not None:
+        return s.upper()
+
+@udf(returnType=IntegerType())
+def add_one(x):
+    if x is not None:
+        return x + 1
+
+df = spark.createDataFrame([(1, "John Doe", 21)], ("id", "name", "age"))
+df.select(slen("name").alias("slen(name)"), to_upper("name"), add_one("age")).show()
++----------+--------------+------------+
+|slen(name)|to_upper(name)|add_one(age)|
++----------+--------------+------------+
+|         8|      JOHN DOE|          22|
++----------+--------------+------------+
