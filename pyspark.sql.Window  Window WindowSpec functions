@@ -1,0 +1,35 @@
+pyspark.sql.Window.currentRow
+
+Window.currentRow: int = 0
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.Window.unboundedFollowing
+
+Window.unboundedFollowing: int = 9223372036854775807
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.Window.unboundedPreceding
+
+Window.unboundedPreceding: int = -9223372036854775808
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.WindowSpec.orderBy
+
+Defines the ordering columns in a WindowSpec.
+
+Parameters
+cols : str, Column or list
+          names of columns or expressions
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.WindowSpec.partitionBy
+
+Defines the partitioning columns in a WindowSpec.
+
+Parameters
+cols : str, Column or list
+        names of columns or expressions
