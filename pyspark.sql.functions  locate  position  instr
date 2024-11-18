@@ -56,3 +56,29 @@ spark.createDataFrame([("bar", "foobarbar", 5,)], ["a", "b", "c"]).select(sf.pos
 +-----------------+
 |                4|
 +-----------------+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.instr
+
+Locate the position of the first occurrence of substr column in the given string. Returns null if either of the arguments are null.
+
+Parameters
+str : Column or str
+          target column to work on.
+
+substr : str
+          substring to look for.
+
+Returns : Column
+          location of the first occurrence of the substring as integer.
+
+Notes
+
+The position is not zero based, but 1 based index. Returns 0 if substr could not be found in str.
+
+Examples
+
+df = spark.createDataFrame([('abcd',)], ['s',])
+df.select(instr(df.s, 'b').alias('s')).collect()
+[Row(s=2)]
