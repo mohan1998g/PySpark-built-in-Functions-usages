@@ -1,0 +1,20 @@
+pyspark.sql.functions.stack
+
+Separates col1, …, colk into n rows. Uses column names col0, col1, etc. by default unless specified otherwise.
+
+Parameters
+cols : Column or str
+        the first element should be a literal int for the number of rows to be separated, and the remaining are input elements to be separated.
+  
+Examples
+
+df = spark.createDataFrame([(1, 2, 3)], ["a", "b", "c"])
+
+df.select(stack(lit(2), df.a, df.b, df.c)).show(truncate=False)
+
++----+----+
+|col0|col1|
++----+----+
+|1   |2   |
+|3   |NULL|
++----+----+
