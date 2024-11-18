@@ -127,3 +127,61 @@ df.select(aes_decrypt(
     unbase64(base64(aes_encrypt(df.input, df.key))), df.key
 ).cast("STRING").alias('r')).collect()
 [Row(r='Spark SQL')]
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.functions.try_aes_decrypt
+
+This is a special version of aes_decrypt that performs the same operation, but returns a NULL value instead of raising an error 
+if the decryption cannot be performed. Returns a decrypted value of input using AES in mode with padding. Key lengths of 16, 24 and 32 bits are supported. 
+Supported combinations of (mode, padding) are (‘ECB’, ‘PKCS’), (‘GCM’, ‘NONE’) and (‘CBC’, ‘PKCS’). 
+Optional additional authenticated data (AAD) is only supported for GCM. 
+If provided for encryption, the identical AAD value must be provided for decryption. 
+The default mode is GCM.
+
+Parameters
+input : Column or str
+        The binary value to decrypt.
+
+key : Column or str
+        The passphrase to use to decrypt the data.
+
+mode : Column or str, optional
+        Specifies which block cipher mode should be used to decrypt messages. Valid modes: ECB, GCM, CBC.
+
+padding : Column or str, optional
+        Specifies how to pad messages whose length is not a multiple of the block size. Valid values: PKCS, NONE, DEFAULT. The DEFAULT padding means PKCS for ECB, NONE for GCM and PKCS for CBC.
+
+aad : Column or str, optional
+        Optional additional authenticated data. Only supported for GCM mode. This can be any free-form input and must be provided for both encryption and decryption.
+
+Examples
+
+df = spark.createDataFrame([(
+    "AAAAAAAAAAAAAAAAQiYi+sTLm7KD9UcZ2nlRdYDe/PX4",
+    "abcdefghijklmnop12345678ABCDEFGH", "GCM", "DEFAULT",
+    "This is an AAD mixed into the input",)],
+    ["input", "key", "mode", "padding", "aad"]
+)
+df.select(try_aes_decrypt(
+    unbase64(df.input), df.key, df.mode, df.padding, df.aad).alias('r')
+).collect()
+[Row(r=bytearray(b'Spark'))]
+df = spark.createDataFrame([(
+    "AAAAAAAAAAAAAAAAAAAAAPSd4mWyMZ5mhvjiAPQJnfg=",
+    "abcdefghijklmnop12345678ABCDEFGH", "CBC", "DEFAULT",)],
+    ["input", "key", "mode", "padding"]
+)
+df.select(try_aes_decrypt(
+    unbase64(df.input), df.key, df.mode, df.padding).alias('r')
+).collect()
+[Row(r=bytearray(b'Spark'))]
+df.select(try_aes_decrypt(unbase64(df.input), df.key, df.mode).alias('r')).collect()
+[Row(r=bytearray(b'Spark'))]
+df = spark.createDataFrame([(
+    "83F16B2AA704794132802D248E6BFD4E380078182D1544813898AC97E709B28A94",
+    "0000111122223333",)],
+    ["input", "key"]
+)
+df.select(try_aes_decrypt(unhex(df.input), df.key).alias('r')).collect()
+[Row(r=bytearray(b'Spark'))]
