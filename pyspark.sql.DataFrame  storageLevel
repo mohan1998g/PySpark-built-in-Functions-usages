@@ -1,0 +1,17 @@
+pyspark.sql.DataFrame.storageLevel
+
+Get the DataFrame’s current storage level.
+
+Returns : StorageLevel
+        Currently defined storage level.
+
+Examples
+
+df1 = spark.range(10)
+df1.storageLevel
+StorageLevel(False, False, False, False, 1)
+df1.cache().storageLevel
+StorageLevel(True, True, False, True, 1)
+df2 = spark.range(5)
+df2.persist(StorageLevel.DISK_ONLY_2).storageLevel
+StorageLevel(True, False, False, False, 2)
