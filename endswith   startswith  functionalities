@@ -65,3 +65,41 @@ df.select(startswith("e", "f"), startswith("f", "e")).show()
 +----------------+----------------+
 |            true|           false|
 +----------------+----------------+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.Column.endswith
+
+String ends with. Returns a boolean Column based on a string match.
+
+Parameters
+other : Column or str
+        string at end of line (do not use a regex $)
+
+Examples
+
+df = spark.createDataFrame(
+     [(2, "Alice"), (5, "Bob")], ["age", "name"])
+df.filter(df.name.endswith('ice')).collect()
+[Row(age=2, name='Alice')]
+df.filter(df.name.endswith('ice$')).collect()
+[]
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.Column.startswith
+
+String starts with. Returns a boolean Column based on a string match.
+
+Parameters
+other : Column or str
+        string at start of line (do not use a regex ^)
+
+Examples
+
+df = spark.createDataFrame(
+     [(2, "Alice"), (5, "Bob")], ["age", "name"])
+df.filter(df.name.startswith('Al')).collect()
+[Row(age=2, name='Alice')]
+df.filter(df.name.startswith('^Al')).collect()
+[]
