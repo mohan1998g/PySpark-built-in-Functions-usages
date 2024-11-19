@@ -1,0 +1,20 @@
+pyspark.sql.DataFrame.selectExpr
+
+Projects a set of SQL expressions and returns a new DataFrame.
+
+This is a variant of select() that accepts SQL expressions.
+
+Returns : DataFrame
+      A DataFrame with new/old columns transformed by expressions.
+
+Examples
+
+df = spark.createDataFrame([
+    (2, "Alice"), (5, "Bob")], schema=["age", "name"])
+df.selectExpr("age * 2", "abs(age)").show()
++---------+--------+
+|(age * 2)|abs(age)|
++---------+--------+
+|        4|       2|
+|       10|       5|
++---------+--------+
