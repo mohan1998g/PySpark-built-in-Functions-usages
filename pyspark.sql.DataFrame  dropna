@@ -1,0 +1,32 @@
+pyspark.sql.DataFrame.dropna
+
+Returns a new DataFrame omitting rows with null values. DataFrame.dropna() and DataFrameNaFunctions.drop() are aliases of each other.
+
+Parameters
+how : str, optional
+        ‘any’ or ‘all’. If ‘any’, drop a row if it contains any nulls. If ‘all’, drop a row only if all its values are null.
+
+thresh: int, optional
+        default None If specified, drop rows that have less than thresh non-null values. This overwrites the how parameter.
+
+subset : str, tuple or list, optional
+        optional list of column names to consider.
+
+Returns : DataFrame
+        DataFrame with null only rows excluded.
+
+Examples
+
+from pyspark.sql import Row
+df = spark.createDataFrame([
+    Row(age=10, height=80, name="Alice"),
+    Row(age=5, height=None, name="Bob"),
+    Row(age=None, height=None, name="Tom"),
+    Row(age=None, height=None, name=None),
+])
+df.na.drop().show()
++---+------+-----+
+|age|height| name|
++---+------+-----+
+| 10|    80|Alice|
++---+------+-----+
