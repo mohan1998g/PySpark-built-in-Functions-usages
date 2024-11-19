@@ -1,0 +1,17 @@
+pyspark.sql.DataFrame.toJSON
+
+Converts a DataFrame into a RDD of string.
+
+Each row is turned into a JSON document as one element in the returned RDD.
+
+Parameters
+use_unicode : bool, optional, default True
+          Whether to convert to unicode or not.
+
+Returns : RDD
+
+Examples
+
+df = spark.createDataFrame([(2, "Alice"), (5, "Bob")], schema=["age", "name"])
+df.toJSON().first()
+'{"age":2,"name":"Alice"}'
