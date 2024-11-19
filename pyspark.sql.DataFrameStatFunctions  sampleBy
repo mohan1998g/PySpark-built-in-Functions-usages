@@ -1,0 +1,32 @@
+pyspark.sql.DataFrameStatFunctions.sampleBy
+
+Returns a stratified sample without replacement based on the fraction given on each stratum.
+
+Parameters
+col : Column or str
+        column that defines strata
+
+Changed in version 3.0.0: Added sampling by a column of Column
+
+fractions : dict
+        sampling fraction for each stratum. If a stratum is not specified, we treat its fraction as zero.
+
+seed : int, optional
+        random seed
+
+Returns : a new DataFrame that represents the stratified sample
+
+Examples
+
+from pyspark.sql.functions import col
+dataset = spark.range(0, 100).select((col("id") % 3).alias("key"))
+sampled = dataset.sampleBy("key", fractions={0: 0.1, 1: 0.2}, seed=0)
+sampled.groupBy("key").count().orderBy("key").show()
++---+-----+
+|key|count|
++---+-----+
+|  0|    3|
+|  1|    6|
++---+-----+
+dataset.sampleBy(col("key"), fractions={2: 1.0}, seed=0).count()
+33
