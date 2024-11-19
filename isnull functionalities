@@ -32,3 +32,16 @@ df.withColumn("r1", expr("isnull('a')")).withColumn("r2", expr('isnull("b")')).s
 The code df.withColumn("r1", col("isnull('a')")).withColumn("r2", col('isnull("b")')).show() gives an error as 
 
 A column or function parameter with name `isnull('a')` cannot be resolved. Did you mean one of the following? [`a`, `b`].;
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.Column.isNull
+
+True if the current expression is null.
+
+Examples
+
+from pyspark.sql import Row
+df = spark.createDataFrame([Row(name='Tom', height=80), Row(name='Alice', height=None)])
+df.filter(df.height.isNull()).collect()
+[Row(name='Alice', height=None)]
