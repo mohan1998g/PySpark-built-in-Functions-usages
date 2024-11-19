@@ -1,0 +1,25 @@
+pyspark.sql.DataFrame.subtract
+
+Return a new DataFrame containing rows in this DataFrame but not in another DataFrame.
+
+Parameters
+other : DataFrame
+        Another DataFrame that needs to be subtracted.
+
+Returns : DataFrame
+        Subtracted DataFrame.
+
+Notes
+
+This is equivalent to EXCEPT DISTINCT in SQL.
+
+Examples
+
+df1 = spark.createDataFrame([("a", 1), ("a", 1), ("b", 3), ("c", 4)], ["C1", "C2"])
+df2 = spark.createDataFrame([("a", 1), ("a", 1), ("b", 3)], ["C1", "C2"])
+df1.subtract(df2).show()
++---+---+
+| C1| C2|
++---+---+
+|  c|  4|
++---+---+
