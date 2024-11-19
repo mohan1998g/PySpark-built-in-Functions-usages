@@ -1,0 +1,13 @@
+pyspark.sql.DataFrame.first
+
+Returns the first row as a Row.
+
+Returns : Row
+          First row if DataFrame is not empty, otherwise None.
+
+Examples
+
+df = spark.createDataFrame([
+    (2, "Alice"), (5, "Bob")], schema=["age", "name"])
+df.first()
+Row(age=2, name='Alice')
