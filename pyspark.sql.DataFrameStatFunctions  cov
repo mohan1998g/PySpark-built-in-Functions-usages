@@ -1,0 +1,22 @@
+pyspark.sql.DataFrameStatFunctions.cov
+
+Calculate the sample covariance for the given columns, specified by their names, as a double value. DataFrame.cov() and DataFrameStatFunctions.cov() are aliases.
+
+Parameters
+col1 : str
+        The name of the first column
+
+col2 : str
+        The name of the second column
+
+Returns : float
+        Covariance of two columns.
+
+Examples
+
+df = spark.createDataFrame([(1, 12), (10, 1), (19, 8)], ["c1", "c2"])
+df.cov("c1", "c2")
+-18.0
+df = spark.createDataFrame([(11, 12), (10, 11), (9, 10)], ["small", "bigger"])
+df.cov("small", "bigger")
+1.0
