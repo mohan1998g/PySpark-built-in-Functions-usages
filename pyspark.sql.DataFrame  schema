@@ -1,0 +1,15 @@
+pyspark.sql.DataFrame.schema
+
+Returns the schema of this DataFrame as a pyspark.sql.types.StructType.
+
+Returns : StructType
+
+Examples
+
+df = spark.createDataFrame(
+    [(14, "Tom"), (23, "Alice"), (16, "Bob")], ["age", "name"])
+Retrieve the schema of the current DataFrame.
+
+df.schema
+StructType([StructField('age', LongType(), True),
+            StructField('name', StringType(), True)])
