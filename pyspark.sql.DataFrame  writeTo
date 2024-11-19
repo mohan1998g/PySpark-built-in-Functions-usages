@@ -1,0 +1,23 @@
+pyspark.sql.DataFrame.writeTo
+
+Create a write configuration builder for v2 sources.
+
+This builder is used to configure and execute write operations.
+
+For example, to append or create or replace existing tables.
+
+Parameters
+table : str
+          Target table name to write to.
+
+Returns : DataFrameWriterV2
+          DataFrameWriterV2 to use further to specify how to save the data
+
+Examples
+
+df = spark.createDataFrame(
+    [(14, "Tom"), (23, "Alice"), (16, "Bob")], ["age", "name"])
+df.writeTo("catalog.db.table").append()  
+df.writeTo(                              
+    "catalog.db.table"
+).partitionedBy("col").createOrReplace()
