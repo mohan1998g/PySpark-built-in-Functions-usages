@@ -1,0 +1,45 @@
+pyspark.sql.DataFrame.describe
+
+Computes basic statistics for numeric and string columns.
+
+This includes count, mean, stddev, min, and max. If no columns are given, this function computes statistics for all numerical or string columns.
+
+Parameters
+cols : str, list, optional
+          Column name or list of column names to describe by (default All columns).
+
+Returns : DataFrame
+          A new DataFrame that describes (provides statistics) given DataFrame.
+
+Notes
+
+This function is meant for exploratory data analysis, as we make no guarantee about the backward compatibility of the schema of the resulting DataFrame.
+
+Use summary for expanded statistics and control over which statistics to compute.
+
+Examples
+
+df = spark.createDataFrame(
+    [("Bob", 13, 40.3, 150.5), ("Alice", 12, 37.8, 142.3), ("Tom", 11, 44.1, 142.2)],
+    ["name", "age", "weight", "height"],
+)
+df.describe(['age']).show()
++-------+----+
+|summary| age|
++-------+----+
+|  count|   3|
+|   mean|12.0|
+| stddev| 1.0|
+|    min|  11|
+|    max|  13|
++-------+----+
+df.describe(['age', 'weight', 'height']).show()
++-------+----+------------------+-----------------+
+|summary| age|            weight|           height|
++-------+----+------------------+-----------------+
+|  count|   3|                 3|                3|
+|   mean|12.0| 40.73333333333333|            145.0|
+| stddev| 1.0|3.1722757341273704|4.763402145525822|
+|    min|  11|              37.8|            142.2|
+|    max|  13|              44.1|            150.5|
++-------+----+------------------+-----------------+
