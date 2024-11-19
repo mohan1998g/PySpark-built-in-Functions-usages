@@ -1,0 +1,53 @@
+pyspark.sql.Column.bitwiseAND
+
+Compute bitwise AND of this expression with another expression.
+
+Parameters
+other
+a value or Column to calculate bitwise and(&) with this Column.
+
+Examples
+
+from pyspark.sql import Row
+df = spark.createDataFrame([Row(a=170, b=75)])
+
+df.select(df.a.bitwiseAND(df.b)).collect()
+[Row((a & b)=10)]
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.Column.bitwiseOR
+
+Compute bitwise OR of this expression with another expression.
+
+Parameters
+other
+a value or Column to calculate bitwise or(|) with this Column.
+
+Examples
+
+from pyspark.sql import Row
+df = spark.createDataFrame([Row(a=170, b=75)])
+
+df.select(df.a.bitwiseOR(df.b)).collect()
+[Row((a | b)=235)]
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.Column.bitwiseXOR
+
+Compute bitwise XOR of this expression with another expression.
+
+Changed in version 3.4.0: Supports Spark Connect.
+
+Parameters
+other
+a value or Column to calculate bitwise xor(^) with this Column.
+
+Examples
+
+from pyspark.sql import Row
+df = spark.createDataFrame([Row(a=170, b=75)])
+
+df.select(df.a.bitwiseXOR(df.b)).collect()
+[Row((a ^ b)=225)]
