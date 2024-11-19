@@ -1,0 +1,23 @@
+pyspark.sql.DataFrame.writeStream
+
+Interface for saving the content of the streaming DataFrame out into external storage.
+
+Returns : DataStreamWriter
+
+Notes
+
+This API is evolving.
+
+Examples
+
+import time
+import tempfile
+df = spark.readStream.format("rate").load()
+type(df.writeStream)
+<class '...streaming.readwriter.DataStreamWriter'>
+with tempfile.TemporaryDirectory() as d:
+    # Create a table with Rate source.
+    query = df.writeStream.toTable(
+        "my_table", checkpointLocation=d)
+    time.sleep(3)
+    query.stop()
