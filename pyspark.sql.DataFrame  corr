@@ -1,0 +1,25 @@
+pyspark.sql.DataFrame.corr
+
+Calculates the correlation of two columns of a DataFrame as a double value. Currently only supports the Pearson Correlation Coefficient. DataFrame.corr() and DataFrameStatFunctions.corr() are aliases of each other.
+
+Parameters
+col1 : str
+        The name of the first column
+
+col2 : str
+        The name of the second column
+
+method : str, optional
+        The correlation method. Currently only supports “pearson”
+
+Returns : float
+        Pearson Correlation Coefficient of two columns.
+
+Examples
+
+df = spark.createDataFrame([(1, 12), (10, 1), (19, 8)], ["c1", "c2"])
+df.corr("c1", "c2")
+-0.3592106040535498
+df = spark.createDataFrame([(11, 12), (10, 11), (9, 10)], ["small", "bigger"])
+df.corr("small", "bigger")
+1.0
