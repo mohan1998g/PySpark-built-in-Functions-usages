@@ -1,0 +1,33 @@
+pyspark.sql.DataFrame.repartitionByRange
+
+Returns a new DataFrame partitioned by the given partitioning expressions. The resulting DataFrame is range partitioned.
+
+Parameters
+numPartitions : int
+        can be an int to specify the target number of partitions or a Column. 
+        If it is a Column, it will be used as the first partitioning column. 
+        If not specified, the default number of partitions is used.
+
+cols : str or Column
+        partitioning columns.
+
+Returns : DataFrame
+        Repartitioned DataFrame.
+
+Notes
+
+At least one partition-by expression must be specified. 
+When no explicit sort order is specified, “ascending nulls first” is assumed.
+
+Due to performance reasons this method uses sampling to estimate the ranges. 
+Hence, the output may not be consistent, since sampling can return different values. 
+The sample size can be controlled by the config spark.sql.execution.rangeExchange.sampleSizePerPartition.
+
+Examples
+
+df = spark.createDataFrame(
+    [(14, "Tom"), (23, "Alice"), (16, "Bob")], ["age", "name"])
+Repartition the data into 2 partitions by range in ‘age’ column. For example, the first partition can have (14, "Tom"), and the second partition would have (16, "Bob") and (23, "Alice").
+
+df.repartitionByRange(2, "age").rdd.getNumPartitions()
+2
