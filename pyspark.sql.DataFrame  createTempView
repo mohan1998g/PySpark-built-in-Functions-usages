@@ -1,0 +1,27 @@
+pyspark.sql.DataFrame.createTempView
+
+Creates a local temporary view with this DataFrame.
+
+The lifetime of this temporary table is tied to the SparkSession that was used to create this DataFrame. throws TempTableAlreadyExistsException, if the view name already exists in the catalog.
+
+Parameters
+name : str
+        Name of the view.
+
+Examples
+
+Create a local temporary view.
+
+df = spark.createDataFrame([(2, "Alice"), (5, "Bob")], schema=["age", "name"])
+df.createTempView("people")
+df2 = spark.sql("SELECT * FROM people")
+sorted(df.collect()) == sorted(df2.collect())
+True
+Throw an exception if the table already exists.
+
+df.createTempView("people")  
+Traceback (most recent call last):
+...
+AnalysisException: "Temporary table 'people' already exists;"
+spark.catalog.dropTempView("people")
+True
