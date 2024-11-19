@@ -1,0 +1,21 @@
+pyspark.sql.DataFrame.registerTempTable
+
+Registers this DataFrame as a temporary table using the given name.
+
+The lifetime of this temporary table is tied to the SparkSession that was used to create this DataFrame.
+
+Deprecated since version 2.0.0: Use DataFrame.createOrReplaceTempView() instead.
+
+Parameters
+name : str
+        Name of the temporary table to register.
+
+Examples
+
+df = spark.createDataFrame([(2, "Alice"), (5, "Bob")], schema=["age", "name"])
+df.registerTempTable("people")
+df2 = spark.sql("SELECT * FROM people")
+sorted(df.collect()) == sorted(df2.collect())
+True
+spark.catalog.dropTempView("people")
+True
