@@ -1,0 +1,29 @@
+pyspark.sql.DataFrame.crossJoin
+
+Returns the cartesian product with another DataFrame.
+
+Parameters
+other : DataFrame
+          Right side of the cartesian product.
+
+Returns : DataFrame
+          Joined DataFrame.
+
+Examples
+
+from pyspark.sql import Row
+df = spark.createDataFrame(
+    [(14, "Tom"), (23, "Alice"), (16, "Bob")], ["age", "name"])
+df2 = spark.createDataFrame(
+    [Row(height=80, name="Tom"), Row(height=85, name="Bob")])
+df.crossJoin(df2.select("height")).select("age", "name", "height").show()
++---+-----+------+
+|age| name|height|
++---+-----+------+
+| 14|  Tom|    80|
+| 14|  Tom|    85|
+| 23|Alice|    80|
+| 23|Alice|    85|
+| 16|  Bob|    80|
+| 16|  Bob|    85|
++---+-----+------+
