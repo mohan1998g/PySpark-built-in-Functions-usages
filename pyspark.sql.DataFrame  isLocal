@@ -1,0 +1,10 @@
+pyspark.sql.DataFrame.isLocal
+
+Returns True if the collect() and take() methods can be run locally (without any Spark executors).
+
+Returns : bool
+Examples
+
+df = spark.sql("SHOW TABLES")
+df.isLocal()
+True
