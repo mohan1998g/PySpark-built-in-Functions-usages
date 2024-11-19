@@ -66,3 +66,63 @@ df = spark.createDataFrame(
 )
 df.select(like(df.a, df.b, lit('/')).alias('r')).collect()
 [Row(r=True)]
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.Column.ilike
+
+SQL ILIKE expression (case insensitive LIKE). Returns a boolean Column based on a case insensitive match.
+
+Parameters
+other : str
+        a SQL LIKE pattern
+
+Returns : Column
+        Column of booleans showing whether each element in the Column is matched by SQL LIKE pattern.
+
+Examples
+
+df = spark.createDataFrame(
+     [(2, "Alice"), (5, "Bob")], ["age", "name"])
+df.filter(df.name.ilike('%Ice')).collect()
+[Row(age=2, name='Alice')]
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.Column.like
+
+SQL like expression. Returns a boolean Column based on a SQL LIKE match.
+
+Parameters
+other : str
+        a SQL LIKE pattern
+
+Returns : Column
+        Column of booleans showing whether each element in the Column is matched by SQL LIKE pattern.
+
+Examples
+
+df = spark.createDataFrame(
+     [(2, "Alice"), (5, "Bob")], ["age", "name"])
+df.filter(df.name.like('Al%')).collect()
+[Row(age=2, name='Alice')]
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.Column.rlike
+
+SQL RLIKE expression (LIKE with Regex). Returns a boolean Column based on a regex match.
+
+Parameters
+other : str
+        an extended regex expression
+
+Returns : Column
+        Column of booleans showing whether each element in the Column is matched by extended regex expression.
+
+Examples
+
+df = spark.createDataFrame(
+     [(2, "Alice"), (5, "Bob")], ["age", "name"])
+df.filter(df.name.rlike('ice$')).collect()
+[Row(age=2, name='Alice')]
