@@ -1,0 +1,12 @@
+pyspark.sql.DataFrame.collect
+
+Returns all the records as a list of Row.
+
+Returns : list
+        List of rows.
+
+Examples
+
+df = spark.createDataFrame([(14, "Tom"), (23, "Alice"), (16, "Bob")], ["age", "name"])
+df.collect()
+[Row(age=14, name='Tom'), Row(age=23, name='Alice'), Row(age=16, name='Bob')]
