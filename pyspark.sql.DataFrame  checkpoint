@@ -1,0 +1,24 @@
+pyspark.sql.DataFrame.checkpoint
+
+Returns a checkpointed version of this DataFrame. Checkpointing can be used to truncate the logical plan of this DataFrame, which is especially useful in iterative algorithms where the plan may grow exponentially. It will be saved to files inside the checkpoint directory set with SparkContext.setCheckpointDir().
+
+Parameters
+eager : bool, optional, default True
+          Whether to checkpoint this DataFrame immediately.
+
+Returns : DataFrame
+          Checkpointed DataFrame.
+
+Notes
+
+This API is experimental.
+
+Examples
+
+import tempfile
+df = spark.createDataFrame([
+    (14, "Tom"), (23, "Alice"), (16, "Bob")], ["age", "name"])
+with tempfile.TemporaryDirectory() as d:
+    spark.sparkContext.setCheckpointDir("/tmp/bb")
+    df.checkpoint(False)
+DataFrame[age: bigint, name: string]
