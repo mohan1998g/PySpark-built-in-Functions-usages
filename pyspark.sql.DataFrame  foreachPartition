@@ -1,0 +1,19 @@
+pyspark.sql.DataFrame.foreachPartition
+
+Applies the f function to each partition of this DataFrame.
+
+This a shorthand for df.rdd.foreachPartition().
+
+Parameters
+f : function
+      A function that accepts one parameter which will receive each partition to process.
+
+Examples
+
+df = spark.createDataFrame(
+    [(14, "Tom"), (23, "Alice"), (16, "Bob")], ["age", "name"])
+def func(itr):
+    for person in itr:
+        print(person.name)
+
+df.foreachPartition(func)
