@@ -1,0 +1,25 @@
+pyspark.sql.DataFrame.unpersist
+
+Marks the DataFrame as non-persistent, and remove all blocks for it from memory and disk.
+
+Parameters
+blocking : bool
+          Whether to block until all blocks are deleted.
+
+Returns : DataFrame
+          Unpersisted DataFrame.
+
+Notes
+
+blocking default has changed to False to match Scala in 2.0.
+
+Examples
+
+df = spark.range(1)
+df.persist()
+DataFrame[id: bigint]
+df.unpersist()
+DataFrame[id: bigint]
+df = spark.range(1)
+df.unpersist(True)
+DataFrame[id: bigint]
