@@ -1,0 +1,14 @@
+pyspark.sql.DataFrame.stat
+
+Returns a DataFrameStatFunctions for statistic functions.
+
+Returns : DataFrameStatFunctions
+
+Examples
+
+import pyspark.sql.functions as f
+df = spark.range(3).withColumn("c", f.expr("id + 1"))
+type(df.stat)
+<class '...dataframe.DataFrameStatFunctions'>
+df.stat.corr("id", "c")
+1.0
