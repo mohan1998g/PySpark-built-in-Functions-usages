@@ -1,0 +1,10 @@
+pyspark.sql.Column.asc
+
+Returns a sort expression based on the ascending order of the column.
+
+Examples
+
+from pyspark.sql import Row
+df = spark.createDataFrame([('Tom', 80), ('Alice', None)], ["name", "height"])
+df.select(df.name).orderBy(df.name.asc()).collect()
+[Row(name='Alice'), Row(name='Tom')]
