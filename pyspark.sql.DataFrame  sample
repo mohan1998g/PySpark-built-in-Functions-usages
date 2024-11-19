@@ -1,0 +1,38 @@
+pyspark.sql.DataFrame.sample
+
+Returns a sampled subset of this DataFrame.
+
+Parameters
+withReplacement : bool, optional
+        Sample with replacement or not (default False).
+
+fraction : float, optional
+        Fraction of rows to generate, range [0.0, 1.0].
+
+seed : int, optional
+        Seed for sampling (default a random seed).
+
+Returns : DataFrame
+        Sampled rows from given DataFrame.
+
+Notes
+
+This is not guaranteed to provide exactly the fraction specified of the total count of the given DataFrame.
+
+fraction is required and, withReplacement and seed are optional.
+
+Examples
+
+df = spark.range(10)
+df.sample(0.5, 3).count() 
+7
+df.sample(fraction=0.5, seed=3).count() 
+7
+df.sample(withReplacement=True, fraction=0.5, seed=3).count() 
+1
+df.sample(1.0).count()
+10
+df.sample(fraction=1.0).count()
+10
+df.sample(False, fraction=1.0).count()
+10
