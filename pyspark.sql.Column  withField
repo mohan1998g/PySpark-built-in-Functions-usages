@@ -1,0 +1,31 @@
+pyspark.sql.Column.withField
+
+An expression that adds/replaces a field in StructType by name.
+
+Parameters
+fieldName : str
+          a literal value. The result will only be true at a location if any field matches in the Column.
+
+col : Column
+          A Column expression for the column with fieldName.
+
+Returns : Column
+          Column representing whether each element of Column which field was added/replaced by fieldName.
+
+Examples
+
+from pyspark.sql import Row
+from pyspark.sql.functions import lit
+df = spark.createDataFrame([Row(a=Row(b=1, c=2))])
+df.withColumn('a', df['a'].withField('b', lit(3))).select('a.b').show()
++---+
+|  b|
++---+
+|  3|
++---+
+df.withColumn('a', df['a'].withField('d', lit(4))).select('a.d').show()
++---+
+|  d|
++---+
+|  4|
++---+
