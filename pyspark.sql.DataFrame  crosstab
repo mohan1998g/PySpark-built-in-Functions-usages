@@ -1,0 +1,26 @@
+pyspark.sql.DataFrame.crosstab
+
+Computes a pair-wise frequency table of the given columns. Also known as a contingency table. The first column of each row will be the distinct values of col1 and the column names will be the distinct values of col2. The name of the first column will be col1_
+col2. Pairs that have no occurrences will have zero as their counts. DataFrame.crosstab() and DataFrameStatFunctions.crosstab() are aliases.
+
+Parameters
+col1 : str
+        The name of the first column. Distinct items will make the first item of each row.
+
+col2 : str
+        The name of the second column. Distinct items will make the column names of the DataFrame.
+
+Returns : DataFrame
+        Frequency matrix of two columns.
+
+Examples
+
+df = spark.createDataFrame([(1, 11), (1, 11), (3, 10), (4, 8), (4, 8)], ["c1", "c2"])
+df.crosstab("c1", "c2").sort("c1_c2").show()
++-----+---+---+---+
+|c1_c2| 10| 11|  8|
++-----+---+---+---+
+|    1|  0|  2|  0|
+|    3|  1|  0|  0|
+|    4|  0|  0|  2|
++-----+---+---+---+
