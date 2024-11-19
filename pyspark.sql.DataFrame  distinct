@@ -1,0 +1,15 @@
+pyspark.sql.DataFrame.distinct
+
+Returns a new DataFrame containing the distinct rows in this DataFrame.
+
+Returns : DataFrame
+        DataFrame with distinct records.
+
+Examples
+
+df = spark.createDataFrame(
+    [(14, "Tom"), (23, "Alice"), (23, "Alice")], ["age", "name"])
+Return the number of distinct rows in the DataFrame
+
+df.distinct().count()
+2
