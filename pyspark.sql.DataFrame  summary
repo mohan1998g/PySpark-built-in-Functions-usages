@@ -1,0 +1,49 @@
+pyspark.sql.DataFrame.summary
+
+Computes specified statistics for numeric and string columns. Available statistics are: - count - mean - stddev - min - max - arbitrary approximate percentiles specified as a percentage (e.g., 75%)
+
+If no statistics are given, this function computes count, mean, stddev, min, approximate quartiles (percentiles at 25%, 50%, and 75%), and max.
+
+Parameters
+statistics : str, optional
+        Column names to calculate statistics by (default All columns).
+
+Returns : DataFrame
+        A new DataFrame that provides statistics for the given DataFrame.
+
+See also
+
+DataFrame.display
+Notes
+
+This function is meant for exploratory data analysis, as we make no guarantee about the backward compatibility of the schema of the resulting DataFrame.
+
+Examples
+
+df = spark.createDataFrame(
+    [("Bob", 13, 40.3, 150.5), ("Alice", 12, 37.8, 142.3), ("Tom", 11, 44.1, 142.2)],
+    ["name", "age", "weight", "height"],
+)
+df.select("age", "weight", "height").summary().show()
++-------+----+------------------+-----------------+
+|summary| age|            weight|           height|
++-------+----+------------------+-----------------+
+|  count|   3|                 3|                3|
+|   mean|12.0| 40.73333333333333|            145.0|
+| stddev| 1.0|3.1722757341273704|4.763402145525822|
+|    min|  11|              37.8|            142.2|
+|    25%|  11|              37.8|            142.2|
+|    50%|  12|              40.3|            142.3|
+|    75%|  13|              44.1|            150.5|
+|    max|  13|              44.1|            150.5|
++-------+----+------------------+-----------------+
+df.select("age", "weight", "height").summary("count", "min", "25%", "75%", "max").show()
++-------+---+------+------+
+|summary|age|weight|height|
++-------+---+------+------+
+|  count|  3|     3|     3|
+|    min| 11|  37.8| 142.2|
+|    25%| 11|  37.8| 142.2|
+|    75%| 13|  44.1| 150.5|
+|    max| 13|  44.1| 150.5|
++-------+---+------+------+
