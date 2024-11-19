@@ -1,0 +1,18 @@
+pyspark.sql.DataFrame.foreach
+
+Applies the f function to all Row of this DataFrame.
+
+This is a shorthand for df.rdd.foreach().
+
+Parameters
+f : function
+        A function that accepts one parameter which will receive each row to process.
+
+Examples
+
+df = spark.createDataFrame(
+    [(14, "Tom"), (23, "Alice"), (16, "Bob")], ["age", "name"])
+def func(person):
+    print(person.name)
+
+df.foreach(func)
