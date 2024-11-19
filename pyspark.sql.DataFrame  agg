@@ -1,0 +1,28 @@
+pyspark.sql.DataFrame.agg
+
+Aggregate on the entire DataFrame without groups (shorthand for df.groupBy().agg()).
+
+
+Parameters
+exprs : Column or dict of key and value strings
+          Columns or expressions to aggregate DataFrame by.
+  
+Returns : DataFrame
+          Aggregated DataFrame.
+
+Examples
+
+from pyspark.sql import functions as sf
+df = spark.createDataFrame([(2, "Alice"), (5, "Bob")], schema=["age", "name"])
+df.agg({"age": "max"}).show()
++--------+
+|max(age)|
++--------+
+|       5|
++--------+
+df.agg(sf.min(df.age)).show()
++--------+
+|min(age)|
++--------+
+|       2|
++--------+
