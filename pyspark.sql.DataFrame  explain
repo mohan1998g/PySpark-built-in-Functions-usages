@@ -1,0 +1,58 @@
+pyspark.sql.DataFrame.explain
+
+Prints the (logical and physical) plans to the console for debugging purposes.
+
+Parameters
+extended : bool, optional
+            default False. If False, prints only the physical plan. 
+            When this is a string without specifying the mode, it works as the mode is specified.
+
+mode : str, optional
+            specifies the expected output format of plans.
+
+simple: Print only a physical plan.
+
+extended: Print both logical and physical plans.
+
+codegen: Print a physical plan and generated codes if they are available.
+
+cost: Print a logical plan and statistics if they are available.
+
+formatted: Split explain output into two sections: a physical plan outline and node details.
+
+Changed in version 3.0.0: Added optional argument mode to specify the expected output format of plans.
+
+Examples
+
+df = spark.createDataFrame(
+    [(14, "Tom"), (23, "Alice"), (16, "Bob")], ["age", "name"])
+Print out the physical plan only (default).
+
+df.explain()  
+== Physical Plan ==
+*(1) Scan ExistingRDD[age...,name...]
+Print out all of the parsed, analyzed, optimized and physical plans.
+
+df.explain(True)
+== Parsed Logical Plan ==
+...
+== Analyzed Logical Plan ==
+...
+== Optimized Logical Plan ==
+...
+== Physical Plan ==
+...
+Print out the plans with two sections: a physical plan outline and node details
+
+df.explain(mode="formatted")  
+== Physical Plan ==
+* Scan ExistingRDD (...)
+(1) Scan ExistingRDD [codegen id : ...]
+Output [2]: [age..., name...]
+...
+Print a logical plan and statistics if they are available.
+
+df.explain("cost")
+== Optimized Logical Plan ==
+...Statistics...
+...
