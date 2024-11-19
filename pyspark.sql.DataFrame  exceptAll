@@ -1,0 +1,26 @@
+pyspark.sql.DataFrame.exceptAll
+
+Return a new DataFrame containing rows in this DataFrame but not in another DataFrame while preserving duplicates.
+
+This is equivalent to EXCEPT ALL in SQL. As standard in SQL, this function resolves columns by position (not by name).
+
+Parameters
+other : DataFrame
+        The other DataFrame to compare to.
+
+Returns : DataFrame
+
+Examples
+
+df1 = spark.createDataFrame(
+        [("a", 1), ("a", 1), ("a", 1), ("a", 2), ("b",  3), ("c", 4)], ["C1", "C2"])
+df2 = spark.createDataFrame([("a", 1), ("b", 3)], ["C1", "C2"])
+df1.exceptAll(df2).show()
++---+---+
+| C1| C2|
++---+---+
+|  a|  1|
+|  a|  1|
+|  a|  2|
+|  c|  4|
++---+---+
