@@ -1,0 +1,20 @@
+pyspark.sql.DataFrame.withMetadata
+
+Returns a new DataFrame by updating an existing column with metadata.
+
+Parameters
+columnName : str
+          string, name of the existing column to update the metadata.
+
+metadata : dict
+          dict, new metadata to be assigned to df.schema[columnName].metadata
+
+Returns : DataFrame
+          DataFrame with updated metadata column.
+
+Examples
+
+df = spark.createDataFrame([(2, "Alice"), (5, "Bob")], schema=["age", "name"])
+df_meta = df.withMetadata('age', {'foo': 'bar'})
+df_meta.schema['age'].metadata
+{'foo': 'bar'}
