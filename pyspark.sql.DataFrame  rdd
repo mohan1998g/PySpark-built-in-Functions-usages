@@ -1,0 +1,11 @@
+pyspark.sql.DataFrame.rdd
+
+Returns the content as an pyspark.RDD of Row.
+
+Returns : RDD
+
+Examples
+
+df = spark.range(1)
+type(df.rdd)
+<class 'pyspark.rdd.RDD'>
