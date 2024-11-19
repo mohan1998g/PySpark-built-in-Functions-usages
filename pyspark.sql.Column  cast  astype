@@ -1,0 +1,28 @@
+pyspark.sql.Column.cast
+
+Casts the column into type dataType.
+
+Parameters
+dataType : DataType or str
+        a DataType or Python string literal with a DDL-formatted string to use when parsing the column to the same type.
+
+Returns : Column
+        Column representing whether each element of Column is cast into new type.
+
+Examples
+
+from pyspark.sql.types import StringType
+df = spark.createDataFrame(
+     [(2, "Alice"), (5, "Bob")], ["age", "name"])
+
+df.select(df.age.cast("string").alias('ages')).collect()
+[Row(ages='2'), Row(ages='5')]
+
+df.select(df.age.cast(StringType()).alias('ages')).collect()
+[Row(ages='2'), Row(ages='5')]
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.Column.astype
+
+astype() is an alias for cast().
