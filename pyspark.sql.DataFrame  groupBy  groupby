@@ -1,0 +1,54 @@
+pyspark.sql.DataFrame.groupBy
+
+Groups the DataFrame using the specified columns, so we can run aggregation on them. 
+See GroupedData for all the available aggregate functions.
+
+groupby() is an alias for groupBy().
+
+Parameters
+cols : list, str or Column
+        columns to group by. Each element should be a column name (string) or an expression (Column) or list of them.
+
+Returns : GroupedData
+        Grouped data by given columns.
+
+Examples
+
+df = spark.createDataFrame([
+    (2, "Alice"), (2, "Bob"), (2, "Bob"), (5, "Bob")], schema=["age", "name"])
+Empty grouping columns triggers a global aggregation.
+
+df.groupBy().avg().show()
++--------+
+|avg(age)|
++--------+
+|    2.75|
++--------+
+Group-by ‘name’, and specify a dictionary to calculate the summation of ‘age’.
+
+df.groupBy("name").agg({"age": "sum"}).sort("name").show()
++-----+--------+
+| name|sum(age)|
++-----+--------+
+|Alice|       2|
+|  Bob|       9|
++-----+--------+
+Group-by ‘name’, and calculate maximum values.
+
+df.groupBy(df.name).max().sort("name").show()
++-----+--------+
+| name|max(age)|
++-----+--------+
+|Alice|       2|
+|  Bob|       5|
++-----+--------+
+Group-by ‘name’ and ‘age’, and calculate the number of rows in each group.
+
+df.groupBy(["name", df.age]).count().sort("name", "age").show()
++-----+---+-----+
+| name|age|count|
++-----+---+-----+
+|Alice|  2|    1|
+|  Bob|  2|    2|
+|  Bob|  5|    1|
++-----+---+-----+
