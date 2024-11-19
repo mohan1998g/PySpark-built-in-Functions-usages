@@ -1,0 +1,23 @@
+pyspark.sql.DataFrame.toDF
+
+Returns a new DataFrame that with new specified column names
+
+Parameters
+*cols : tuple
+        a tuple of string new column name. The length of the list needs to be the same as the number of columns in the initial DataFrame
+
+Returns : DataFrame
+        DataFrame with new column names.
+
+Examples
+
+df = spark.createDataFrame([(14, "Tom"), (23, "Alice"),
+    (16, "Bob")], ["age", "name"])
+df.toDF('f1', 'f2').show()
++---+-----+
+| f1|   f2|
++---+-----+
+| 14|  Tom|
+| 23|Alice|
+| 16|  Bob|
++---+-----+
