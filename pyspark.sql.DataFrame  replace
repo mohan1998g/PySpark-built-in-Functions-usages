@@ -1,0 +1,64 @@
+pyspark.sql.DataFrame.replace
+
+Returns a new DataFrame replacing a value with another value. DataFrame.replace() and DataFrameNaFunctions.replace() are aliases of each other. Values to_replace and value must have the same type and can only be numerics, booleans, or strings. Value can have None. When replacing, the new value will be cast to the type of the existing column. For numeric replacements all values to be replaced should have unique floating point representation. In case of conflicts (for example with {42: -1, 42.0: 1}) and arbitrary replacement will be used.
+
+Parameters
+to_replace : bool, int, float, string, list or dict
+          Value to be replaced. 
+          If the value is a dict, then value is ignored or can be omitted, 
+          and to_replace must be a mapping between a value and a replacement.
+
+value : bool, int, float, string or None, optional
+          The replacement value must be a bool, int, float, string or None. 
+          If value is a list, value should be of the same length and type as to_replace. 
+          If value is a scalar and to_replace is a sequence, then value is used as a replacement for each item in to_replace.
+
+subset : list, optional
+          optional list of column names to consider. 
+          Columns specified in subset that do not have matching data types are ignored. 
+          For example, if value is a string, and subset contains a non-string column, then the non-string column is simply ignored.
+
+Returns : DataFrame
+          DataFrame with replaced values.
+
+Examples
+
+df = spark.createDataFrame([
+    (10, 80, "Alice"),
+    (5, None, "Bob"),
+    (None, 10, "Tom"),
+    (None, None, None)],
+    schema=["age", "height", "name"])
+Replace 10 to 20 in all columns.
+
+df.na.replace(10, 20).show()
++----+------+-----+
+| age|height| name|
++----+------+-----+
+|  20|    80|Alice|
+|   5|  NULL|  Bob|
+|NULL|    20|  Tom|
+|NULL|  NULL| NULL|
++----+------+-----+
+Replace ‘Alice’ to null in all columns.
+
+df.na.replace('Alice', None).show()
++----+------+----+
+| age|height|name|
++----+------+----+
+|  10|    80|NULL|
+|   5|  NULL| Bob|
+|NULL|    10| Tom|
+|NULL|  NULL|NULL|
++----+------+----+
+Replace ‘Alice’ to ‘A’, and ‘Bob’ to ‘B’ in the ‘name’ column.
+
+df.na.replace(['Alice', 'Bob'], ['A', 'B'], 'name').show()
++----+------+----+
+| age|height|name|
++----+------+----+
+|  10|    80|   A|
+|   5|  NULL|   B|
+|NULL|    10| Tom|
+|NULL|  NULL|NULL|
++----+------+----+
