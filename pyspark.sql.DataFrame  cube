@@ -1,0 +1,26 @@
+pyspark.sql.DataFrame.cube
+
+Create a multi-dimensional cube for the current DataFrame using the specified columns, so we can run aggregations on them.
+
+Parameters
+cols : list, str or Column
+        columns to create cube by. Each element should be a column name (string) or an expression (Column) or list of them.
+
+Returns : GroupedData
+        Cube of the data by given columns.
+
+Examples
+
+df = spark.createDataFrame([(2, "Alice"), (5, "Bob")], schema=["age", "name"])
+df.cube("name", df.age).count().orderBy("name", "age").show()
++-----+----+-----+
+| name| age|count|
++-----+----+-----+
+| NULL|NULL|    2|
+| NULL|   2|    1|
+| NULL|   5|    1|
+|Alice|NULL|    1|
+|Alice|   2|    1|
+|  Bob|NULL|    1|
+|  Bob|   5|    1|
++-----+----+-----+
