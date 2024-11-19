@@ -1,0 +1,35 @@
+pyspark.sql.DataFrame.repartition
+
+Returns a new DataFrame partitioned by the given partitioning expressions. The resulting DataFrame is hash partitioned.
+
+Parameters
+numPartitions : int
+          can be an int to specify the target number of partitions or a Column. 
+          If it is a Column, it will be used as the first partitioning column. 
+          If not specified, the default number of partitions is used.
+
+cols : str or Column
+        partitioning columns.
+
+Changed in version 1.6.0: Added optional arguments to specify the partitioning columns. 
+Also made numPartitions optional if partitioning columns are specified.
+
+Returns : DataFrame
+        Repartitioned DataFrame.
+
+Examples
+
+df = spark.createDataFrame(
+    [(14, "Tom"), (23, "Alice"), (16, "Bob")], ["age", "name"])
+Repartition the data into 10 partitions.
+
+df.repartition(10).rdd.getNumPartitions()
+10
+Repartition the data into 7 partitions by ‘age’ column.
+
+df.repartition(7, "age").rdd.getNumPartitions()
+7
+Repartition the data into 7 partitions by ‘age’ and ‘name columns.
+
+df.repartition(3, "name", "age").rdd.getNumPartitions()
+3
