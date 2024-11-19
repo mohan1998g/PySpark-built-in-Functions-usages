@@ -1,0 +1,27 @@
+pyspark.sql.DataFrame.createGlobalTempView
+
+Creates a global temporary view with this DataFrame.
+
+The lifetime of this temporary view is tied to this Spark application. throws TempTableAlreadyExistsException, if the view name already exists in the catalog.
+
+Parameters
+name : str
+        Name of the view.
+
+Examples
+
+Create a global temporary view.
+
+df = spark.createDataFrame([(2, "Alice"), (5, "Bob")], schema=["age", "name"])
+df.createGlobalTempView("people")
+df2 = spark.sql("SELECT * FROM global_temp.people")
+sorted(df.collect()) == sorted(df2.collect())
+True
+Throws an exception if the global temporary view already exists.
+
+df.createGlobalTempView("people")  
+Traceback (most recent call last):
+...
+AnalysisException: "Temporary table 'people' already exists;"
+spark.catalog.dropGlobalTempView("people")
+True
