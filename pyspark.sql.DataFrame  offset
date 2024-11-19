@@ -1,0 +1,26 @@
+pyspark.sql.DataFrame.offset
+
+Returns a new :class: DataFrame by skipping the first n rows.
+
+Parameters
+num : int
+        Number of records to skip.
+
+Returns : DataFrame
+        Subset of the records
+
+Examples
+
+df = spark.createDataFrame([(14, "Tom"), (23, "Alice"), (16, "Bob")], ["age", "name"])
+df.offset(1).show()
++---+-----+
+|age| name|
++---+-----+
+| 23|Alice|
+| 16|  Bob|
++---+-----+
+df.offset(10).show()
++---+----+
+|age|name|
++---+----+
++---+----+
