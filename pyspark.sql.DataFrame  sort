@@ -1,0 +1,75 @@
+pyspark.sql.DataFrame.sort
+
+Returns a new DataFrame sorted by the specified column(s).
+
+Parameters
+cols : str, list, or Column, optional
+        list of Column or column names to sort by.
+
+Returns : DataFrame
+        Sorted DataFrame.
+
+Other Parameters
+ascending : bool or list, optional, default True
+        boolean or list of boolean. Sort ascending vs. descending. Specify list for multiple sort orders. 
+        If a list is specified, the length of the list must equal the length of the cols.
+
+Examples
+
+from pyspark.sql.functions import desc, asc
+df = spark.createDataFrame([
+    (2, "Alice"), (5, "Bob")], schema=["age", "name"])
+Sort the DataFrame in ascending order.
+
+df.sort(asc("age")).show()
++---+-----+
+|age| name|
++---+-----+
+|  2|Alice|
+|  5|  Bob|
++---+-----+
+Sort the DataFrame in descending order.
+
+df.sort(df.age.desc()).show()
++---+-----+
+|age| name|
++---+-----+
+|  5|  Bob|
+|  2|Alice|
++---+-----+
+df.orderBy(df.age.desc()).show()
++---+-----+
+|age| name|
++---+-----+
+|  5|  Bob|
+|  2|Alice|
++---+-----+
+df.sort("age", ascending=False).show()
++---+-----+
+|age| name|
++---+-----+
+|  5|  Bob|
+|  2|Alice|
++---+-----+
+Specify multiple columns
+
+df = spark.createDataFrame([
+    (2, "Alice"), (2, "Bob"), (5, "Bob")], schema=["age", "name"])
+df.orderBy(desc("age"), "name").show()
++---+-----+
+|age| name|
++---+-----+
+|  5|  Bob|
+|  2|Alice|
+|  2|  Bob|
++---+-----+
+Specify multiple columns for sorting order at ascending.
+
+df.orderBy(["age", "name"], ascending=[False, False]).show()
++---+-----+
+|age| name|
++---+-----+
+|  5|  Bob|
+|  2|  Bob|
+|  2|Alice|
++---+-----+
