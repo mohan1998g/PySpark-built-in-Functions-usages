@@ -1,0 +1,20 @@
+pyspark.sql.DataFrame.cache
+
+Persists the DataFrame with the default storage level (MEMORY_AND_DISK_DESER).
+
+Returns : DataFrame
+        Cached DataFrame.
+
+Notes
+
+The default storage level has changed to MEMORY_AND_DISK_DESER to match Scala in 3.0.
+
+Examples
+
+df = spark.range(1)
+df.cache()
+DataFrame[id: bigint]
+df.explain()  
+== Physical Plan ==
+AdaptiveSparkPlan isFinalPlan=false
++- InMemoryTableScan ...
