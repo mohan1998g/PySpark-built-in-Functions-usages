@@ -1,0 +1,10 @@
+pyspark.sql.DataFrame.sparkSession
+
+Returns Spark session that created this DataFrame.
+
+Returns : SparkSession
+Examples
+
+df = spark.range(1)
+type(df.sparkSession)
+<class '...session.SparkSession'>
