@@ -1,0 +1,15 @@
+pyspark.sql.DataFrame.count
+
+Returns the number of rows in this DataFrame.
+
+Returns : int
+        Number of rows.
+
+Examples
+
+df = spark.createDataFrame(
+    [(14, "Tom"), (23, "Alice"), (16, "Bob")], ["age", "name"])
+Return the number of rows in the DataFrame.
+
+df.count()
+3
