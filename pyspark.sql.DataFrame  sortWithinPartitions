@@ -1,0 +1,21 @@
+pyspark.sql.DataFrame.sortWithinPartitions
+
+Returns a new DataFrame with each partition sorted by the specified column(s).
+
+Parameters
+cols : str, list or Column, optional
+        list of Column or column names to sort by.
+
+Returns : DataFrame
+        DataFrame sorted by partitions.
+
+Other Parameters
+ascending : bool or list, optional, default True
+        boolean or list of boolean. Sort ascending vs. descending. Specify list for multiple sort orders. 
+        If a list is specified, the length of the list must equal the length of the cols.
+
+Examples
+
+df = spark.createDataFrame([(2, "Alice"), (5, "Bob")], schema=["age", "name"])
+df.sortWithinPartitions("age", ascending=False)
+DataFrame[age: bigint, name: string]
