@@ -1,0 +1,25 @@
+pyspark.sql.DataFrame.createOrReplaceTempView
+
+Creates or replaces a local temporary view with this DataFrame.
+
+The lifetime of this temporary table is tied to the SparkSession that was used to create this DataFrame.
+
+Parameters
+name : str
+        Name of the view.
+
+Examples
+
+Create a local temporary view named ‘people’.
+
+df = spark.createDataFrame([(2, "Alice"), (5, "Bob")], schema=["age", "name"])
+df.createOrReplaceTempView("people")
+Replace the local temporary view.
+
+df2 = df.filter(df.age > 3)
+df2.createOrReplaceTempView("people")
+df3 = spark.sql("SELECT * FROM people")
+sorted(df3.collect()) == sorted(df2.collect())
+True
+spark.catalog.dropTempView("people")
+True
