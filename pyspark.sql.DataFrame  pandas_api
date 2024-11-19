@@ -1,0 +1,31 @@
+pyspark.sql.DataFrame.pandas_api
+
+Converts the existing DataFrame into a pandas-on-Spark DataFrame.
+
+If a pandas-on-Spark DataFrame is converted to a Spark DataFrame and then back to pandas-on-Spark, it will lose the index information and the original index will be turned into a normal column.
+
+This is only available if Pandas is installed and available.
+
+Parameters
+index_col: str or list of str, optional, default: None
+        Index column of table in Spark.
+
+Returns : PandasOnSparkDataFrame
+
+Examples
+
+df = spark.createDataFrame(
+    [(14, "Tom"), (23, "Alice"), (16, "Bob")], ["age", "name"])
+df.pandas_api()  
+   age   name
+0   14    Tom
+1   23  Alice
+2   16    Bob
+We can specify the index columns.
+
+df.pandas_api(index_col="age")  
+      name
+age
+14     Tom
+23   Alice
+16     Bob
