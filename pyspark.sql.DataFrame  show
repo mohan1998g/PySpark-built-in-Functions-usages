@@ -1,0 +1,51 @@
+pyspark.sql.DataFrame.show
+
+Prints the first n rows to the console.
+
+Parameters
+n : int, optional
+      Number of rows to show.
+
+truncate : bool or int, optional
+      If set to True, truncate strings longer than 20 chars by default. 
+      If set to a number greater than one, truncates long strings to length truncate and align cells right.
+
+vertical : bool, optional
+      If set to True, print output rows vertically (one line per column value).
+
+Examples
+
+df = spark.createDataFrame([
+    (14, "Tom"), (23, "Alice"), (16, "Bob")], ["age", "name"])
+Show only top 2 rows.
+
+df.show(2)
++---+-----+
+|age| name|
++---+-----+
+| 14|  Tom|
+| 23|Alice|
++---+-----+
+only showing top 2 rows
+Show DataFrame where the maximum number of characters is 3.
+
+df.show(truncate=3)
++---+----+
+|age|name|
++---+----+
+| 14| Tom|
+| 23| Ali|
+| 16| Bob|
++---+----+
+Show DataFrame vertically.
+
+df.show(vertical=True)
+-RECORD 0-----
+age  | 14
+name | Tom
+-RECORD 1-----
+age  | 23
+name | Alice
+-RECORD 2-----
+age  | 16
+name | Bob
