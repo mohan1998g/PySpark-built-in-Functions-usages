@@ -1,0 +1,10 @@
+pyspark.sql.Column.isNotNull
+
+True if the current expression is NOT null.
+
+Examples
+
+from pyspark.sql import Row
+df = spark.createDataFrame([Row(name='Tom', height=80), Row(name='Alice', height=None)])
+df.filter(df.height.isNotNull()).collect()
+[Row(name='Tom', height=80)]
