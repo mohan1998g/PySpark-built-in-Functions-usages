@@ -1,0 +1,20 @@
+pyspark.sql.DataFrame.take
+
+Returns the first num rows as a list of Row.
+
+Parameters
+num : int
+        Number of records to return. 
+        Will return this number of records or all records if the DataFrame contains less than this number of records..
+
+Returns : list
+        List of rows
+
+Examples
+
+df = spark.createDataFrame(
+    [(14, "Tom"), (23, "Alice"), (16, "Bob")], ["age", "name"])
+Return the first 2 rows of the DataFrame.
+
+df.take(2)
+[Row(age=14, name='Tom'), Row(age=23, name='Alice')]
