@@ -1,0 +1,28 @@
+pyspark.sql.DataFrame.randomSplit
+
+Randomly splits this DataFrame with the provided weights.
+
+Parameters
+weights : list
+      list of doubles as weights with which to split the DataFrame. Weights will be normalized if they don’t sum up to 1.0.
+
+seed : int, optional
+      The seed for sampling.
+
+Returns : list
+      List of DataFrames.
+
+Examples
+
+from pyspark.sql import Row
+df = spark.createDataFrame([
+    Row(age=10, height=80, name="Alice"),
+    Row(age=5, height=None, name="Bob"),
+    Row(age=None, height=None, name="Tom"),
+    Row(age=None, height=None, name=None),
+])
+splits = df.randomSplit([1.0, 2.0], 24)
+splits[0].count()
+2
+splits[1].count()
+2
