@@ -1,0 +1,20 @@
+pyspark.sql.DataFrame.tail
+
+Returns the last num rows as a list of Row.
+
+Running tail requires moving data into the application’s driver process, and doing so with a very large num can crash the driver process with OutOfMemoryError.
+
+Parameters
+num : int
+          Number of records to return. 
+          Will return this number of records or all records if the DataFrame contains less than this number of records.
+
+Returns : list
+          List of rows
+
+Examples
+
+df = spark.createDataFrame(
+    [(14, "Tom"), (23, "Alice"), (16, "Bob")], ["age", "name"])
+df.tail(2)
+[Row(age=23, name='Alice'), Row(age=16, name='Bob')]
