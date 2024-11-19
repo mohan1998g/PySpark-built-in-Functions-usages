@@ -1,0 +1,13 @@
+pyspark.sql.DataFrame.dtypes
+
+Returns all column names and their data types as a list.
+
+Returns : list
+        List of columns as tuple pairs.
+
+Examples
+
+df = spark.createDataFrame(
+    [(14, "Tom"), (23, "Alice"), (16, "Bob")], ["age", "name"])
+df.dtypes
+[('age', 'bigint'), ('name', 'string')]
