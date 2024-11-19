@@ -1,0 +1,56 @@
+pyspark.sql.DataFrame.alias
+
+Returns a new DataFrame with an alias set.
+
+Parameters
+alias : str
+        an alias name to be set for the DataFrame.
+
+Returns : DataFrame
+        Aliased DataFrame.
+
+Examples
+
+from pyspark.sql.functions import col, desc
+df = spark.createDataFrame(
+    [(14, "Tom"), (23, "Alice"), (16, "Bob")], ["age", "name"])
+df_as1 = df.alias("df_as1")
+df_as2 = df.alias("df_as2")
+joined_df = df_as1.join(df_as2, col("df_as1.name") == col("df_as2.name"), 'inner')
+joined_df.select(
+    "df_as1.name", "df_as2.name", "df_as2.age").sort(desc("df_as1.name")).show()
++-----+-----+---+
+| name| name|age|
++-----+-----+---+
+|  Tom|  Tom| 14|
+|  Bob|  Bob| 16|
+|Alice|Alice| 23|
++-----+-----+---+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.Column.alias
+
+Returns this column aliased with a new name or names (in the case of expressions that return more than one column, such as explode).
+
+Parameters
+alias : str
+        desired column names (collects all positional arguments passed)
+
+Returns : Column
+        Column representing whether each element of Column is aliased with new name or names.
+
+Other Parameters
+metadata: dict
+        a dict of information to be stored in metadata attribute of the corresponding StructField (optional, keyword only argument)
+
+Changed in version 2.2.0: Added optional metadata argument.
+
+Examples
+
+df = spark.createDataFrame(
+     [(2, "Alice"), (5, "Bob")], ["age", "name"])
+df.select(df.age.alias("age2")).collect()
+[Row(age2=2), Row(age2=5)]
+df.select(df.age.alias("age3", metadata={'max': 99})).schema['age3'].metadata['max']
+99
