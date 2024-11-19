@@ -1,0 +1,19 @@
+pyspark.sql.DataFrame.na
+
+Returns a DataFrameNaFunctions for handling missing values.
+
+Returns : DataFrameNaFunctions
+
+Examples
+
+df = spark.sql("SELECT 1 AS c1, int(NULL) AS c2")
+type(df.na)
+<class '...dataframe.DataFrameNaFunctions'>
+Replace the missing values as 2.
+
+df.na.fill(2).show()
++---+---+
+| c1| c2|
++---+---+
+|  1|  2|
++---+---+
