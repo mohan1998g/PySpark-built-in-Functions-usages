@@ -31,6 +31,29 @@ spark.createDataFrame([("Spark SQL", 5, 1,)], ["a", "b", "c"]).select(substr("a"
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 
+pyspark.sql.Column.substr
+
+Return a Column which is a substring of the column.
+
+Parameters
+startPos : Column or int
+        start position
+
+length : Column or int
+        length of the substring
+
+Returns : Column
+        Column representing whether each element of Column is substr of origin Column.
+
+Examples
+
+df = spark.createDataFrame(
+     [(2, "Alice"), (5, "Bob")], ["age", "name"])
+df.select(df.name.substr(1, 3).alias("col")).collect()
+[Row(col='Ali'), Row(col='Bob')]
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
 pyspark.sql.functions.substring
 
 Substring starts at pos and is of length len when str is String type or returns the slice of byte array that starts at pos in byte 
