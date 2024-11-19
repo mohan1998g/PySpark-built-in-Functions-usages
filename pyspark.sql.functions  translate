@@ -20,3 +20,30 @@ Examples
 spark.createDataFrame([('translate',)], ['a']).select(translate('a', "rnlt", "123").alias('r')).collect()
 
 [Row(r='1a2s3ae')]
+
+# example dataframe
+df = spark.createDataFrame([('Apple',), ('Orange',), ('Plan',) , ('Python',) , ('Money',)], ['Word'])
+
+df.show()
+
++------+
+|  Word|
++------+
+| Apple|
+|Orange|
+|  Plan|
+|Python|
+| Money|
++------+
+
+df.select(translate(col('Word'), 'AEIOUaeiou', '')).show()
+
++-----------------------------+
+|translate(Word, AEIOUaeiou, )|
++-----------------------------+
+|                          ppl|
+|                          rng|
+|                          Pln|
+|                        Pythn|
+|                          Mny|
++-----------------------------+
