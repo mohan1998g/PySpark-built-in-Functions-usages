@@ -1,0 +1,17 @@
+pyspark.sql.DataFrame.toLocalIterator
+
+Returns an iterator that contains all of the rows in this DataFrame. The iterator will consume as much memory as the largest partition in this DataFrame. With prefetch it may consume up to the memory of the 2 largest partitions.
+
+Parameters
+prefetchPartitions : bool, optional
+          If Spark should pre-fetch the next partition before it is needed.
+
+Returns : Iterator
+          Iterator of rows.
+
+Examples
+
+df = spark.createDataFrame(
+    [(14, "Tom"), (23, "Alice"), (16, "Bob")], ["age", "name"])
+list(df.toLocalIterator())
+[Row(age=14, name='Tom'), Row(age=23, name='Alice'), Row(age=16, name='Bob')]
