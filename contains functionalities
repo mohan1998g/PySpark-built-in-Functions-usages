@@ -48,3 +48,25 @@ Examples
 df = spark.createDataFrame([(2, "Alice"), (5, "Bob")], ["age", "name"])
 df.filter(df.name.contains('o')).collect()
 [Row(age=5, name='Bob')]
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.Column.isin
+
+A boolean expression that is evaluated to true if the value of this expression is contained by the evaluated values of the arguments.
+
+Parameters
+cols
+The result will only be true at a location if any value matches in the Column.
+
+Returns : Column
+        Column of booleans showing whether each element in the Column is contained in cols.
+
+Examples
+
+df = spark.createDataFrame(
+     [(2, "Alice"), (5, "Bob")], ["age", "name"])
+df[df.name.isin("Bob", "Mike")].collect()
+[Row(age=5, name='Bob')]
+df[df.age.isin([1, 2, 3])].collect()
+[Row(age=2, name='Alice')]
