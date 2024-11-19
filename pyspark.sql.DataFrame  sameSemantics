@@ -1,0 +1,29 @@
+pyspark.sql.DataFrame.sameSemantics
+
+Returns True when the logical query plans inside both DataFrames are equal and therefore return the same results.
+
+Parameters
+other : DataFrame
+        The other DataFrame to compare against.
+
+Returns : bool
+        Whether these two DataFrames are similar.
+
+Notes
+
+The equality comparison here is simplified by tolerating the cosmetic differences such as attribute names.
+
+This API can compare both DataFrames very fast but can still return False on the DataFrame that return the same results, for instance, from different plans. Such false negative semantic can be useful when caching as an example.
+
+This API is a developer API.
+
+Examples
+
+df1 = spark.range(10)
+df2 = spark.range(10)
+df1.withColumn("col1", df1.id * 2).sameSemantics(df2.withColumn("col1", df2.id * 2))
+True
+df1.withColumn("col1", df1.id * 2).sameSemantics(df2.withColumn("col1", df2.id + 2))
+False
+df1.withColumn("col1", df1.id * 2).sameSemantics(df2.withColumn("col0", df2.id * 2))
+True
