@@ -1,0 +1,24 @@
+pyspark.sql.DataFrame.rollup
+
+Create a multi-dimensional rollup for the current DataFrame using the specified columns, so we can run aggregation on them.
+
+Parameters
+cols : list, str or Column
+      Columns to roll-up by. Each element should be a column name (string) or an expression (Column) or list of them.
+
+Returns : GroupedData
+      Rolled-up data by given columns.
+
+Examples
+
+df = spark.createDataFrame([(2, "Alice"), (5, "Bob")], schema=["age", "name"])
+df.rollup("name", df.age).count().orderBy("name", "age").show()
++-----+----+-----+
+| name| age|count|
++-----+----+-----+
+| NULL|NULL|    2|
+|Alice|NULL|    1|
+|Alice|   2|    1|
+|  Bob|NULL|    1|
+|  Bob|   5|    1|
++-----+----+-----+
