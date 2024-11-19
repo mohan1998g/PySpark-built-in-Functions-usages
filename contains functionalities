@@ -32,3 +32,19 @@ df.select(contains("c", "d"), contains("d", "c")).show()
 +--------------+--------------+
 |          true|         false|
 +--------------+--------------+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.Column.contains
+
+Contains the other element. Returns a boolean Column based on a string match.
+
+Parameters
+other
+string in line. A value as a literal or a Column.
+
+Examples
+
+df = spark.createDataFrame([(2, "Alice"), (5, "Bob")], ["age", "name"])
+df.filter(df.name.contains('o')).collect()
+[Row(age=5, name='Bob')]
