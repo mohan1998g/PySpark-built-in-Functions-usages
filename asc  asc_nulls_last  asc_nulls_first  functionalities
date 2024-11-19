@@ -91,3 +91,45 @@ df1.sort(asc_nulls_last(df1.name)).show()
 |  1|  Bob|
 |  0| NULL|
 +---+-----+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.Column.asc
+
+Returns a sort expression based on the ascending order of the column.
+
+Examples
+
+from pyspark.sql import Row
+df = spark.createDataFrame([('Tom', 80), ('Alice', None)], ["name", "height"])
+
+df.select(df.name).orderBy(df.name.asc()).collect()
+[Row(name='Alice'), Row(name='Tom')]
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.Column.asc_nulls_first
+
+Returns a sort expression based on ascending order of the column, and null values return before non-null values.
+
+Examples
+
+from pyspark.sql import Row
+df = spark.createDataFrame([('Tom', 80), (None, 60), ('Alice', None)], ["name", "height"])
+
+df.select(df.name).orderBy(df.name.asc_nulls_first()).collect()
+[Row(name=None), Row(name='Alice'), Row(name='Tom')]
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+pyspark.sql.Column.asc_nulls_last
+
+Returns a sort expression based on ascending order of the column, and null values appear after non-null values.
+
+Examples
+
+from pyspark.sql import Row
+df = spark.createDataFrame([('Tom', 80), (None, 60), ('Alice', None)], ["name", "height"])
+
+df.select(df.name).orderBy(df.name.asc_nulls_last()).collect()
+[Row(name='Alice'), Row(name='Tom'), Row(name=None)]
