@@ -1,0 +1,45 @@
+pyspark.sql.DataFrame.filter
+
+Filters rows using the given condition.
+
+where() is an alias for filter().
+
+Parameters
+condition : Column or str
+          a Column of types.BooleanType or a string of SQL expressions.
+
+Returns : DataFrame
+          Filtered DataFrame.
+
+Examples
+
+df = spark.createDataFrame([
+    (2, "Alice"), (5, "Bob")], schema=["age", "name"])
+Filter by Column instances.
+
+df.filter(df.age > 3).show()
++---+----+
+|age|name|
++---+----+
+|  5| Bob|
++---+----+
+df.where(df.age == 2).show()
++---+-----+
+|age| name|
++---+-----+
+|  2|Alice|
++---+-----+
+Filter by SQL expression in a string.
+
+df.filter("age > 3").show()
++---+----+
+|age|name|
++---+----+
+|  5| Bob|
++---+----+
+df.where("age = 2").show()
++---+-----+
+|age| name|
++---+-----+
+|  2|Alice|
++---+-----+
