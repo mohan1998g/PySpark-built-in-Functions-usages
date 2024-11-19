@@ -1,0 +1,21 @@
+pyspark.sql.DataFrame.localCheckpoint
+
+Returns a locally checkpointed version of this DataFrame. Checkpointing can be used to truncate the logical plan of this DataFrame, which is especially useful in iterative algorithms where the plan may grow exponentially. Local checkpoints are stored in the executors using the caching subsystem and therefore they are not reliable.
+
+Parameters
+eager : bool, optional, default True
+        Whether to checkpoint this DataFrame immediately.
+
+Returns : DataFrame
+        Checkpointed DataFrame.
+
+Notes
+
+This API is experimental.
+
+Examples
+
+df = spark.createDataFrame([
+    (14, "Tom"), (23, "Alice"), (16, "Bob")], ["age", "name"])
+df.localCheckpoint(False)
+DataFrame[age: bigint, name: string]
