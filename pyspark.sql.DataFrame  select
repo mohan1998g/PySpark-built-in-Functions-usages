@@ -1,0 +1,34 @@
+pyspark.sql.DataFrame.select
+
+Projects a set of expressions and returns a new DataFrame.
+
+Parameters
+cols : str, Column, or list
+          column names (string) or expressions (Column). 
+          If one of the column names is ‘*’, that column is expanded to include all columns in the current DataFrame.
+
+Returns : DataFrame
+          A DataFrame with subset (or all) of columns.
+
+Examples
+
+df = spark.createDataFrame([
+    (2, "Alice"), (5, "Bob")], schema=["age", "name"])
+Select all columns in the DataFrame.
+
+df.select('*').show()
++---+-----+
+|age| name|
++---+-----+
+|  2|Alice|
+|  5|  Bob|
++---+-----+
+Select a column with other expressions in the DataFrame.
+
+df.select(df.name, (df.age + 10).alias('age')).show()
++-----+---+
+| name|age|
++-----+---+
+|Alice| 12|
+|  Bob| 15|
++-----+---+
