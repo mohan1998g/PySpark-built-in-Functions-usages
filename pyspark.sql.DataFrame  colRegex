@@ -1,0 +1,21 @@
+pyspark.sql.DataFrame.colRegex
+
+Selects column based on the column name specified as a regex and returns it as Column.
+
+Parameters
+colName : str
+        string, column name specified as a regex.
+
+Returns : Column
+
+Examples
+
+df = spark.createDataFrame([("a", 1), ("b", 2), ("c",  3)], ["Col1", "Col2"])
+df.select(df.colRegex("`(Col1)?+.+`")).show()
++----+
+|Col2|
++----+
+|   1|
+|   2|
+|   3|
++----+
