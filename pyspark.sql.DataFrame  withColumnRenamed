@@ -1,0 +1,24 @@
+pyspark.sql.DataFrame.withColumnRenamed
+
+Returns a new DataFrame by renaming an existing column. This is a no-op if the schema doesn’t contain the given column name.
+
+Parameters
+existing : str
+        string, name of the existing column to rename.
+
+new : str
+        string, new name of the column.
+
+Returns : DataFrame
+        DataFrame with renamed column.
+
+Examples
+
+df = spark.createDataFrame([(2, "Alice"), (5, "Bob")], schema=["age", "name"])
+df.withColumnRenamed('age', 'age2').show()
++----+-----+
+|age2| name|
++----+-----+
+|   2|Alice|
+|   5|  Bob|
++----+-----+
