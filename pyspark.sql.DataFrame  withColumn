@@ -1,0 +1,30 @@
+pyspark.sql.DataFrame.withColumn
+
+Returns a new DataFrame by adding a column or replacing the existing column that has the same name.
+
+The column expression must be an expression over this DataFrame; attempting to add a column from some other DataFrame will raise an error.
+
+Parameters
+colName : str
+          string, name of the new column.
+
+col : Column
+          a Column expression for the new column.
+
+Returns : DataFrame
+          DataFrame with new or replaced column.
+
+Notes
+
+This method introduces a projection internally. Therefore, calling it multiple times, for instance, via loops in order to add multiple columns can generate big plans which can cause performance issues and even StackOverflowException. To avoid this, use select() with multiple columns at once.
+
+Examples
+
+df = spark.createDataFrame([(2, "Alice"), (5, "Bob")], schema=["age", "name"])
+df.withColumn('age2', df.age + 2).show()
++---+-----+----+
+|age| name|age2|
++---+-----+----+
+|  2|Alice|   4|
+|  5|  Bob|   7|
++---+-----+----+
