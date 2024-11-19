@@ -1,0 +1,16 @@
+pyspark.sql.DataFrame.write
+
+Interface for saving the content of the non-streaming DataFrame out into external storage.
+
+Returns : DataFrameWriter
+
+Examples
+
+df = spark.createDataFrame([(2, "Alice"), (5, "Bob")], schema=["age", "name"])
+type(df.write)
+<class '...readwriter.DataFrameWriter'>
+Write the DataFrame as a table.
+
+_ = spark.sql("DROP TABLE IF EXISTS tab2")
+df.write.saveAsTable("tab2")
+_ = spark.sql("DROP TABLE tab2")
