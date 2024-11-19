@@ -28,3 +28,29 @@ df.withColumn('age2', df.age + 2).show()
 |  2|Alice|   4|
 |  5|  Bob|   7|
 +---+-----+----+
+
+---------------------------------------------------------------------------------------------------------
+
+pyspark.sql.DataFrame.withColumns
+
+Returns a new DataFrame by adding multiple columns or replacing the existing columns that have the same names.
+
+The colsMap is a map of column name and column, the column must only refer to attributes supplied by this Dataset. It is an error to add columns that refer to some other Dataset.
+
+Parameters
+colsMap : dict
+        a dict of column name and Column. Currently, only a single map is supported.
+
+Returns : DataFrame
+        DataFrame with new or replaced columns.
+
+Examples
+
+df = spark.createDataFrame([(2, "Alice"), (5, "Bob")], schema=["age", "name"])
+df.withColumns({'age2': df.age + 2, 'age3': df.age + 3}).show()
++---+-----+----+----+
+|age| name|age2|age3|
++---+-----+----+----+
+|  2|Alice|   4|   5|
+|  5|  Bob|   7|   8|
++---+-----+----+----+
