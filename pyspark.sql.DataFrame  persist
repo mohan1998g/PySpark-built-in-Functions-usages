@@ -1,0 +1,31 @@
+pyspark.sql.DataFrame.persist
+
+Sets the storage level to persist the contents of the DataFrame across operations after the first time it is computed. 
+This can only be used to assign a new storage level if the DataFrame does not have a storage level set yet. 
+If no storage level is specified defaults to (MEMORY_AND_DISK_DESER)
+
+Parameters
+storageLevel : StorageLevel
+          Storage level to set for persistence. Default is MEMORY_AND_DISK_DESER.
+
+Returns : DataFrame
+          Persisted DataFrame.
+
+Notes
+
+The default storage level has changed to MEMORY_AND_DISK_DESER to match Scala in 3.0.
+
+Examples
+
+df = spark.range(1)
+df.persist()
+DataFrame[id: bigint]
+df.explain()  
+== Physical Plan ==
+AdaptiveSparkPlan isFinalPlan=false
++- InMemoryTableScan ...
+Persists the data in the disk by specifying the storage level.
+
+from pyspark.storagelevel import StorageLevel
+df.persist(StorageLevel.DISK_ONLY)
+DataFrame[id: bigint]
