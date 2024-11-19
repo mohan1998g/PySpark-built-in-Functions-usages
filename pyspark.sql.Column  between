@@ -1,0 +1,25 @@
+pyspark.sql.Column.between
+
+True if the current column is between the lower bound and upper bound, inclusive.
+
+Parameters
+lowerBound : Column, int, float, string, bool, datetime, date or Decimal
+          a boolean expression that boundary start, inclusive.
+
+upperBound : Column, int, float, string, bool, datetime, date or Decimal
+          a boolean expression that boundary end, inclusive.
+
+Returns : Column
+          Column of booleans showing whether each element of Column is between left and right (inclusive).
+
+Examples
+
+df = spark.createDataFrame(
+     [(2, "Alice"), (5, "Bob")], ["age", "name"])
+df.select(df.name, df.age.between(2, 4)).show()
++-----+---------------------------+
+| name|((age >= 2) AND (age <= 4))|
++-----+---------------------------+
+|Alice|                       true|
+|  Bob|                      false|
++-----+---------------------------+
