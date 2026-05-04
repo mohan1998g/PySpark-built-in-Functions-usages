@@ -1,0 +1,70 @@
+pyspark.sql.functions.dayname
+pyspark.sql.functions.dayname(col)[source]
+Date and Timestamp Function: Returns the three-letter abbreviated day name from the given date.
+
+New in version 4.0.0.
+
+Parameters
+colColumn or column name
+target date/timestamp column to work on.
+
+Returns
+Column
+the three-letter abbreviation of day name for date/timestamp (Mon, Tue, Wed…)
+
+See also
+
+pyspark.sql.functions.day()
+pyspark.sql.functions.monthname()
+Examples
+
+Example 1: Extract the weekday name from a string column representing dates
+
+from pyspark.sql import functions as sf
+df = spark.createDataFrame([('2015-04-08',), ('2024-10-31',)], ['dt'])
+df.select("*", sf.typeof('dt'), sf.dayname('dt')).show()
++----------+----------+-----------+
+|        dt|typeof(dt)|dayname(dt)|
++----------+----------+-----------+
+|2015-04-08|    string|        Wed|
+|2024-10-31|    string|        Thu|
++----------+----------+-----------+
+Example 2: Extract the weekday name from a string column representing timestamp
+
+from pyspark.sql import functions as sf
+df = spark.createDataFrame([('2015-04-08 13:08:15',), ('2024-10-31 10:09:16',)], ['ts'])
+df.select("*", sf.typeof('ts'), sf.dayname('ts')).show()
++-------------------+----------+-----------+
+|                 ts|typeof(ts)|dayname(ts)|
++-------------------+----------+-----------+
+|2015-04-08 13:08:15|    string|        Wed|
+|2024-10-31 10:09:16|    string|        Thu|
++-------------------+----------+-----------+
+Example 3: Extract the weekday name from a date column
+
+import datetime
+from pyspark.sql import functions as sf
+df = spark.createDataFrame([
+    (datetime.date(2015, 4, 8),),
+    (datetime.date(2024, 10, 31),)], ['dt'])
+df.select("*", sf.typeof('dt'), sf.dayname('dt')).show()
++----------+----------+-----------+
+|        dt|typeof(dt)|dayname(dt)|
++----------+----------+-----------+
+|2015-04-08|      date|        Wed|
+|2024-10-31|      date|        Thu|
++----------+----------+-----------+
+Example 4: Extract the weekday name from a timestamp column
+
+import datetime
+from pyspark.sql import functions as sf
+df = spark.createDataFrame([
+    (datetime.datetime(2015, 4, 8, 13, 8, 15),),
+    (datetime.datetime(2024, 10, 31, 10, 9, 16),)], ['ts'])
+df.select("*", sf.typeof('ts'), sf.dayname('ts')).show()
++-------------------+----------+-----------+
+|                 ts|typeof(ts)|dayname(ts)|
++-------------------+----------+-----------+
+|2015-04-08 13:08:15| timestamp|        Wed|
+|2024-10-31 10:09:16| timestamp|        Thu|
++-------------------+----------+-----------+
