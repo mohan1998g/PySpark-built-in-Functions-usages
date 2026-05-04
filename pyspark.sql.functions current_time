@@ -1,0 +1,38 @@
+pyspark.sql.functions.current_time
+pyspark.sql.functions.current_time(precision=None)[source]
+Returns the current time at the start of query evaluation as a TimeType column. All calls of current_time within the same query return the same value.
+
+New in version 4.1.0.
+
+Parameters
+precision: literal int, optional
+number in the range [0..6], indicating how many fractional digits of seconds to include. If omitted, the default is 6.
+
+Returns
+Column
+current time.
+
+See also
+
+pyspark.sql.functions.current_date()
+pyspark.sql.functions.current_timestamp()
+Examples
+
+Example 1: Current time with default precision
+
+from pyspark.sql import functions as sf
+spark.range(1).select(sf.current_time().alias("time")).show() 
++---------------+
+|           time|
++---------------+
+|16:57:04.304361|
++---------------+
+Example 2: Current time with specified precision
+
+from pyspark.sql import functions as sf
+spark.range(1).select(sf.current_time(3).alias("time")).show() 
++------------+
+|        time|
++------------+
+|16:57:04.304|
++------------+
