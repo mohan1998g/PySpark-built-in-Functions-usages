@@ -1,0 +1,47 @@
+pyspark.sql.functions.from_utc_timestamp
+pyspark.sql.functions.from_utc_timestamp(timestamp, tz)[source]
+This is a common function for databases supporting TIMESTAMP WITHOUT TIMEZONE. This function takes a timestamp which is timezone-agnostic, and interprets it as a timestamp in UTC, and renders that timestamp as a timestamp in the given time zone.
+
+However, timestamp in Spark represents number of microseconds from the Unix epoch, which is not timezone-agnostic. So in Spark this function just shift the timestamp value from UTC timezone to the given timezone.
+
+This function may return confusing result if the input is a string with timezone, e.g. ‘2018-03-13T06:18:23+00:00’. The reason is that, Spark firstly cast the string to timestamp according to the timezone in the string, and finally display the result by converting the timestamp to string according to the session local timezone.
+
+New in version 1.5.0.
+
+Changed in version 3.4.0: Supports Spark Connect.
+
+Parameters
+timestampColumn or column name
+the column that contains timestamps
+
+tzColumn or literal string
+A string detailing the time zone ID that the input should be adjusted to. It should be in the format of either region-based zone IDs or zone offsets. Region IDs must have the form ‘area/city’, such as ‘America/Los_Angeles’. Zone offsets must be in the format ‘(+|-)HH:mm’, for example ‘-08:00’ or ‘+01:00’. Also ‘UTC’ and ‘Z’ are supported as aliases of ‘+00:00’. Other short names are not recommended to use because they can be ambiguous.
+
+Changed in version 2.4: tz can take a Column containing timezone ID strings.
+
+Returns
+Column
+timestamp value represented in given timezone.
+
+See also
+
+pyspark.sql.functions.to_utc_timestamp()
+pyspark.sql.functions.to_timestamp()
+pyspark.sql.functions.to_timestamp_ltz()
+pyspark.sql.functions.to_timestamp_ntz()
+Examples
+
+import pyspark.sql.functions as sf
+df = spark.createDataFrame([('1997-02-28 10:30:00', 'JST')], ['ts', 'tz'])
+df.select('*', sf.from_utc_timestamp('ts', 'PST')).show()
++-------------------+---+---------------------------+
+|                 ts| tz|from_utc_timestamp(ts, PST)|
++-------------------+---+---------------------------+
+|1997-02-28 10:30:00|JST|        1997-02-28 02:30:00|
++-------------------+---+---------------------------+
+df.select('*', sf.from_utc_timestamp(df.ts, df.tz)).show()
++-------------------+---+--------------------------+
+|                 ts| tz|from_utc_timestamp(ts, tz)|
++-------------------+---+--------------------------+
+|1997-02-28 10:30:00|JST|       1997-02-28 19:30:00|
++-------------------+---+--------------------------+
